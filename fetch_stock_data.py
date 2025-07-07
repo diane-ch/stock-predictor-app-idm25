@@ -19,7 +19,7 @@ import boto3
 from botocore.exceptions import NoCredentialsError, ClientError
 
 # === Configuration ===
-TICKERS = ['AAPL', 'MSFT', 'GOOG', 'AMZN', 'META', 'TSLA', 'NFLX', 'NVDA', 'JPM', 'DIS']
+TICKERS = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'JPM', 'UNH', 'V']
 CSV_FILE = 'stock_data.csv'
 START_DATE = '2020-01-01'  # Used only if no existing file
 END_DATE = datetime.today().strftime('%Y-%m-%d')
