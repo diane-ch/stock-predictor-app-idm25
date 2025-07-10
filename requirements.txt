@@ -1,0 +1,4 @@
+flask
+pandas
+yfinance
+boto3
