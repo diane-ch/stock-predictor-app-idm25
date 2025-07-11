@@ -15,14 +15,15 @@ def register():
         username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
+        finance_level = request.form.get('finance_level')
 
-        # Vérifier si user existe
+        # Verify if user exists
         user = User.query.filter((User.username == username) | (User.email == email)).first()
         if user:
             flash('Username or email already exists.')
             return redirect(url_for('auth.register'))
 
-        new_user = User(username=username, email=email)
+        new_user = User(username=username, email=email, finance_level=finance_level)
         new_user.set_password(password) # To hash the password
 
         db.session.add(new_user)    # Adds the user to the database

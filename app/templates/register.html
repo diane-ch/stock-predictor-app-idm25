@@ -9,6 +9,13 @@
         <input type="text" name="username" placeholder="Username" required><br>
         <input type="email" name="email" placeholder="Email" required><br>
         <input type="password" name="password" placeholder="Password" required><br>
+        <label for="finance_level">Finance Level</label>
+        <select name="finance_level" id="finance_level" required>
+            <option value="">--Select your level--</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+        </select> <br>
         <button type="submit">Register</button>
     </form>
     <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>.</p>
