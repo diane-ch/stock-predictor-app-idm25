@@ -12,26 +12,28 @@ def register():
         return redirect(url_for('auth.profile'))
 
     if request.method == 'POST':
-        username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
-        finance_level = request.form.get('finance_level')
+        confirm_password = request.form.get('confirm_password')
 
-        # Verify if user exists
-        user = User.query.filter((User.username == username) | (User.email == email)).first()
-        if user:
-            flash('Username or email already exists.')
+        if password != confirm_password:
+            flash('Passwords do not match.')
             return redirect(url_for('auth.register'))
 
-        new_user = User(username=username, email=email, finance_level=finance_level)
-        new_user.set_password(password) # To hash the password
+        # Check if user already exists
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            flash('Email already registered.')
+            return redirect(url_for('auth.register'))
 
-        db.session.add(new_user)    # Adds the user to the database
+        new_user = User(email=email)
+        new_user.set_password(password)     # To hash the password
+        db.session.add(new_user)
         db.session.commit()
-        flash('Account created! Please log in.')
+
+        flash('Account created successfully! Please log in.')
         return redirect(url_for('auth.login'))
 
-    # If method is "GET", simply return the form.
     return render_template('register.html')
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -40,18 +42,19 @@ def login():
         return redirect(url_for('auth.profile'))
 
     if request.method == 'POST':
-        username = request.form.get('username')
+        email = request.form.get('email')  
         password = request.form.get('password')
 
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=email).first()  
         if user and user.check_password(password):
             login_user(user)
             flash('Logged in successfully.')
             return redirect(url_for('auth.profile'))
         else:
-            flash('Invalid username or password.')
+            flash('Invalid email or password.')
 
     return render_template('login.html')
+
 
 @auth_bp.route('/logout')
 @login_required
@@ -63,9 +66,9 @@ def logout():
 @auth_bp.route('/profile')
 @login_required
 def profile():
-    return f"Hello, {current_user.username}! This is your profile."
+    return f"Hello, {current_user.email}! This is your profile."
 
 @auth_bp.route('/users')
 def list_users():
     users = User.query.all()
-    return '<br>'.join([f"{u.id}: {u.username} ({u.email})" for u in users])
+    return '<br>'.join([f"{u.id}: {u.email}" for u in users])
