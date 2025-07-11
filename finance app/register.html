@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | MyApp</title>
+  <link rel="stylesheet" href="css/login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="login-screen">
+  <div class="login-card">
+    <div class="hello-row">
+      <h1 class="hello-text">Welcome!</h1>
+      <img src="images/yellow heart.png" alt="Heart Icon" class="heart-icon">
+    </div>
+
+    <form onsubmit="event.preventDefault(); window.location.href='login.html';">
+      <input type="text" name="email_or_phone" placeholder="Email or Phone" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p class="register-text">
+      Already have an account? <a href="login.html">Log in</a>
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
