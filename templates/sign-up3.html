@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sign Up - Step 3</title>
+  <link rel="stylesheet" href="../static/css/sign-up3.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="signup-screen">
+    <!-- 左上角装饰箭头图 -->
+    <img src="../static/images/sign-up3.png" alt="Arrow Decoration" class="arrow-icon" />
+
+    <!-- 标题 -->
+    <h1>
+      Last question:<br>
+      What’s your level<br>
+      of knowledge in<br>
+      investment?
+    </h1>
+
+    <!-- 单选框组 -->
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="level" value="pro" />
+        Pro investor
+      </label>
+      <label>
+        <input type="radio" name="level" value="intermediate" />
+        Intermediate
+      </label>
+      <label>
+        <input type="radio" name="level" value="basic" />
+        Kinda Basic
+      </label>
+      <label>
+        <input type="radio" name="level" value="first" />
+        This is my first contact with it
+      </label>
+    </div>
+
+    <!-- 下一步按钮 -->
+    <button onclick="alert('Submitted')">Next</button>
+  </div>
+</body>
+</html>
