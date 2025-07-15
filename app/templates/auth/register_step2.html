@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sign Up - Step 2</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up12.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="signup-screen">
+    <!-- 右上角硬币装饰图（一个图片包含两个硬币） -->
+    <!-- Coin decoration -->
+    <img src="{{ url_for('static', filename='images/sign-up2.png') }}" alt="Coin Decoration" class="coin-icon" />
+
+    <!-- 内容区域 -->
+    <!-- Content area -->
+    <h1>Some basic info</h1>
+    
+    <!-- Flash messages for errors -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
+    <!-- Form that submits to Flask backend -->
+    <form method="POST" action="{{ url_for('auth.register_step2') }}">
+      <!-- CSRF protection -->
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      
+      <!-- Email input with preserved value -->
+      <input type="email" 
+             name="email" 
+             placeholder="Email" 
+             value="{{ email or '' }}" 
+             required />
+      
+      <!-- Password input -->
+      <input type="password" 
+             name="password" 
+             placeholder="Password" 
+             required />
+      
+      <!-- Submit button -->
+      <button type="submit">Next</button>
+    </form>
+    
+    <!-- Back button -->
+    <a href="{{ url_for('auth.register_back', step=1) }}" class="back-link">← Back</a>
+  </div>
+</body>
+</html>
