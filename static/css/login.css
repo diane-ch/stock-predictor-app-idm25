@@ -1,0 +1,113 @@
+/* 设置基础全屏布局和字体 */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden; /* 🚫 禁止页面滚动 */
+  font-family: 'Arial', sans-serif;
+  background-color: #065c5c;
+}
+
+
+.login-screen {
+  height: 100vh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: #065c5c;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* 垂直居中 */
+  align-items: center;
+}
+
+
+
+/* 登录内容容器，最大宽度限制，适配手机 */
+.login-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* 顶部问候文字 + 图标横排 */
+.hello-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* Hello again 字体设置为 Space Grotesk */
+.hello-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
+  margin-right: 10px;
+}
+
+/* 心形图标大小 */
+.heart-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 表单输入框设置 */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 输入框样式 */
+input {
+  background-color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 18px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* 登录按钮样式 */
+button {
+  background-color: #7fffd4;
+  color: black;
+  border: none;
+  border-radius: 30px;
+  padding: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* 按钮悬停样式 */
+button:hover {
+  background-color: #5ee2c2;
+}
+
+/* 底部注册提示文字 */
+.register-text {
+  margin-top: 24px;
+  font-size: 14px;
+  color: white;
+}
+
+/* 注册链接 */
+.register-text a {
+  color: #a5ffe1;
+  text-decoration: none;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+
