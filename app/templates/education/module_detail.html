@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ module.name }} - Lessons</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .lesson-list { margin-top: 20px; }
+        .lesson-item { border: 1px solid #ddd; border-radius: 4px; padding: 15px; margin-bottom: 10px; }
+        .lesson-item.unlocked { border-color: #4CAF50; background: #f0f8f0; }
+        .lesson-item.locked { border-color: #ccc; background: #f5f5f5; opacity: 0.6; }
+        .lesson-level { font-weight: bold; color: #666; }
+        .btn { padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block; }
+        .btn.disabled { background: #ccc; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <h1>{{ module.name }}</h1>
+    <p>{{ module.description }}</p>
+    
+    <div class="lesson-list">
+        <h2>Lessons</h2>
+        {% for item in lessons_data %}
+            <div class="lesson-item {{ 'unlocked' if item.is_unlocked else 'locked' }}">
+                <div class="lesson-level">Level {{ item.lesson.level }}</div>
+                <h3>{{ item.lesson.title }}</h3>
+                <p>{{ item.lesson.description }}</p>
+                
+                {% if item.is_unlocked %}
+                    <a href="{{ url_for('education.lesson_detail', lesson_id=item.lesson.id) }}" class="btn">
+                        Start Lesson
+                    </a>
+                {% else %}
+                    <span class="btn disabled">🔒 Locked</span>
+                {% endif %}
+                
+                {% if item.progress %}
+                    <div style="margin-top: 10px; color: #666;">
+                        Progress: {{ item.progress.current_step or 0 }}/{{ item.progress.total_steps or 0 }} steps
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('education.education_home') }}">← Back to Modules</a>
+    </div>
+</body>
+</html>

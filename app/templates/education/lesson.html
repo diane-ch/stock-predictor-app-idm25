@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ lesson.title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .lesson-content { background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .step { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>{{ lesson.title }}</h1>
+    <p>{{ lesson.description }}</p>
+    
+    <div class="lesson-content">
+        <h2>Lesson Content</h2>
+        {% if lesson.content and lesson.content.steps %}
+            {% for step in lesson.content.steps %}
+                <div class="step">
+                    <h3>{{ step.title }}</h3>
+                    <p>{{ step.content }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Lesson content will be added here.</p>
+        {% endif %}
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('education.module_detail', module_id=lesson.module_id) }}">← Back to Module</a>
+    </div>
+</body>
+</html>
