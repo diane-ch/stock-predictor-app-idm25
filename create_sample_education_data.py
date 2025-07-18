@@ -16,7 +16,7 @@ def create_sample_data():
         modules_data = [
             {
                 "name": "Investment Basics",
-                "description": "Learn fundamental investment concepts",
+                "description": "Learn fundamental investment concepts!!!!",
                 "order": 1,
                 "unlock_requirement": 0  # First module - always unlocked
             },

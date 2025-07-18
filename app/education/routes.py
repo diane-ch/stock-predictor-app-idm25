@@ -2,79 +2,155 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from app import db
 from app.models.users import User
 from app.models.education import Module, Lesson, UserLessonProgress
-from app.education.utils import EducationManager
+from app.content.content_loader import content_loader  # ← Add this import
 from flask_login import login_required, current_user
 
-# Education blueprint
 education_bp = Blueprint('education', __name__, template_folder='../templates')
 
 @education_bp.route('/')
 @login_required
 def education_home():
-    """Main education page - display modules"""
+    """Main education page - display modules from JSON"""
     
-    # Get all modules
-    all_modules = Module.query.order_by(Module.order).all()
+    # Get modules from JSON file (not database)
+    json_modules = content_loader.get_modules()
     
-    # Get unlocked modules for user
-    unlocked_modules = EducationManager.get_user_unlocked_modules(current_user.id)
-    unlocked_module_ids = [module.id for module in unlocked_modules]
-    
-    # Prepare module data with lock status
     modules_data = []
-    for module in all_modules:
+    for i, module in enumerate(json_modules):
         modules_data.append({
             'module': module,
-            'is_unlocked': module.id in unlocked_module_ids
+            'is_unlocked': i == 0  # Only first module unlocked for now
         })
     
     return render_template('education/home.html', modules_data=modules_data)
 
-@education_bp.route('/module/<int:module_id>')
+@education_bp.route('/module/<module_id>')  # ← Note: string ID, not int
 @login_required
 def module_detail(module_id):
     """View lessons in a specific module"""
-    module = Module.query.get_or_404(module_id)
+    module = content_loader.get_module_by_id(module_id)
+    if not module:
+        flash('Module not found.', 'error')
+        return redirect(url_for('education.education_home'))
     
-    # Check if user has access to this module
-    unlocked_modules = EducationManager.get_user_unlocked_modules(current_user.id)
-    unlocked_module_ids = [m.id for m in unlocked_modules]
-    
-    if module_id not in unlocked_module_ids:
+    # For now, only allow first module
+    if module['order'] != 1:
         flash('This module is locked. Complete previous modules to unlock it.', 'error')
         return redirect(url_for('education.education_home'))
     
-    # Get lessons and progress
-    lessons = Lesson.query.filter_by(module_id=module_id).order_by(Lesson.level).all()
-    unlocked_lessons = EducationManager.get_user_unlocked_lessons(current_user.id, module_id)
-    
     # Prepare lesson data
     lessons_data = []
-    for lesson in lessons:
-        progress = UserLessonProgress.query.filter_by(
-            user_id=current_user.id,
-            lesson_id=lesson.id
-        ).first()
-        
+    for lesson in module.get('lessons', []):
         lessons_data.append({
             'lesson': lesson,
-            'progress': progress,
-            'is_unlocked': lesson.level in unlocked_lessons
+            'is_unlocked': lesson['level'] == 1  # Only level 1 unlocked for now
         })
     
     return render_template('education/module_detail.html',
                          module=module,
                          lessons_data=lessons_data)
 
-@education_bp.route('/lesson/<int:lesson_id>')
+@education_bp.route('/lesson/<module_id>/<lesson_id>')  # ← Two string parameters
 @login_required
-def lesson_detail(lesson_id):
-    """View specific lesson - basic version"""
-    lesson = Lesson.query.get_or_404(lesson_id)
+def lesson_detail(module_id, lesson_id):
+    """View specific lesson"""
+    lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
+    if not lesson:
+        flash('Lesson not found.', 'error')
+        return redirect(url_for('education.education_home'))
     
-    # Simple check: only allow level 1 lessons for now
-    if lesson.level != 1:
+    # Only allow level 1 lessons for now
+    if lesson['level'] != 1:
         flash('This lesson is locked. Complete previous lessons first.', 'error')
-        return redirect(url_for('education.module_detail', module_id=lesson.module_id))
+        return redirect(url_for('education.module_detail', module_id=module_id))
     
-    return render_template('education/lesson.html', lesson=lesson)
+    module = content_loader.get_module_by_id(module_id)
+    return render_template('education/lesson.html', lesson=lesson, module=module)
+
+@education_bp.route('/quiz/<module_id>/<lesson_id>')
+@login_required
+def quiz_detail(module_id, lesson_id):
+    """View quiz for a lesson"""
+    lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
+    if not lesson or 'quiz' not in lesson:
+        flash('Quiz not found.', 'error')
+        return redirect(url_for('education.lesson_detail', module_id=module_id, lesson_id=lesson_id))
+    
+    module = content_loader.get_module_by_id(module_id)
+    return render_template('education/quiz.html', 
+                         lesson=lesson, 
+                         module=module, 
+                         quiz=lesson['quiz'])
+
+@education_bp.route('/quiz/<module_id>/<lesson_id>/submit', methods=['POST'])
+@login_required
+def quiz_submit(module_id, lesson_id):
+    """Submit quiz answers"""
+    lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
+    if not lesson or 'quiz' not in lesson:
+        flash('Quiz not found.', 'error')
+        return redirect(url_for('education.education_home'))
+    
+    quiz = lesson['quiz']
+    
+    # Get user answers
+    answers = []
+    for i in range(len(quiz.get('questions', []))):
+        answer = request.form.get(f'question_{i}')
+        if answer is not None:
+            answers.append(int(answer))
+        else:
+            answers.append(-1)  # No answer selected
+    
+    # Calculate score
+    correct_count = 0
+    total_questions = len(quiz.get('questions', []))
+    
+    for i, question in enumerate(quiz.get('questions', [])):
+        if i < len(answers) and answers[i] == question.get('correct_answer', -1):
+            correct_count += 1
+    
+    score = int((correct_count / total_questions) * 100) if total_questions > 0 else 0
+    is_passed = score >= 100  # Need 100% to pass
+    
+    result = {
+        'score': score,
+        'is_passed': is_passed,
+        'correct_answers': correct_count,
+        'total_questions': total_questions
+    }
+    
+    # For now, just show results (later we'll save to database)
+    module = content_loader.get_module_by_id(module_id)
+    return render_template('education/quiz_results.html',
+                         lesson=lesson,
+                         module=module,
+                         quiz=quiz,
+                         result=result,
+                         user_answers=answers)
+
+# Development/admin routes
+@education_bp.route('/reload-content')
+@login_required
+def reload_content():
+    """Reload content from JSON files (for development)"""
+    if current_user.email.endswith('@admin.com') or True:  # Allow for now
+        content_loader.reload_content()
+        flash('Content reloaded successfully!', 'success')
+    else:
+        flash('Admin access required.', 'error')
+    return redirect(url_for('education.education_home'))
+
+@education_bp.route('/validate-content')
+@login_required
+def validate_content():
+    """Validate all content files"""
+    if current_user.email.endswith('@admin.com') or True:  # Allow for now
+        is_valid = content_loader.validate_content()
+        if is_valid:
+            flash('All content files are valid!', 'success')
+        else:
+            flash('Content validation errors found. Check console.', 'error')
+    else:
+        flash('Admin access required.', 'error')
+    return redirect(url_for('education.education_home'))

@@ -1,0 +1,142 @@
+{
+  "modules": [
+    {
+      "id": "investment-basics",
+      "name": "Investment Basics!!",
+      "description": "Learn fundamental investment concepts",
+      "order": 1,
+      "unlock_requirement": 0,
+      "icon_path": "/static/icons/investment.svg",
+      "lessons": [
+        {
+          "id": "what-is-investing",
+          "title": "What is Investing?",
+          "level": 1,
+          "description": "Introduction to investing concepts",
+          "estimated_duration": 10,
+          "steps": [
+            {
+              "title": "Investment Definition",
+              "content": "Investing is the act of allocating resources, usually money, with the expectation of generating income or profit over time."
+            },
+            {
+              "title": "Why People Invest",
+              "content": "People invest to grow their wealth, beat inflation, and achieve financial goals like retirement or buying a home."
+            },
+            {
+              "title": "Investment vs Saving",
+              "content": "Saving is keeping money safe for short-term needs. Investing is putting money to work for long-term growth, accepting some risk for higher returns."
+            }
+          ],
+          "quiz": {
+            "title": "Investment Basics Quiz",
+            "questions": [
+              {
+                "text": "What is the primary goal of investing?",
+                "options": [
+                  "To keep money safe",
+                  "To grow wealth over time",
+                  "To spend money quickly",
+                  "To pay taxes"
+                ],
+                "correct_answer": 1,
+                "explanation": "The primary goal of investing is to grow wealth over time. While keeping money safe is important, investing involves taking calculated risks to achieve higher returns than savings accounts."
+              },
+              {
+                "text": "How does investing differ from saving?",
+                "options": [
+                  "Investing is risk-free",
+                  "Saving provides higher returns",
+                  "Investing accepts risk for potential higher returns",
+                  "There is no difference"
+                ],
+                "correct_answer": 2,
+                "explanation": "Investing differs from saving because it accepts some risk in exchange for the potential of higher returns over time."
+              }
+            ]
+          }
+        },
+        {
+          "id": "types-of-investments",
+          "title": "Types of Investments",
+          "level": 2,
+          "description": "Different investment options available",
+          "estimated_duration": 15,
+          "steps": [
+            {
+              "title": "Stocks",
+              "content": "Stocks represent ownership in companies. When you buy stock, you own a small part of that company."
+            },
+            {
+              "title": "Bonds",
+              "content": "Bonds are loans you give to governments or companies. They pay you interest over time."
+            },
+            {
+              "title": "Mutual Funds",
+              "content": "Mutual funds pool money from many investors to buy a diversified portfolio of stocks and bonds."
+            }
+          ],
+          "quiz": {
+            "title": "Investment Types Quiz",
+            "questions": [
+              {
+                "text": "What do stocks represent?",
+                "options": [
+                  "Loans to companies",
+                  "Ownership in companies",
+                  "Government debt",
+                  "Bank deposits"
+                ],
+                "correct_answer": 1,
+                "explanation": "Stocks represent ownership in companies. When you buy stock, you become a shareholder and own a small part of that company."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "stock-market",
+      "name": "Stock Market",
+      "description": "Understanding stocks and trading",
+      "order": 2,
+      "unlock_requirement": 1,
+      "icon_path": "/static/icons/stock.svg",
+      "lessons": [
+        {
+          "id": "stock-market-basics",
+          "title": "Stock Market Basics",
+          "level": 1,
+          "description": "How the stock market works",
+          "estimated_duration": 12,
+          "steps": [
+            {
+              "title": "What is the Stock Market?",
+              "content": "The stock market is a marketplace where investors buy and sell shares of publicly traded companies."
+            },
+            {
+              "title": "How Stock Prices Move",
+              "content": "Stock prices move based on supply and demand, company performance, and market sentiment."
+            }
+          ],
+          "quiz": {
+            "title": "Stock Market Quiz",
+            "questions": [
+              {
+                "text": "What determines stock prices?",
+                "options": [
+                  "Government regulations",
+                  "Supply and demand",
+                  "Company size only",
+                  "Random chance"
+                ],
+                "correct_answer": 1,
+                "explanation": "Stock prices are primarily determined by supply and demand - how many people want to buy vs sell the stock."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

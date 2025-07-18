@@ -1,0 +1,28 @@
+{
+  "modules": [
+    {
+      "id": "investment-basics",
+      "file": "modules/investment-basics.json",
+      "order": 1,
+      "unlock_requirement": 0
+    },
+    {
+      "id": "stock-market", 
+      "file": "modules/stock-market.json",
+      "order": 2,
+      "unlock_requirement": 1
+    },
+    {
+      "id": "cryptocurrency",
+      "file": "modules/cryptocurrency.json", 
+      "order": 3,
+      "unlock_requirement": 1
+    },
+    {
+      "id": "advanced-trading",
+      "file": "modules/advanced-trading.json",
+      "order": 4,
+      "unlock_requirement": 2
+    }
+  ]
+}

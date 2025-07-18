@@ -55,4 +55,12 @@ def create_app():
     with app.app_context():
         db.create_all()
 
+    @app.route('/')
+    def index():
+        return '''
+        <h1>Stock Predictor App</h1>
+        <p><a href="/auth/login">Login</a> | <a href="/auth/register">Register</a></p>
+        <p><em>Note: <a href="/education">Education</a> requires login</em></p>
+        '''
+
     return app

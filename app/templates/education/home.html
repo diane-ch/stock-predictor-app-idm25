@@ -14,6 +14,8 @@
         .lock-status { font-weight: bold; color: #999; }
         .btn { padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-top: 10px; }
         .btn.disabled { background: #ccc; pointer-events: none; }
+        .flash-message { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .flash-error { background: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
@@ -24,7 +26,7 @@
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-                <div style="padding: 10px; margin: 10px 0; background: #f8d7da; color: #721c24; border-radius: 4px;">
+                <div class="flash-message flash-{{ category }}">
                     {{ message }}
                 </div>
             {% endfor %}
@@ -39,6 +41,7 @@
                 
                 {% if item.is_unlocked %}
                     <div class="unlock-status">✅ Unlocked</div>
+                    <!-- FIXED: Use module.id (string) instead of module.id (integer) -->
                     <a href="{{ url_for('education.module_detail', module_id=item.module.id) }}" class="btn">
                         Start Learning
                     </a>

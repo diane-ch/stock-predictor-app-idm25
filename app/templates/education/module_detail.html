@@ -13,11 +13,24 @@
         .lesson-level { font-weight: bold; color: #666; }
         .btn { padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block; }
         .btn.disabled { background: #ccc; pointer-events: none; }
+        .flash-message { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .flash-error { background: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
     <h1>{{ module.name }}</h1>
     <p>{{ module.description }}</p>
+    
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     
     <div class="lesson-list">
         <h2>Lessons</h2>
@@ -28,17 +41,12 @@
                 <p>{{ item.lesson.description }}</p>
                 
                 {% if item.is_unlocked %}
-                    <a href="{{ url_for('education.lesson_detail', lesson_id=item.lesson.id) }}" class="btn">
+                    <!-- FIXED: Added module_id parameter -->
+                    <a href="{{ url_for('education.lesson_detail', module_id=module.id, lesson_id=item.lesson.id) }}" class="btn">
                         Start Lesson
                     </a>
                 {% else %}
                     <span class="btn disabled">🔒 Locked</span>
-                {% endif %}
-                
-                {% if item.progress %}
-                    <div style="margin-top: 10px; color: #666;">
-                        Progress: {{ item.progress.current_step or 0 }}/{{ item.progress.total_steps or 0 }} steps
-                    </div>
                 {% endif %}
             </div>
         {% endfor %}
