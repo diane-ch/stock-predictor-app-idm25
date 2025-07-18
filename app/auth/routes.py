@@ -196,8 +196,9 @@ def register_step3():
 
             clear_registration_session()
 
+            login_user(new_user)
             flash(f'Welcome {new_user.first_name}! Your account has been created successfully.', 'success')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.profile'))
         
         except Exception as e:
             db.session.rollback()
