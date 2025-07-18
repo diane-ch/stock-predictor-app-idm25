@@ -8,9 +8,10 @@ body, html {
   font-family: 'Arial', sans-serif;
 }
 
-/* 页面容器 */
+/* 页面容器：居中限制宽度 */
 .signup-screen {
-  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
   height: 100vh;
   padding: 40px 24px;
   box-sizing: border-box;
@@ -21,7 +22,7 @@ body, html {
   position: relative;
 }
 
-/* 左上角箭头装饰图 */
+/* 返回箭头样式 */
 .arrow-icon {
   position: absolute;
   top: 20px;
@@ -29,28 +30,39 @@ body, html {
   width: 60px;
 }
 
-/* 标题样式 */
+/* 步骤指示 */
+.step-indicator {
+  color: white;
+  font-size: 16px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+/* 主标题 */
 h1 {
   color: white;
   font-size: 30px;
   text-align: left;
-  margin-top: 80px; /* 留出空间显示箭头 */
   margin-bottom: 40px;
   line-height: 1.4;
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* 单选组 */
+/* 表单容器 */
+form {
+  width: 100%;
+}
+
+/* 单选框组 */
 .radio-group {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 40px;
-  width: 100%;
   color: white;
 }
 
-/* 单项标签样式 */
+/* 单个选项 */
 .radio-group label {
   font-size: 16px;
   display: flex;
@@ -58,14 +70,14 @@ h1 {
   gap: 12px;
 }
 
-/* 单选按钮美化 */
+/* 美化单选按钮 */
 input[type="radio"] {
   width: 18px;
   height: 18px;
-  accent-color: #a0f0d0; /* 美化为绿色 */
+  accent-color: #a0f0d0; /* 绿色高亮 */
 }
 
-/* 按钮样式 */
+/* 提交按钮样式 */
 button {
   width: 100%;
   padding: 14px;
@@ -80,38 +92,21 @@ button {
 button:hover {
   background-color: #88e3c3;
 }
+/* 上方装饰图 */
+.decor-top {
+  width: 100px;
+  margin-bottom: 1px;
+}
 
-/* Flash Messages */
-.flash-message {
-  padding: 12px 16px;
-  margin: 15px 0;
-  border-radius: 12px;
-  font-size: 14px;
+/* 返回按钮样式 */
+.back-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
   font-weight: 500;
-  text-align: center;
-  animation: slideIn 0.3s ease-out;
-  backdrop-filter: blur(10px);
-}
-
-.flash-error {
-  background-color: rgba(255, 59, 48, 0.15);
-  color: #ff3b30;
-  border: 1px solid rgba(255, 59, 48, 0.3);
-}
-
-.flash-success {
-  background-color: rgba(52, 199, 89, 0.15);
-  color: #34c759;
-  border: 1px solid rgba(52, 199, 89, 0.3);
-}
-
-.flash-info {
-  background-color: rgba(0, 122, 255, 0.15);
-  color: #007aff;
-  border: 1px solid rgba(0, 122, 255, 0.3);
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  font-family: 'Arial', sans-serif;
+  z-index: 20;
 }
