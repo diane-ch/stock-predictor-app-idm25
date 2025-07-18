@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sign Up - Step 3</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up3.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="signup-screen">
+    <!-- 左上角装饰箭头图 -->
+    <!-- Arrow decoration -->
+    <img src="{{ url_for('static', filename='images/sign-up3.png') }}" alt="Arrow Decoration" class="arrow-icon" />
+
+    <!-- 标题 -->
+    <!-- Title -->
+    <h1>
+      Last question:<br>
+      What's your level<br>
+      of knowledge in<br>
+      investment?
+    </h1>
+
+    <!-- Flash messages for errors -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Form that submits to Flask backend -->
+    <form method="POST" action="{{ url_for('auth.register_step3') }}">
+      <!-- CSRF protection -->
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      
+      <!-- Radio button group -->
+      <div class="radio-group">
+        <label>
+          <input type="radio" 
+                 name="investment_level" 
+                 value="pro_investor" 
+                 {{ 'checked' if investment_level == 'pro_investor' else '' }} />
+          Pro investor
+        </label>
+        <label>
+          <input type="radio" 
+                 name="investment_level" 
+                 value="intermediate" 
+                 {{ 'checked' if investment_level == 'intermediate' else '' }} />
+          Intermediate
+        </label>
+        <label>
+          <input type="radio" 
+                 name="investment_level" 
+                 value="basic" 
+                 {{ 'checked' if investment_level == 'basic' else '' }} />
+          Kinda Basic
+        </label>
+        <label>
+          <input type="radio" 
+                 name="investment_level" 
+                 value="first_contact" 
+                 {{ 'checked' if investment_level == 'first_contact' else '' }} />
+          This is my first contact with it
+        </label>
+      </div>
+
+      <!-- 下一步按钮 -->
+      <!-- Submit button -->
+      <button type="submit">Create Account</button>
+    </form>
+    
+    <!-- Back button -->
+    <a href="{{ url_for('auth.register_back', step=2) }}" class="back-link">← Back</a>
+    
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sign Up - Step 3</title>
+  <link rel="stylesheet" href="../static/css/sign-up3.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="signup-screen">
+    <a href="sign-up2.html" class="back-button">&lt; Back</a>
+
+    <img src="../static/images/sign-up3.png" alt="Top Decoration" class="decor-top" />
+    <p class="step-indicator">3 / 3</p>
+
+    <h1>Last question:<br>What’s your level of knowledge in investment?</h1>
+
+    <form action="sign-up4.html" method="get">
+      <div class="radio-group">
+        <label><input type="radio" name="level" value="pro" required /> Pro investor</label>
+        <label><input type="radio" name="level" value="intermediate" /> Intermediate</label>
+        <label><input type="radio" name="level" value="basic" /> Kinda Basic</label>
+        <label><input type="radio" name="level" value="first" /> This is my first contact with it</label>
+      </div>
+      <button type="submit">Next</button>
+    </form>
+  </div>
+</body>
+</html>
+-->
