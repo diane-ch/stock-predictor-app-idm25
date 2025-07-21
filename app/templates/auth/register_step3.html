@@ -9,18 +9,16 @@
 </head>
 <body>
   <div class="signup-screen">
-    <!-- 左上角装饰箭头图 -->
-    <!-- Arrow decoration -->
-    <img src="{{ url_for('static', filename='images/sign-up3.png') }}" alt="Arrow Decoration" class="arrow-icon" />
+    <!-- Back button -->
+    <a href="{{ url_for('auth.register_back', step=2) }}" class="back-button">&lt; Back</a>
 
-    <!-- 标题 -->
-    <!-- Title -->
-    <h1>
-      Last question:<br>
-      What's your level<br>
-      of knowledge in<br>
-      investment?
-    </h1>
+    <!-- Top decoration -->
+    <img src="{{ url_for('static', filename='images/sign-up3.png') }}" alt="Top Decoration" class="decor-top" />
+    
+    <!-- Step indicator -  -->
+    <p class="step-indicator">3 / 3</p>
+    
+    <h1>Last question:<br>What's your level of knowledge in investment?</h1>
 
     <!-- Flash messages for errors -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -33,16 +31,15 @@
 
     <!-- Form that submits to Flask backend -->
     <form method="POST" action="{{ url_for('auth.register_step3') }}">
-      <!-- CSRF protection -->
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       
-      <!-- Radio button group -->
       <div class="radio-group">
         <label>
           <input type="radio" 
                  name="investment_level" 
                  value="pro_investor" 
-                 {{ 'checked' if investment_level == 'pro_investor' else '' }} />
+                 {{ 'checked' if investment_level == 'pro_investor' else '' }}
+                 required /> 
           Pro investor
         </label>
         <label>
@@ -68,14 +65,9 @@
         </label>
       </div>
 
-      <!-- 下一步按钮 -->
       <!-- Submit button -->
-      <button type="submit">Create Account</button>
+      <button type="submit">Next</button>
     </form>
-    
-    <!-- Back button -->
-    <a href="{{ url_for('auth.register_back', step=2) }}" class="back-link">← Back</a>
-    
   </div>
 </body>
 </html>

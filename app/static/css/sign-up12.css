@@ -1,80 +1,181 @@
+/* 全局设置 */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  background-color: #065c5c;
+}
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background-color: #065c5c;
-      overflow: hidden;
-      font-family: 'Arial', sans-serif;
-    }
+/* 主屏幕容器 */
+.signup-screen {
+  height: 100vh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  background-color: #065c5c;
+}
 
-    .signup-screen {
-      width: 100%;
-      height: 100vh;
-      padding: 0 24px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+/* 表单主内容区域，改为 100% 宽度，不限制最大宽度 */
+.form-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-    .top-icon {
-      position: absolute;
-      top: 30px;
-      left: 20px;
-      width: 100px;
-    }
+/* 返回按钮样式 */
+.back-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Arial', sans-serif;
+  z-index: 20;
+}
 
-    .bottom-icon {
-      position: absolute;
-      bottom: 20px;
-      right: 10px;
-      width: 100px;
-    }
+/* 步骤进度指示 */
+.step-indicator {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  opacity: 0.85;
+}
 
-    h1 {
-      color: white;
-      text-align: center;
-      font-size: 30px;
-      margin-bottom: 20px;
-      font-family: 'Space Grotesk', sans-serif;
-    }
+/* 主标题 */
+.form-title {
+  color: white;
+  text-align: left;
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  line-height: 1.4;
+}
 
-    input {
-      width: 100%;
-      padding: 14px 18px;
-      font-size: 16px;
-      border: none;
-      border-radius: 30px;
-      margin-bottom: 30px;
-      box-sizing: border-box;
-    }
+/* 表单整体 */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      background-color: #a0f0d0;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-    }
+/* 输入框样式 */
+input {
+  background-color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 18px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  outline: none;
+  box-sizing: border-box;
+  width: 100%;
+}
 
-    button:hover {
-      background-color: #88e3c3;
-    }
+/* 按钮样式 */
+button {
+  background-color: #7fffd4;
+  color: black;
+  border: none;
+  border-radius: 30px;
+  padding: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #5ee2c2;
+}
+
+/* 上方装饰图 */
+.decor-top {
+  width: 100px;
+  margin-bottom: 16px;
+}
+
+/* 下方装饰图 */
+.decor-bottom {
+  width: 100px;
+  margin: 0px 0;
+  align-self: flex-end;
+}
+/* 右上角装饰图，嵌入上方 */
+.decor-top-right {
+  width: 150px;
+  margin-bottom: 0px;
+  align-self: flex-end;
+}
+
+/* 左下角装饰图，嵌入底部 */
+.decor-bottom-left {
+  width: 100px;
+  margin-top: 0px;
+  align-self: flex-start;
+}
+
+/* 装饰图样式 */
+.decor-arrow {
+  width: 100px;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+/* 单选框整体样式 */
+form label {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+form input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: transparent;
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+form input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  background-color: #7fffd4;
+  border-radius: 50%;
+}
 
 
-    .coin-icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 120px;
-    z-index: 0;
-    pointer-events: none;
-    }
+/* 让每个单选项之间间隔明显 */
+form label:not(:last-child) {
+  margin-bottom: 16px;
+}
 
 /* Flash Messages */
 .flash-message {
