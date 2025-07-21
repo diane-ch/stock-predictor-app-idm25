@@ -9,47 +9,49 @@
 </head>
 <body>
   <div class="signup-screen">
-    <!-- 右上角硬币装饰图（一个图片包含两个硬币） -->
-    <!-- Coin decoration -->
-    <img src="{{ url_for('static', filename='images/sign-up2.png') }}" alt="Coin Decoration" class="coin-icon" />
-
-    <!-- 内容区域 -->
-    <!-- Content area -->
-    <h1>Some basic info</h1>
-    
-    <!-- Flash messages for errors -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="flash-message flash-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    
-    <!-- Form that submits to Flask backend -->
-    <form method="POST" action="{{ url_for('auth.register_step2') }}">
-      <!-- CSRF protection -->
-      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      
-      <!-- Email input with preserved value -->
-      <input type="email" 
-             name="email" 
-             placeholder="Email" 
-             value="{{ email or '' }}" 
-             required />
-      
-      <!-- Password input -->
-      <input type="password" 
-             name="password" 
-             placeholder="Password" 
-             required />
-      
-      <!-- Submit button -->
-      <button type="submit">Next</button>
-    </form>
-    
     <!-- Back button -->
-    <a href="{{ url_for('auth.register_back', step=1) }}" class="back-link">← Back</a>
+    <a href="{{ url_for('auth.register_back', step=1) }}" class="back-button">&lt; Back</a>
+    
+    <div class="form-block">
+      <!-- Top right decoration -->
+      <img src="{{ url_for('static', filename='images/coin_top_right.png') }}" alt="Top Right Decoration" class="decor-top-right" />
+      
+      <!-- Step indicator -->
+      <p class="step-indicator">2 / 3</p>
+      
+      <h1 class="form-title">Some basic information</h1>
+      
+      <!-- Flash messages for errors -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash-message flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      <!-- Form that submits to Flask backend -->
+      <form method="POST" action="{{ url_for('auth.register_step2') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        
+        <input type="email" 
+               name="email" 
+               placeholder="Email" 
+               value="{{ email or '' }}" 
+               required />
+        
+        <input type="password" 
+               name="password" 
+               placeholder="Password" 
+               required />
+        
+        <!-- Bottom left decoration -->
+        <img src="{{ url_for('static', filename='images/coin_bottom_left.png') }}" alt="Bottom Left Decoration" class="decor-bottom-left" />
+        
+        <!-- Submit button -->
+        <button type="submit">Next</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
