@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ lesson.title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .lesson-content { background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .step { margin-bottom: 20px; padding: 15px; background: white; border-radius: 4px; }
+        .step-title { color: #333; font-size: 18px; margin-bottom: 10px; }
+        .progress-bar { width: 100%; height: 10px; background: #e0e0e0; border-radius: 5px; margin: 20px 0; }
+        .progress-fill { height: 100%; background: #4CAF50; border-radius: 5px; width: 100%; }
+    </style>
+</head>
+<body>
+    <h1>{{ lesson.title }}</h1>
+    <p>{{ lesson.description }}</p>
+    
+    <!-- Progress bar -->
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+    <p><strong>Lesson completed!</strong> Now take the quiz to unlock the next level.</p>
+    
+    <div class="lesson-content">
+        <h2>Lesson Content</h2>
+        {% if lesson.steps %}
+            {% for step in lesson.steps %}
+                <div class="step">
+                    <h3 class="step-title">{{ step.title }}</h3>
+                    <p>{{ step.content }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Lesson content will be loaded here.</p>
+        {% endif %}
+    </div>
+    
+    <!-- Quiz button -->
+    {% if lesson.quiz %}
+        <div style="margin: 20px 0;">
+            <a href="{{ url_for('education.quiz_detail', module_id=module.id, lesson_id=lesson.id) }}" 
+               class="btn" style="background: #28a745; padding: 12px 24px; text-decoration: none; color: white; border-radius: 4px; display: inline-block;">
+                Take Quiz →
+            </a>
+        </div>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('education.module_detail', module_id=module.id) }}">← Back to Module</a>
+    </div>
+</body>
+</html>

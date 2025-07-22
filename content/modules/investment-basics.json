@@ -1,0 +1,93 @@
+{
+  "id": "investment-basics",
+  "name": "Investment Basics",
+  "description": "Learn fundamental investment concepts",
+  "icon_path": "/static/icons/investment.svg",
+  "lessons": [
+    {
+      "id": "what-is-investing",
+      "title": "What is Investing?",
+      "level": 1,
+      "description": "Introduction to investing concepts",
+      "estimated_duration": 10,
+      "steps": [
+        {
+          "title": "Investment Definition",
+          "content": "Investing is the act of allocating resources, usually money, with the expectation of generating income or profit over time."
+        },
+        {
+          "title": "Why People Invest", 
+          "content": "People invest to grow their wealth, beat inflation, and achieve financial goals like retirement or buying a home."
+        },
+        {
+          "title": "Risk and Return",
+          "content": "All investments involve some level of risk. Generally, higher potential returns come with higher risk."
+        }
+      ],
+      "quiz": {
+        "title": "Investment Basics Quiz",
+        "questions": [
+          {
+            "text": "What is the primary goal of investing?",
+            "options": [
+              "To keep money safe",
+              "To grow wealth over time", 
+              "To spend money quickly",
+              "To pay taxes"
+            ],
+            "correct_answer": 1,
+            "explanation": "The primary goal of investing is to grow wealth over time. While keeping money safe is important, investing involves taking calculated risks to achieve higher returns than savings accounts."
+          },
+          {
+            "text": "What is the relationship between risk and return?",
+            "options": [
+              "Higher risk always means higher return",
+              "There is no relationship",
+              "Higher potential returns generally come with higher risk",
+              "Lower risk always means higher return"
+            ],
+            "correct_answer": 2,
+            "explanation": "Generally, investments with higher potential returns come with higher risk. This is a fundamental principle of investing."
+          }
+        ]
+      }
+    },
+    {
+      "id": "types-of-investments",
+      "title": "Types of Investments",
+      "level": 2,
+      "description": "Different investment options available",
+      "estimated_duration": 15,
+      "steps": [
+        {
+          "title": "Stocks",
+          "content": "Stocks represent ownership in companies. When you buy stock, you own a small part of that company and may receive dividends."
+        },
+        {
+          "title": "Bonds",
+          "content": "Bonds are loans you give to governments or companies. They pay you interest over time and return your principal at maturity."
+        },
+        {
+          "title": "Mutual Funds and ETFs",
+          "content": "These funds pool money from many investors to buy a diversified portfolio of stocks, bonds, or other securities."
+        }
+      ],
+      "quiz": {
+        "title": "Investment Types Quiz",
+        "questions": [
+          {
+            "text": "What do stocks represent?",
+            "options": [
+              "Loans to companies",
+              "Ownership in companies",
+              "Government debt", 
+              "Bank deposits"
+            ],
+            "correct_answer": 1,
+            "explanation": "Stocks represent ownership in companies. When you buy stock, you become a shareholder and own a small part of that company."
+          }
+        ]
+      }
+    }
+  ]
+}
