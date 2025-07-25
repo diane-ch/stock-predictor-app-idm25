@@ -1,0 +1,206 @@
+/* 全局设置 */
+html, body {
+  margin: 0;
+  padding: 0;
+ font-family: 'Space Grotesk', sans-serif;
+  background-color: #ffffff;
+}
+
+/* 主容器 */
+.main-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+/* ===== 第一部分：顶部内容区 ===== */
+.top-section {
+  position: relative;
+  height: 420px;
+  background-color: #d5f1f1;
+}
+
+/* 背景图 */
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+/* 返回按钮 */
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 16px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #065c5c;
+  text-decoration: none;
+  z-index: 3;
+}
+
+/* 进度条 */
+.progress-bar {
+  position: absolute;
+  top: 24px;
+  left: 48px;
+  right: 24px;
+  height: 4px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  z-index: 2;
+}
+
+.progress-fill1 {
+  width: 16%;  /* 当前进度，例如20%，可根据页数变化设置 */
+  height: 100%;
+  background-color: #065c5c;
+  border-radius: 2px;
+}
+
+.progress-fill2 {
+  width: 32%;  
+  height: 100%;
+  background-color: #065c5c;
+  border-radius: 2px;
+}
+.progress-fill3 {
+  width: 48%;  
+  height: 100%;
+  background-color: #065c5c;
+  border-radius: 2px;
+}
+.progress-fill4 {
+  width: 64%;  
+  height: 100%;
+  background-color: #065c5c;
+  border-radius: 2px;
+}
+.progress-fill5 {
+  width: 80%;  
+  height: 100%;
+  background-color: #065c5c;
+  border-radius: 2px;
+}
+.progress-fill6 {
+  width: 100%;  
+  height: 100%;
+  background-color: #065c5c;
+  border-radius: 2px;
+}
+.bull-image {
+  position: absolute;
+  top: 125px;
+  left: 50%;
+  transform: translateX(calc(-50% + 20px)); /* 向右再偏移20px */
+  width: 230px;
+  z-index: 2;
+}
+
+.onboard2-image {
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  transform: translateX(calc(-50% + 0px)); /* 向右再偏移20px */
+  width: 210px;
+  z-index: 2;
+}
+
+.onboard3-image {
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(calc(-50% - 10px)); /* 向右再偏移20px */
+  width: 270px;
+  z-index: 2;
+}
+
+.onboard4-image {
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  transform: translateX(calc(-50% - 0px)); /* 向右再偏移20px */
+  width: 165px;
+  z-index: 2;
+}
+
+.onboard5-image {
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  transform: translateX(calc(-50% - 0px)); /* 向右再偏移20px */
+  width: 165px;
+  z-index: 2;
+}
+
+.onboard6-image {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(calc(-50% - 0px)); /* 向右再偏移20px */
+  width: 180px;
+  z-index: 2;
+}
+/* ===== 第二部分：白色底部卡片 ===== */
+.bottom-card {
+  background-color: white;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+  padding: 40px 24px 40px 24px;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+
+  margin-top: -18px;  /* ✅ 让白卡往上叠部分 */
+  z-index: 2;         /* ✅ 确保它盖住背景但不盖住牛博士 */
+}
+
+
+/* 标题 */
+.form-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #065c5c;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+/* 副标题 */
+.intro-subtext {
+  font-size: 14px;
+  color: #000000;
+  opacity: 0.9;
+  margin-bottom: 28px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+
+/* 按钮 */
+.primary-btn {
+  background-color: #065c5c;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.primary-btn:hover {
+  background-color: #044646;
+}
+
+/* 跳过链接 */
+.skip-link {
+  display: block;
+  margin-top: 16px;
+  color: #065c5c;
+  font-size: 14px;
+  text-decoration: underline;
+}
