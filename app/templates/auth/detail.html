@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stock Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/detail.css" />
+</head>
+<body>
+
+  <div class="main-wrapper">
+    <!-- 返回按钮和置信度 -->
+    <div class="top-bar">
+      <div class="back-button" onclick="goBackToDiscovery()">
+        <img src="../../static/images/back.png" alt="Back">
+        <span>Back</span>
+      </div>
+      <div class="confidence-badge">
+        <span id="confidence-dot" class="confidence-dot"></span>
+        <span id="confidence-text" class="confidence-text">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Logo 和公司名 -->
+    <div class="stock-info">
+      <img id="stock-logo" src="" class="stock-logo" alt="Logo">
+      <div id="stock-name" class="stock-name">Company Name</div>
+      <div id="stock-ticker" class="stock-ticker">TICKER</div>
+    </div>
+
+    <!-- 股价和涨跌 -->
+    <div class="stock-price-block">
+      <div id="stock-price" class="stock-price">-- USD</div>
+      <div id="stock-change" class="stock-change">
+        <span id="change-text"></span>
+        <img id="change-icon" src="" alt="">
+      </div>
+    </div>
+
+    <!-- 灰色特征框 -->
+    <div class="feature-box">
+      <div class="why-title">💡 Why we suggest this?</div>
+      <div id="feature-list" class="feature-list">
+        <!-- Features will be added here -->
+      </div>
+      <div class="ai-note">🤖 <span>AI Analysis Based on 50+ Factors</span></div>
+    </div>
+  </div>
+
+  <!-- 底部导航栏 -->
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item">
+      <img src="../../static/images/aiprediction.png" alt="AI Predictions">
+      <span>AI Predictions</span>
+    </a>
+    <a href="#" class="nav-item active">
+      <img src="../../static/images/discovery.png" alt="Discover">
+      <span>Discover</span>
+    </a>
+    <a href="#" class="nav-item">
+      <img src="../../static/images/learn.png" alt="Learn">
+      <span>Learn</span>
+    </a>
+  </nav>
+
+  <script src="../../static/js/detail.js"></script>
+</body>
+</html>
