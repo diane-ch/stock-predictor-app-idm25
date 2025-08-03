@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/quiz.css" />
+    <script src="../../static/js/quiz.js"></script>
+  
+</head>
+<body>
+  <!-- 主内容卡片 -->
+  <div class="main-wrapper">
+    <div class="quiz-card">
+      <div class="quiz-close" onclick="showConfirm()">×</div>
+      <div class="quiz-content">
+        <div class="quiz-step">1/5</div>
+        <div class="quiz-question">
+          A tech startup has a stock price of $50 and earns $2 per share annually.
+          What is its P/E ratio, and how would you categorize it?
+        </div>
+
+        <label class="quiz-option">
+          <input type="radio" name="q1" value="expensive1">
+          <span class="custom-radio"></span>
+          P/E = 25, potentially expensive
+        </label>
+
+        <label class="quiz-option">
+          <input type="radio" name="q1" value="cheap">
+          <span class="custom-radio"></span>
+          P/E = 25, potentially cheap
+        </label>
+
+        <label class="quiz-option">
+          <input type="radio" name="q1" value="expensive2">
+          <span class="custom-radio"></span>
+          P/E = 100, potentially expensive
+        </label>
+
+        <label class="quiz-option">
+          <input type="radio" name="q1" value="cheap2">
+          <span class="custom-radio"></span>
+          P/E = 0.04, potentially cheap
+        </label>
+
+        <div class="quiz-button-wrapper">
+          <button class="quiz-submit">Check Answer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 答案反馈弹窗 -->
+  <div class="quiz-feedback" id="feedback">
+    <div class="feedback-header" id="feedback-header">🎉 Correct!</div>
+    <div class="feedback-explanation" id="feedback-explanation">
+      P/E = Price ÷ Earnings = $50 ÷ $2 = 25. Since 25 is above our "expensive" threshold of 25, it's potentially expensive (though normal for growth companies).
+    </div>
+    <button class="feedback-button" onclick="closeFeedback()">Continue</button>
+  </div>
+
+  <!-- 退出确认弹窗 -->
+  <div class="overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <div class="confirm-text">
+        <div class="confirm-title">Are you sure you want to stop<br>the lesson?</div>
+        <div class="confirm-subtitle">Your progress will be lost</div>
+      </div>
+      <div class="confirm-divider"></div>
+      <div class="confirm-actions">
+        <button class="confirm-btn quit" onclick="quitLesson()">Quit</button>
+        <div class="vertical-divider"></div>
+        <button class="confirm-btn keep" onclick="closeConfirm()">Keep Learning</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 完成提示弹窗 -->
+  <div class="overlay" id="completionOverlay">
+    <div class="completion-box">
+      <div class="completion-image">GIF</div> <!-- 可换成 <img src="..." /> -->
+      <div class="completion-title">You nailed it!</div>
+      <div class="completion-subtitle">Come back tomorrow for a new lesson</div>
+      <button class="completion-button" onclick="finishQuiz()">Finish</button>
+    </div>
+  </div>
+</body>
+
+</html>

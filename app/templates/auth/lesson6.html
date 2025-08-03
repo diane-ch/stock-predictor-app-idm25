@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lesson Intro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/lesson.css" />
+    <script src="../../static/js/lesson.js" defer></script>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="intro-card">
+      <div class="intro-close" onclick="showConfirm()">×</div>
+
+      <div class="intro-progress">
+        <div class="intro-progress-bar intro-progress-bar-60"></div>
+      </div>
+
+
+      <div class="intro-content">
+        <h2 class="intro-title">ROE - The Efficiency Master 📈</h2>
+        <img src="../../static/images/lessondetail2.png" alt="lesson image" class="intro-image" />
+        <p class="intro-text">
+           Return on Equity = How much profit a company makes with shareholders' money.<br>
+          15-20% ROE = Excellent (the company is a money-making machine!) 10-15% ROE = Good (solid performance) Under 10% ROE = Meh (might want to look elsewhere)<br>
+          Warren Buffett loves companies with consistently high ROE!</p>
+        <button class="intro-button" onclick="goNext()">Next</button>
+      </div>
+    </div>
+  </div>
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-text">
+      <div class="confirm-title">Are you sure you want to stop<br>the lesson?</div>
+      <div class="confirm-subtitle">Your progress will be lost</div>
+    </div>
+    <div class="confirm-divider"></div>
+    <div class="confirm-actions">
+      <button class="confirm-btn quit" onclick="quitLesson()">Quit</button>
+      <div class="vertical-divider"></div>
+      <button class="confirm-btn keep" onclick="closeConfirm()">Keep Learning</button>
+    </div>
+  </div>
+</div>
+  <script>
+    function goNext() {
+      window.location.href = "lesson7.html";
+    }
+  </script>
+</body>
+</html>

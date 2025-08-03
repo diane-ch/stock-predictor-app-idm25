@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>learn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/learn.css">
+  <script src="../../static/js/learn.js"></script>
+</head>
+<body>
+
+  <div class="main-wrapper">
+
+    <!-- 顶部标题栏 -->
+    <div class="top-header">
+      <h2>Your learning path</h2>
+      <div class="menu-wrapper">
+        <div class="menu-icon" onclick="toggleMenu()">⋮</div>
+        <div class="logout-menu" id="logoutMenu">
+          <button class="logout-button" onclick="logout()">
+            <span class="logout-text">Log Out</span>
+            <img src="../../static/images/logout.png" class="logout-icon" alt="logout arrow" />
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 学习进度文字 + 横线 -->
+    <div class="progress-line-wrapper">
+    <div class="progress-text">📚 5/16 Completed</div>
+    <hr class="progress-line" />
+    </div>
+
+
+
+    <!-- 可滚动内容区域 -->
+    <div class="scrollable-content">
+      <div class="content-placeholder">
+
+  <!-- Foundations - 已完成 -->
+  <div class="learning-card">
+    <div class="card-top">
+      <img src="../../static/images/foundations.png" alt="avatar" class="card-avatar" />
+      <div class="card-info">
+        <div class="card-title">
+          🌱 <strong>Foundations</strong>
+        </div>
+        <div class="card-subtitle">Start your investing journey</div>
+      </div>
+      <div class="card-status">🎉Completed</div>
+    </div>
+    <div class="card-stars">
+      <div class="star-circle"><img src="../../static/images/star.png" alt="star" /></div>
+      <div class="star-circle"><img src="../../static/images/star.png" alt="star" /></div>
+      <div class="star-circle"><img src="../../static/images/star.png" alt="star" /></div>
+      <div class="star-circle"><img src="../../static/images/star.png" alt="star" /></div>
+    </div>
+  </div>
+
+  <!-- Analysis - 进行中 -->
+  <div class="learning-card">
+    <div class="card-top">
+      <img src="../../static/images/analysis.png" alt="avatar" class="card-avatar" />
+      <div class="card-info">
+        <div class="card-title">🔍 <strong>Analysis</strong></div>
+        <div class="card-subtitle">Start your investing journey</div>
+      </div>
+    </div>
+    <div class="card-stars">
+      <div class="star-circle"><img src="../../static/images/star.png" alt="star" /></div>
+      <div class="star-circle learning-circle" onclick="openVideoCard(2)">2</div>
+
+      <div class="star-circle gray-circle">3</div>
+      <div class="star-circle gray-circle">4</div>
+    </div>
+  </div>
+
+  <div class="learning-card">
+    <div class="card-top">
+      <img src="../../static/images/strategy.png" alt="avatar" class="card-avatar" />
+      <div class="card-info">
+        <div class="card-title">📈 <strong>Strategy</strong></div>
+        <div class="card-subtitle">Start your investing journey</div>
+      </div>
+      <div class="card-status" style="background-color: #ccc;">🔒 Locked</div>
+    </div>
+    <div class="card-stars">
+      <div class="star-circle gray-circle">1</div>
+      <div class="star-circle gray-circle">2</div>
+      <div class="star-circle gray-circle">3</div>
+      <div class="star-circle gray-circle">4</div>
+    </div>
+  </div>
+
+  <!-- Grow - 未解锁 -->
+  <div class="learning-card">
+    <div class="card-top">
+      <img src="../../static/images/grow.png" alt="avatar" class="card-avatar" />
+      <div class="card-info">
+        <div class="card-title">🔥 <strong>Grow</strong></div>
+        <div class="card-subtitle">Start your investing journey</div>
+      </div>
+      <div class="card-status" style="background-color: #ccc;">🔒 Locked</div>
+    </div>
+    <div class="card-stars">
+      <div class="star-circle gray-circle">1</div>
+      <div class="star-circle gray-circle">2</div>
+      <div class="star-circle gray-circle">3</div>
+      <div class="star-circle gray-circle">4</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="video-popup-overlay" id="videoPopup">
+  <div class="video-popup-card">
+    <div class="video-popup-header">
+      <div class="popup-badge" id="popupCategory">🔍 Analysis</div>
+      <div class="popup-badge" id="popupTime">8 min</div>
+    </div>
+
+    <img src="../../static/images/lesson-placeholder.png" alt="lesson" class="lesson-image" id="popupImage" />
+
+    <div class="lesson-title" id="popupTitle">What is Risk vs Return?</div>
+    <div class="lesson-desc" id="popupDesc">This is a little explanation of what the module is about.</div>
+
+    <div class="start-btn-container">
+      <div class="start-divider"></div>
+      <button class="start-btn" onclick="startLesson()">Start Learning</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+</body>
+</html>

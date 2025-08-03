@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lesson Intro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/lesson.css" />
+    <script src="../../static/js/lesson.js" defer></script>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="intro-card">
+      <div class="intro-close" onclick="showConfirm()">×</div>
+
+      <div class="intro-progress">
+        <div class="intro-progress-bar intro-progress-bar-50"></div>
+      </div>
+
+
+      <div class="intro-content">
+        <h2 class="intro-title">Debt-to-Equity - The Stress Test ⚖️</h2>
+        <img src="../../static/images/lessondetail2.png" alt="lesson image" class="intro-image" />
+        <p class="intro-text">
+           This shows how much debt a company has vs. its own money.<br>
+          Healthy range: 0.1 to 0.4 (company owns most of its assets) Yellow flag: 0.5 to 0.8 (manageable but watch closely)<br>
+          Red flag: Above 1.0 (more debt than equity - risky!)<br>
+         Banks and real estate can handle more debt than tech companies      </p>
+        <button class="intro-button" onclick="goNext()">Next</button>
+      </div>
+    </div>
+  </div>
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-text">
+      <div class="confirm-title">Are you sure you want to stop<br>the lesson?</div>
+      <div class="confirm-subtitle">Your progress will be lost</div>
+    </div>
+    <div class="confirm-divider"></div>
+    <div class="confirm-actions">
+      <button class="confirm-btn quit" onclick="quitLesson()">Quit</button>
+      <div class="vertical-divider"></div>
+      <button class="confirm-btn keep" onclick="closeConfirm()">Keep Learning</button>
+    </div>
+  </div>
+</div>
+  <script>
+    function goNext() {
+      window.location.href = "lesson6.html";
+    }
+  </script>
+</body>
+</html>
