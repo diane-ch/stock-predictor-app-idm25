@@ -1,0 +1,313 @@
+ html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #ffffff;
+      height: 100%;
+    }
+
+    .main-wrapper {
+      max-width: 480px;
+      margin: 0 auto;
+      height: 100%;
+      background-color: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .quiz-card {
+      background-color: #ffffff;
+      border-radius: 24px;
+      width: 100%;
+      padding: 150px 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .quiz-close {
+      font-size: 24px;
+      color: #888;
+      cursor: pointer;
+      position: absolute;
+      top: 16px;
+      right: 20px;
+    }
+
+    .quiz-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+
+    .quiz-step {
+      font-size: 16px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .quiz-question {
+      font-size: 16px;
+      color: #222;
+      line-height: 1.5;
+      margin: 8px 0 16px;
+      text-align: left;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      background-color: #eee;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      color: #222;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .quiz-option input[type="radio"] {
+      display: none;
+    }
+
+    .custom-radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #666;
+      border-radius: 4px;
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+
+    .quiz-option input[type="radio"]:checked + .custom-radio::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #16CCA0;
+      border-radius: 4px;
+    }
+
+    .quiz-option.selected {
+      background-color: #c8ede6;
+    }
+
+    .quiz-button-wrapper {
+      padding: 0 20px;
+      margin-top: 16px;
+    }
+
+    .quiz-submit {
+      width: 100%;
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-align: center;
+    }
+
+    .quiz-submit:hover {
+      background-color: #00695c;
+    }
+
+    .quiz-feedback {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 100%);
+      max-width: 400px;
+      width: 100%;
+      background-color: #ccfaed;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      font-family: 'Space Grotesk', sans-serif;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .quiz-feedback.show {
+      transform: translate(-50%, 0);
+    }
+
+    .feedback-header {
+      font-size: 22px;
+      font-weight: bold;
+      color: #004d40;
+      margin-bottom: 12px;
+    }
+
+    .feedback-explanation {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .feedback-button {
+      background-color: #004d40;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .quiz-feedback.error {
+    background-color: #ffd4cf; /* 浅粉色背景 */
+    }
+
+    .quiz-feedback.error .feedback-header {
+    color: #b00020; /* 深红色文字 */
+    }
+
+    .quiz-feedback.error .feedback-explanation {
+    color: #333;
+    }
+
+
+/* 背景遮罩 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* 弹窗容器 */
+.confirm-box {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 320px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* 标题与副标题 */
+.confirm-text {
+  padding: 20px 16px 16px;
+}
+
+.confirm-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.confirm-subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 水平分割线 */
+.confirm-divider {
+  height: 1px;
+  background-color: #ccc;
+}
+
+/* 按钮区 */
+.confirm-actions {
+  display: flex;
+  height: 44px;
+}
+
+/* 垂直分割线 */
+.vertical-divider {
+  width: 1px;
+  background-color: #ccc;
+}
+
+/* 按钮样式 */
+.confirm-btn {
+  flex: 1;
+  border: none;
+  background: white;
+  color: #00796b;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* 背景遮罩 */
+#completionOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* 弹窗主体 */
+.completion-box {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+  padding: 24px 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.completion-image {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.completion-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.completion-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.completion-button {
+  background: none;
+  border: none;
+  color: #00796b;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
