@@ -1,0 +1,41 @@
+<!-- templates/education/quiz_question.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - {{ lesson.title }}</title>
+</head>
+<body>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <!-- Progress Bar -->
+        <div style="width: 100%; background-color: #f0f0f0; height: 10px; margin-bottom: 20px;">
+            <div style="width: {{ progress_percentage }}%; background-color: #007bff; height: 100%;"></div>
+        </div>
+        <p><strong>Progress: {{ progress_percentage }}% (Question {{ question_number }} of {{ total_questions }})</strong></p>
+
+        <h1>{{ lesson.title }} - Quiz</h1>
+        
+        <div style="background-color: #f8f9fa; padding: 30px; margin: 20px 0; border-radius: 10px;">
+            <h2>{{ current_question.text }}</h2>
+            
+            <form method="POST" action="{{ url_for('education.quiz_answer', module_id=module.id, lesson_id=lesson.id) }}">
+                {% for option in current_question.options %}
+                <div style="margin: 15px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <label style="display: block; cursor: pointer;">
+                        <input type="radio" name="answer" value="{{ loop.index0 }}" required style="margin-right: 10px;">
+                        {{ option }}
+                    </label>
+                </div>
+                {% endfor %}
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="submit" style="padding: 15px 30px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Submit Answer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

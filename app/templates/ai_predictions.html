@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Predictions</title>
+</head>
+<body>
+    <h1>AI Predictions Page</h1>
+    <p>This is the AI predictions page.</p>
+    <p>ML stock predictions will be displayed here.</p>
+    
+    <!-- Simple navigation links -->
+    <nav>
+        <a href="{{ url_for('main.ai_predictions') }}">AI Predictions</a> | 
+        <a href="{{ url_for('main.discover') }}">Discover</a> | 
+        <a href="{{ url_for('main.learning') }}">Learning</a> | 
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+</body>
+</html>

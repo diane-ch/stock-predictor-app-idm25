@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Picks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/discovery.css') }}">
+  <script src="{{ url_for('static', filename='js/discovery.js') }}"></script>
+</head>
+<body>
+
+  <div class="main-wrapper">
+
+    <!-- 顶部标题栏 -->
+    <div class="top-header">
+      <h2>Smart picks</h2>
+      <div class="menu-wrapper">
+        <div class="menu-icon" onclick="toggleMenu()">⋮</div>
+        <div class="logout-menu" id="logoutMenu">
+            <a href="{{ url_for('auth.logout') }}" class="logout-button">
+            <span class="logout-text">Log Out</span>
+            <img src="{{ url_for('static', filename='images/logout.png') }}" class="logout-icon" alt="logout arrow" />
+            </a>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- 日期选择区域 -->
+    <div class="date-picker-wrapper">
+      <div class="date-list">
+        <!-- 日期将由 JS 动态生成 -->
+      </div>
+      <div class="countdown-text">
+        <!-- 倒计时将由 JS 动态生成 -->
+      </div>
+    </div>
+
+    <!-- 可滚动内容区域 -->
+    <div class="scrollable-content">
+
+        <div class="scrollable-content">
+        <div class="content-placeholder" id="stocks-container">
+            <!-- Dynamic stock cards will be inserted here -->
+            {% for stock in initial_stocks %}
+            <a href="detail.html?ticker={{ stock.ticker }}" class="card-link">
+            <div class="stock-card">
+                <div class="stock-left">
+                <div class="stock-top">
+                    <img class="stock-logo" src="{{ stock.logo_path }}" alt="{{ stock.name }} Logo" 
+                        onerror="this.src='/static/images/logos/default.png'">
+                    <div class="stock-text">
+                    <div class="stock-name">{{ stock.name }}</div>
+                    <div class="stock-ticker">{{ stock.ticker }}</div>
+                    </div>
+                </div>
+                <div class="stock-confidence">
+                    <span class="confidence-dot {{ stock.confidence }}"></span>
+                    <span class="confidence-text">{{ stock.confidence|title }} Confidence</span>
+                </div>
+                </div>
+                <div class="stock-right">
+                <div class="stock-price">{{ stock.price }} USD</div>
+                <div class="stock-change {{ 'positive' if stock.change >= 0 else 'negative' }}">
+                    {% if stock.change >= 0 %}+{% endif %}{{ "%.1f"|format(stock.change) }}% 
+                    <img class="arrow-icon" src="/static/images/{{ 'up' if stock.change >= 0 else 'down' }}-logo.png" 
+                        alt="{{ 'Up' if stock.change >= 0 else 'Down' }}">
+                </div>
+                </div>
+            </div>
+            </a>
+            {% endfor %}
+        </div>
+        </div>
+
+    </div>
+
+  </div>
+  
+  <!-- 底部导航栏 -->
+  <nav class="bottom-nav">
+    <a href="{{ url_for('main.ai_predictions') }}" class="nav-item">
+      <img src="../../static/images/aiprediction.png" alt="AI Predictions">
+      <span>AI Predictions</span>
+    </a>
+    <a href="{{ url_for('main.discover') }}" class="nav-item active">
+      <img src="../../static/images/discovery.png" alt="Disc#f5f6f7over">
+      <span>Discover</span>
+    </a>
+    <a href="{{ url_for('main.learning')}}" class="nav-item">
+      <img src="../../static/images/learn.png" alt="Learn">
+      <span>Learn</span>
+    </a>
+  </nav>
+
+
+
+
+</body>
+</html>

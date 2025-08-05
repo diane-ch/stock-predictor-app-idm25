@@ -1,0 +1,43 @@
+<!-- templates/education/quiz.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz.title }}</title>
+</head>
+<body>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h1>{{ lesson.title }}</h1>
+        <h2>{{ quiz.title }}</h2>
+        
+        <form method="POST" action="{{ url_for('education.quiz_submit', module_id=module.id, lesson_id=lesson.id) }}">
+            {% for question in quiz.questions %}
+            <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 5px;">
+                <h3>Question {{ loop.index }}: {{ question.text }}</h3>
+                
+                {% for option in question.options %}
+                <div style="margin: 10px 0;">
+                    <label>
+                        <input type="radio" name="question_{{ loop.index0 }}" value="{{ loop.index0 }}" required>
+                        {{ option }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" style="padding: 15px 30px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Submit Quiz
+                </button>
+            </div>
+        </form>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{{ url_for('education.lesson_preview', module_id=module.id, lesson_id=lesson.id) }}">← Back to Lesson</a>
+        </div>
+    </div>
+</body>
+</html>
+

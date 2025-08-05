@@ -1,0 +1,41 @@
+date,ticker,company_name,current_price,predicted_change,confidence_score,ml_rank
+2025-07-26,NFLX,Netflix Inc.,812.34,3.2,0.83,1
+2025-07-26,AMD,Advanced Micro Devices,118.92,5.3,0.87,2
+2025-07-26,CRM,Salesforce Inc.,369.81,1.8,0.74,3
+2025-07-26,GOOGL,Alphabet Inc.,176.52,2.1,0.79,4
+2025-07-26,META,Meta Platforms Inc.,638.73,-1.4,0.68,5
+2025-07-27,SOFI,SoFi Technologies Inc.,21.20,4.64,0.82,1
+2025-07-27,PLTR,Palantir Technologies,75.43,6.2,0.89,2
+2025-07-27,RBLX,Roblox Corporation,58.91,-2.1,0.71,3
+2025-07-27,COIN,Coinbase Global Inc.,412.56,7.7,0.85,4
+2025-07-27,SQ,Block Inc.,98.23,3.9,0.76,5
+2025-07-28,AAPL,Apple Inc.,211.16,2.3,0.85,1
+2025-07-28,TSLA,Tesla Inc.,313.51,-1.8,0.72,2
+2025-07-28,AMZN,Amazon.com Inc.,225.02,1.2,0.88,3
+2025-07-28,NVDA,NVIDIA Corporation,891.45,4.1,0.91,4
+2025-07-28,MSFT,Microsoft Corporation,351.30,-0.7,0.65,5
+2025-07-29,GOOGL,Alphabet Inc.,176.52,3.2,0.83,1
+2025-07-29,META,Meta Platforms Inc.,638.73,2.1,0.79,2
+2025-07-29,NFLX,Netflix Inc.,812.34,-2.4,0.68,3
+2025-07-29,AMD,Advanced Micro Devices,118.92,5.3,0.87,4
+2025-07-29,CRM,Salesforce Inc.,369.81,1.8,0.74,5
+2025-07-30,SOFI,SoFi Technologies Inc.,21.20,3.64,0.76,1
+2025-07-30,PLTR,Palantir Technologies,75.43,6.2,0.82,2
+2025-07-30,RBLX,Roblox Corporation,58.91,-3.1,0.71,3
+2025-07-30,COIN,Coinbase Global Inc.,412.56,8.7,0.89,4
+2025-07-30,SQ,Block Inc.,98.23,2.9,0.73,5
+2025-07-31,AAPL,Apple Inc.,215.20,1.9,0.80,1
+2025-07-31,TSLA,Tesla Inc.,320.15,2.1,0.77,2
+2025-07-31,AMZN,Amazon.com Inc.,228.50,1.5,0.83,3
+2025-07-31,NVDA,NVIDIA Corporation,905.30,1.6,0.88,4
+2025-07-31,MSFT,Microsoft Corporation,355.75,1.3,0.70,5
+2025-08-01,GOOGL,Alphabet Inc.,180.25,2.1,0.85,1
+2025-08-01,META,Meta Platforms Inc.,645.90,1.1,0.81,2
+2025-08-01,NFLX,Netflix Inc.,825.67,1.6,0.75,3
+2025-08-01,AMD,Advanced Micro Devices,122.45,3.0,0.79,4
+2025-08-01,CRM,Salesforce Inc.,375.20,1.5,0.72,5
+2025-08-02,AAPL,Apple Inc.,211.16,2.3,0.85,1
+2025-08-02,TSLA,Tesla Inc.,313.51,-1.8,0.72,2
+2025-08-02,AMZN,Amazon.com Inc.,225.02,1.2,0.88,3
+2025-08-02,NVDA,NVIDIA Corporation,891.45,4.1,0.91,4
+2025-08-02,MSFT,Microsoft Corporation,351.30,-0.7,0.65,5

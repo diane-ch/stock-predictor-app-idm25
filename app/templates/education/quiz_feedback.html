@@ -1,0 +1,63 @@
+
+<!-- templates/education/quiz_feedback.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Feedback</title>
+</head>
+<body>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px; text-align: center;">
+        <h1>Answer Feedback</h1>
+        
+        <!-- Feedback Display -->
+        <div style="background-color: {% if is_correct %}#d4edda{% else %}#f8d7da{% endif %}; padding: 30px; margin: 20px 0; border-radius: 10px;">
+            <h2 style="color: {% if is_correct %}#155724{% else %}#721c24{% endif %};">
+                {% if is_correct %}✅ Correct!{% else %}❌ Incorrect{% endif %}
+            </h2>
+            
+            <p><strong>Question:</strong> {{ current_question.text }}</p>
+            <p><strong>Your Answer:</strong> {{ current_question.options[user_answer] }}</p>
+            {% if not is_correct %}
+                <p><strong>Correct Answer:</strong> {{ current_question.options[current_question.correct_answer] }}</p>
+            {% endif %}
+            
+            {% if current_question.explanation %}
+                <div style="background-color: white; padding: 15px; margin: 15px 0; border-radius: 5px; text-align: left;">
+                    <strong>Explanation:</strong> {{ current_question.explanation }}
+                </div>
+            {% endif %}
+            
+            {% if not is_correct %}
+                <p><em>Don't worry! You'll get another chance at this question.</em></p>
+            {% endif %}
+        </div>
+        
+        <!-- Progress Info -->
+        <div style="margin: 20px 0;">
+            {% if questions_remaining > 0 %}
+                <p>Questions remaining: {{ questions_remaining }}</p>
+            {% else %}
+                <p>🎉 All questions answered correctly!</p>
+            {% endif %}
+        </div>
+        
+        <!-- Continue Button -->
+        <div style="margin-top: 30px;">
+            {% if questions_remaining > 0 %}
+                <a href="{{ url_for('education.quiz_question', module_id=module.id, lesson_id=lesson.id) }}" 
+                   style="display: inline-block; padding: 15px 30px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+                    Next Question
+                </a>
+            {% else %}
+                <a href="{{ url_for('education.quiz_complete', module_id=module.id, lesson_id=lesson.id) }}" 
+                   style="display: inline-block; padding: 15px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                    Complete Quiz
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

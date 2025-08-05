@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ lesson.title }} - Step {{ step_number }}</title>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div style="width: 100%; background-color: #f0f0f0; height: 10px; margin-bottom: 20px;">
+        <div style="width: {{ progress_percentage }}%; background-color: #007bff; height: 100%;"></div>
+    </div>
+    <p><strong>Progress: {{ progress_percentage }}% (Step {{ step_number }} of {{ total_steps }})</strong></p>
+
+    <!-- Lesson Content -->
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h1>{{ lesson.title }}</h1>
+        <h2>Step {{ step_number }}</h2>
+        
+        <!-- Current Step Content -->
+        <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 5px;">
+            {% if current_step.title %}
+                <h3>{{ current_step.title }}</h3>
+            {% endif %}
+            <p>{{ current_step.content }}</p>
+        </div>
+        
+        <!-- Next/Quiz Button -->
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{{ next_url }}" 
+               style="display: inline-block; padding: 15px 30px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+                {{ button_text }}
+            </a>
+        </div>
+    </div>
+</body>
+</html>

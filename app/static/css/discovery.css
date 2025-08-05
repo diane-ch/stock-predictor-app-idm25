@@ -1,0 +1,413 @@
+/* discovery.css */
+
+/* 全局样式 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #ffffff
+;
+  height: 100%;
+  overflow: hidden; /* 防止整个页面滚动，只允许中间区域滚动 */
+}
+
+
+.main-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: #f8f8f8; /* ✅ 继承背景 */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ===== 顶部标题栏 ===== */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 8px;
+}
+
+
+.top-header h2 {
+  font-size: 30px;     /* ✅ 更大 */
+  font-weight: 1500;    /* ✅ 更粗 */
+  color: #111;
+  margin: 0;
+}
+.menu-icon {
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+/* 右上角菜单整体容器 */
+.menu-wrapper {
+  position: relative;
+}
+.logout-menu {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  padding: 10px 16px;
+  display: none;
+  z-index: 999;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #ff3b30;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  white-space: nowrap;  /* ✅ 不允许内容换行 */
+}
+
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.logout-text {
+  color: #ff3b30;
+}
+
+.date-picker-wrapper {
+  display: flex; /* 替换 grid，使用 flex 更灵活 */
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 24px 16px;
+  border-bottom: 1px solid #eee;
+  gap: 8px;
+}
+
+.date-list {
+  display: flex;
+  gap: 12px;
+  flex: 1; /* 自动占用剩余空间 */
+}
+
+.countdown-text {
+  min-width: 60px;
+  font-size: 12px;
+  background-color: #ec7845;
+  color: white;
+  border-radius: 12px;
+  padding: 6px 8px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: right;
+  white-space: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+
+.date-item {
+  font-size: 14px;
+  text-align: center;
+  color: #999;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background-color: transparent;
+  font-weight: 500;
+  width: 48px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+}
+
+.date-item.selected {
+  background-color: #065c5c;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+
+.date-item small {
+  font-size: 12px;
+  color: #999;
+}
+
+.date-item.empty-slot {
+  opacity: 0;
+  pointer-events: none;
+  width: 48px;
+  height: 48px;
+}
+
+.date-item.orange-block {
+  background-color: #ec7845;
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+
+
+
+/* 可滚动的中间区域 */
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+
+/* 内容占位区 */
+.content-placeholder {
+  flex: 1;
+  padding: 16px 24px 80px; /* ⬅ 保留底部空间 */
+  color: #ccc;
+  font-size: 14px;
+  text-align: center;
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: #fff;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: space-around;   
+  align-items: center;
+  padding-left: 0px;            /* ✅ 整体向左缩进起始 */
+  gap: 0px;                     /* ✅ 控制导航项之间的间距 */
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 100;
+}
+
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #777;
+  text-decoration: none;
+}
+
+.nav-item img {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 4px;
+}
+
+.nav-item.active {
+  color: #00b686;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  margin: 12px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  min-height: 80px; /* ✅ 调小高度，建议 100px 或更小 */
+}
+.stock-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 16px;
+  min-height: 80px; /* ✅ 调小高度，建议 100px 或更小 */
+}
+
+.stock-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stock-top {
+  display: flex;
+  align-items: center;
+}
+
+.stock-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.stock-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 确保左对齐 */
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.stock-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+}
+
+.stock-ticker {
+  font-size: 13px;
+  color: #999;
+  margin-top: 2px;
+  text-align: left; /* 可选，确保左对齐 */
+}
+
+
+
+.stock-confidence {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.confidence-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.confidence-dot.high { background-color: #00d084; }
+.confidence-dot.mid  { background-color: #ec7845; }
+.confidence-dot.low  { background-color: #ff4d4f; }
+
+.stock-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stock-price {
+  font-weight: 600;
+  font-size: 15px;
+  color: #111;
+}
+
+.stock-change {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+}
+
+.stock-change img.arrow-icon {
+  width: 14px;
+  height: 14px;
+  margin-left: 6px;
+}
+
+.stock-change.positive {
+  background-color: #00c28b;
+}
+
+.stock-change.negative {
+  background-color: #ec7845;
+}
+/* 保留链接无下划线 */
+.card-link {
+  text-decoration: none;
+}
+
+/* 避免全局破坏颜色继承 */
+.card-link * {
+  text-decoration: none !important;
+}
+
+/* 显式设置 High Confidence 字样颜色 */
+.confidence-text {
+  color: #999;
+}
+/* 页面进入动画 */
+.page-transition {
+  animation-duration: 0.4s;
+  animation-fill-mode: both;
+}
+
+/* 从底部进入（进入 detail 页） */
+.enter-from-bottom {
+  animation-name: slideUp;
+}
+
+/* 从顶部进入（返回 discovery 页） */
+.enter-from-top {
+  animation-name: slideDown;
+}
+
+/* Add to your discovery.css */
+
+.tomorrow-slot {
+  background-color: #ec7845 !important;
+  color: white !important;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tomorrow-slot:hover {
+  background-color: #d4642f !important;
+}
+
+.tomorrow-slot.selected {
+  background-color: #ff6b35 !important;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ff6b35;
+}
+
+/* Make sure past dates are clickable */
+.date-item {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.date-item:hover {
+  transform: scale(1.05);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0.2;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0.2;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

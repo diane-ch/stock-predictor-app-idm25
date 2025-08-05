@@ -4,7 +4,6 @@ from flask_login import LoginManager
 import os
 from datetime import timedelta
 
-
 # Initialize Flask extensions
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -40,13 +39,15 @@ def create_app():
     def load_user(user_id):
         from app.models.users import User
         return User.query.get(int(user_id))
-    
+
     # Import and register blueprints
     from app.auth.routes import auth_bp
     from app.education.routes import education_bp
+    from app.main.routes import main_bp  # NEW: Import main blueprint
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(education_bp, url_prefix='/education')
+    app.register_blueprint(main_bp)  # NEW: Register main blueprint (no url_prefix, uses root)
 
     # Import models to ensure they're registered with SQLAlchemy
     from app.models.users import User
@@ -55,12 +56,6 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    @app.route('/')
-    def index():
-        return '''
-        <h1>Stock Predictor App</h1>
-        <p><a href="/auth/login">Login</a> | <a href="/auth/register">Register</a></p>
-        <p><em>Note: <a href="/education">Education</a> requires login</em></p>
-        '''
+    # REMOVED: The old @app.route('/') since main_bp now handles the root route
 
     return app

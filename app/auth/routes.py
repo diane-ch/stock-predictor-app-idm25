@@ -46,7 +46,7 @@ def clear_registration_session():
 @auth_bp.route('/register/step1', methods=['GET', 'POST'])
 def register_step1():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('main.discover'))
     
     init_registration_session()
     session['registration_step'] = 1
@@ -95,7 +95,7 @@ def register_step1():
 @auth_bp.route('/register/step2', methods=['GET', 'POST'])
 def register_step2():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('main.discover'))
     
     # Ensure user went through step 1
     if session.get('registration_step', 0) < 1:
@@ -155,7 +155,7 @@ def register_step2():
 @auth_bp.route('/register/step3', methods=['GET', 'POST'])
 def register_step3():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('main.discover'))
     
     # Ensure user went through previous steps
     if session.get('registration_step', 0) < 2:
@@ -198,7 +198,7 @@ def register_step3():
 
             login_user(new_user)
             flash(f'Welcome {new_user.first_name}! Your account has been created successfully.', 'success')
-            return redirect(url_for('auth.profile'))
+            return redirect(url_for('main.onboarding'))        
         
         except Exception as e:
             db.session.rollback()
@@ -214,7 +214,7 @@ def register_step3():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('main.discover'))
 
     if request.method == 'POST':
         csrf_token = request.form.get('csrf_token')
@@ -241,7 +241,8 @@ def login():
 
             login_user(user)
             flash(f'Welcome back, {user.first_name}!', 'success')
-            return redirect(url_for('auth.profile'))
+            return redirect(url_for('main.discover')) 
+
         else:
             if user:
                 user.record_failed_login()
@@ -255,7 +256,7 @@ def login():
 def register_back(step):
     """Allow users to go back to previous steps"""
     if current_user.is_authenticated:
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('main.discover'))
     
     if step == 1:
         if 'registration_data' in session:
@@ -277,13 +278,9 @@ def logout():
     flash('You have been logged out successfully.', 'info')
     return redirect(url_for('auth.login'))
 
-@auth_bp.route('/profile')
-@login_required
-def profile():
-    return f"Hello, {current_user.email}! This is your profile."
-# return render_template('auth/profile.html', user=current_user)
 
 @auth_bp.route('/users')
 def list_users():
     users = User.query.all()
     return '<br>'.join([f"{u.id}: {u.email}" for u in users])
+
