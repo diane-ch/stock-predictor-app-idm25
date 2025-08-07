@@ -97,23 +97,24 @@ html, body {
 .date-list {
   display: flex;
   gap: 12px;
-  flex: 1; /* 自动占用剩余空间 */
+
 }
 
 .countdown-text {
-  min-width: 60px;
-  font-size: 12px;
-  background-color: #ec7845;
-  color: white;
+  min-width: 150px;
+  font-size: 14px;
+
+  transform: translateY(-6px); 
+  color: #999;
   border-radius: 12px;
   padding: 6px 8px;
   font-weight: 500;
   line-height: 1.2;
-  text-align: right;
+  text-align: left;
   white-space: normal;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
 }
 
