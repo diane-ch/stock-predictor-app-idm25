@@ -3,6 +3,7 @@
 html, body {
   margin: 0;
   height: 100%;
+  background: #d9f1c9;
   font-family: 'Inter', sans-serif;
 }
 
@@ -27,7 +28,7 @@ html, body {
   position: absolute;
   right: 44px;
   top: 100px;
-  width: 150px;
+  width: 140px;
   height: auto;
   filter: drop-shadow(0 4px 0 rgba(0,0,0,.35));
   z-index: 3;
@@ -37,7 +38,7 @@ html, body {
 .center-card{
   width: 100%;
   max-width: 400px;
-  padding: 100px 20px 18px;
+  padding: 120px 20px 18px;
   text-align: center;
 
   background: transparent;   /* 背景透明 */
@@ -51,7 +52,7 @@ html, body {
   font-size: 28px;
   line-height: 1.25;
   margin: 0 0 12px;
-  color: #f2fff7;
+  color: #ffffff;
 }
 .subhead{
   margin: 0 0 22px;
@@ -78,7 +79,7 @@ html, body {
 .skip{
   display: inline-block;
   font-size: 13px;
-  color: #ffffff;
+  color: #e8fbf2;
   text-decoration: none;
   opacity: .95;
 }
@@ -86,9 +87,11 @@ html, body {
 /* 底部手机卡片 */
 .phone-card{
   position: absolute;
+  left: 10px;
   bottom: 0px;
-  width: 350px;
+  width: 400px;
   height: auto;
+  filter: drop-shadow(0 6px 0 rgba(0,0,0,.35));
   z-index: 1;
 }
 
