@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Predictions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href= "{{ url_for('static', filename='css/aipredictions.css')}}" />
+  
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- 顶部标题栏 -->
+    <div class="top-header">
+      <h2>AI Predictions</h2>
+      <div class="menu-wrapper">
+        <div class="menu-icon" onclick="toggleMenu()">⋮</div>
+        <div class="logout-menu" id="logoutMenu">
+            <a href="{{ url_for('auth.logout') }}" class="logout-button">
+            <span class="logout-text">Log Out</span>
+            <img src="{{ url_for('static', filename='images/logout.png') }}" class="logout-icon" alt="logout arrow" />
+            </a>
+        </div>
+        </div>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search" />
+    </div>
+
+    <!-- 可滚动区域 -->
+    <div class="scrollable-content">
+      <div class="stock-list" id="stockList">
+        <!-- JavaScript 动态填充 -->
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+      <a href="{{ url_for('main.ai_predictions') }}" class="nav-item active">
+        <img src="../../static/images/aiprediction.png" alt="predict" />
+        <div>AI Predictions</div>
+      </a>
+      <a href="{{ url_for('main.discover') }}" class="nav-item">
+        <img src="../../static/images/discovery.png" alt="discover" />
+        <div>Discover</div>
+      </a>
+      <a href="{{ url_for('main.learning')}}" class="nav-item">
+        <img src="../../static/images/learn.png" alt="learn" />
+        <div>Learn</div>
+      </a>
+    </div>
+  </div>
+</body>
+
+
+<script>
+  window.PREDICTION_DETAIL_URL = "{{ url_for('main.prediction_detail') }}";
+</script>
+<script defer src="{{ url_for('static', filename='js/predictions.js') }}"></script>
+
+</html>

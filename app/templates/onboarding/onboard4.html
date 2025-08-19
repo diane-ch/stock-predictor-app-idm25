@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>onboard4</title>
+  <!-- 引入 Space Grotesk 字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <script src="../../static/js/onboard.js"></script>
+  <link rel="stylesheet" href="../../static/css/onboard.css" />
+</head>
+
+<body>
+  <div class="main-wrapper">
+
+    <div class="top-section">
+      <!-- 返回按钮 -->
+        <a href="{{ url_for('main.onboard3') }}" class="back-button">〈 </a>
+
+      <div class="progress-bar">
+        <div class="progress-fill4"></div>
+      </div>
+
+      <!-- 背景图 -->
+      <img src="../../static/images/onboard4back.png" alt="Background" class="bg-image" />
+
+      <img src="../../static/images/onboard4.png" alt="onboard4-image" class="onboard4-image" />
+    </div>
+
+    <!-- ✅ 第二部分：底部白色卡片 -->
+    <div class="bottom-card">
+      <div class="form-title">AI Predictions</div>
+      <div class="form-subtitle">Today’s market pulse, just for you!</div>
+      
+      <p class="intro-subtext">
+        In this section you will be able to compare and analyze the ML-powered predictions with the real prices to analyze the power of the AI.
+      </p>
+      <button onclick="window.location.href='{{ url_for('main.onboard5') }}'" id="nextBtn" class="primary-btn">Continue</button>
+      <a href="{{ url_for('main.discover') }}" class="skip-link">Skip Tutorial</a>
+    </div>
+
+  </div>
+</body>
+</html>

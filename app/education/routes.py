@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, session
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session, jsonify
 from app import db
-from app.models.users import User
-from app.models.education import Module, Lesson, UserLessonProgress
 from app.content.content_loader import content_loader
+from app.services.progress_service import ProgressService
 from flask_login import login_required, current_user
 
 education_bp = Blueprint('education', __name__, template_folder='../templates')
@@ -15,66 +14,125 @@ def education_home():
     # Get modules from JSON file
     json_modules = content_loader.get_modules()
     
+    print(f"DEBUG: User ID = {current_user.id}")
+    print(f"DEBUG: Found {len(json_modules)} modules")
+    
     modules_data = []
     for i, module in enumerate(json_modules):
+        module_id = module["id"]
+        print(f"DEBUG: Processing module {module_id}, order: {module.get('order', 'NO ORDER')}")
+
+        # Get module progress
+        module_progress = ProgressService.get_module_progress(current_user.id, module_id)
+        is_module_unlocked = ProgressService.is_module_unlocked(current_user.id, module_id)
+
         # Add lesson circles info to each module
         lesson_circles = []
-        for lesson in module.get('lessons', [])[:4]:  # Only show first 4 lessons as circles
+        lessons = module.get('lessons', [])
+        for j, lesson in enumerate(lessons): 
+            lesson_id = lesson['id']
+            lesson_progress = ProgressService.get_user_lesson_progress(current_user.id, module_id, lesson_id)
+            is_unlocked = ProgressService.is_lesson_unlocked(current_user.id, module_id, lesson_id)
+            is_completed = lesson_progress.is_completed if lesson_progress else False
+            
             lesson_circles.append({
                 'lesson_id': lesson['id'],
                 'title': lesson['title'],
-                'is_unlocked': lesson['level'] == 1  # Only level 1 unlocked for now
+                'is_unlocked': is_unlocked and is_module_unlocked,
+                'is_completed': is_completed
             })
+        
+        # Determine module status
+        module_status = None
+        if not is_module_unlocked:
+            module_status = "locked"
+        elif module_progress and module_progress.get('is_completed'):
+            module_status = "completed"
+        else:
+            module_status = "available"  # Module déverrouillé mais pas complété
         
         modules_data.append({
             'module': module,
             'lesson_circles': lesson_circles,
-            'is_unlocked': i == 0  # Only first module unlocked for now
+            'is_unlocked': is_module_unlocked,
+            'status': module_status,
+            'progress': module_progress
         })
     
-    return render_template('education/home.html', modules_data=modules_data)
+    return render_template('education/learn.html', modules_data=modules_data)
+
+
+@education_bp.route('/lesson/<module_id>/<lesson_id>/preview')
+@login_required
+def lesson_preview_api(module_id, lesson_id):
+    """API endpoint for lesson preview data (AJAX call)"""
+
+    # Check if lesson is unlocked
+    if not ProgressService.is_lesson_unlocked(current_user.id, module_id, lesson_id):
+        return jsonify({'error': 'Lesson is locked'}), 403
+
+    lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
+    module = content_loader.get_module_by_id(module_id)
+    
+    if not lesson:
+        return jsonify({'error': 'Lesson not found'}), 404
+    
+    # Ensure duration field exists
+    if 'duration' not in lesson:
+        lesson['duration'] = 8  # default duration
+        
+    return jsonify({
+        'lesson': lesson,
+        'module': module
+    })
+
 
 @education_bp.route('/lesson/<module_id>/<lesson_id>')
 @login_required
 def lesson_preview(module_id, lesson_id):
-    """Lesson preview/popup - shows lesson info and 'Start Lesson' button"""
-    lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
-    if not lesson:
-        flash('Lesson not found.', 'error')
-        return redirect(url_for('education.education_home'))
-    
-    # Check if lesson is unlocked
-    if lesson['level'] != 1:  # Only level 1 unlocked for now
-        flash('This lesson is locked. Complete previous lessons first.', 'error')
-        return redirect(url_for('education.education_home'))
-    
-    module = content_loader.get_module_by_id(module_id)
-    
-    return render_template('education/lesson_preview.html', 
-                         lesson=lesson, 
-                         module=module)
+    """Lesson preview page (if accessed directly) - redirects to start"""
+    return redirect(url_for('education.lesson_start', 
+                          module_id=module_id, 
+                          lesson_id=lesson_id))
+
 
 @education_bp.route('/lesson/<module_id>/<lesson_id>/start')
 @login_required
 def lesson_start(module_id, lesson_id):
     """Start lesson - redirect to first step"""
-    return redirect(url_for('education.lesson_step', 
-                          module_id=module_id, 
-                          lesson_id=lesson_id, 
-                          step_number=1))
 
-@education_bp.route('/lesson/<module_id>/<lesson_id>/step/<int:step_number>')
-@login_required
-def lesson_step(module_id, lesson_id, step_number):
-    """Display specific step of a lesson"""
+    # Check if lesson is unlocked
+    if not ProgressService.is_lesson_unlocked(current_user.id, module_id, lesson_id):
+        flash('This lesson is locked. Complete previous lessons first.', 'error')
+        return redirect(url_for('education.education_home'))
+
     lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
     if not lesson:
         flash('Lesson not found.', 'error')
         return redirect(url_for('education.education_home'))
     
+    # Mark lesson as started
+    ProgressService.start_lesson(current_user.id, module_id, lesson_id)
+    
+    return redirect(url_for('education.lesson_step', 
+                          module_id=module_id, 
+                          lesson_id=lesson_id, 
+                          step_number=1))
+
+
+@education_bp.route('/lesson/<module_id>/<lesson_id>/step/<int:step_number>')
+@login_required
+def lesson_step(module_id, lesson_id, step_number):
+    """Display specific step of a lesson"""
+
     # Check if lesson is unlocked
-    if lesson['level'] != 1:
+    if not ProgressService.is_lesson_unlocked(current_user.id, module_id, lesson_id):
         flash('This lesson is locked.', 'error')
+        return redirect(url_for('education.education_home'))
+
+    lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
+    if not lesson:
+        flash('Lesson not found.', 'error')
         return redirect(url_for('education.education_home'))
     
     # Get lesson steps (from your JSON structure)
@@ -84,9 +142,13 @@ def lesson_step(module_id, lesson_id, step_number):
     # Validate step number
     if step_number < 1 or step_number > total_steps:
         flash('Invalid lesson step.', 'error')
-        return redirect(url_for('education.lesson_preview', 
-                              module_id=module_id, 
-                              lesson_id=lesson_id))
+        return redirect(url_for('education.education_home'))
+    
+    # Update progress - user has reached this step
+    progress = ProgressService.get_user_lesson_progress(current_user.id, module_id, lesson_id)
+    if progress and hasattr(progress, 'update_step'):
+        progress.update_step(step_number)
+        db.session.commit()
     
     # Get current step content
     current_step = lesson_content[step_number - 1]  # Array is 0-indexed
@@ -121,6 +183,7 @@ def lesson_step(module_id, lesson_id, step_number):
                          next_url=next_url,
                          button_text=button_text)
 
+
 # ADAPTIVE QUIZ SYSTEM
 @education_bp.route('/quiz/<module_id>/<lesson_id>')
 @login_required
@@ -129,7 +192,7 @@ def quiz_detail(module_id, lesson_id):
     lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
     if not lesson or 'quiz' not in lesson:
         flash('Quiz not found.', 'error')
-        return redirect(url_for('education.lesson_preview', 
+        return redirect(url_for('education.lesson_start', 
                               module_id=module_id, 
                               lesson_id=lesson_id))
     
@@ -187,7 +250,7 @@ def quiz_question(module_id, lesson_id):
     
     module = content_loader.get_module_by_id(module_id)
     
-    return render_template('education/quiz_question.html',
+    return render_template('education/quiz.html',
                          lesson=lesson,
                          module=module,
                          quiz=quiz,
@@ -195,12 +258,13 @@ def quiz_question(module_id, lesson_id):
                          current_q_index=current_q_index,
                          question_number=questions_answered_correctly + 1,
                          total_questions=total_questions,
-                         progress_percentage=progress_percentage)
+                         progress_percentage=progress_percentage,
+                         questions_remaining=len(quiz_data['questions_remaining']))
 
 @education_bp.route('/quiz/<module_id>/<lesson_id>/answer', methods=['POST'])
 @login_required
 def quiz_answer(module_id, lesson_id):
-    """Process quiz answer and show immediate feedback"""
+    """Process quiz answer and redirect back to question or completion"""
     lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
     if not lesson or 'quiz' not in lesson:
         flash('Quiz not found.', 'error')
@@ -254,94 +318,70 @@ def quiz_answer(module_id, lesson_id):
     # Update session
     session[quiz_session_key] = quiz_data
     
-    module = content_loader.get_module_by_id(module_id)
-    
-    return render_template('education/quiz_feedback.html',
-                         lesson=lesson,
-                         module=module,
-                         current_question=current_question,
-                         user_answer=user_answer,
-                         is_correct=is_correct,
-                         questions_remaining=len(quiz_data['questions_remaining']),
-                         total_questions=len(quiz['questions']))
+    # CORRECTION: Vérifier si le quiz est terminé et rediriger directement
+    if not quiz_data['questions_remaining']:
+        # Quiz terminé - marquer comme complété et rediriger
+        ProgressService.complete_lesson(
+            current_user.id,
+            module_id,
+            lesson_id,
+            quiz_attempts=quiz_data['total_attempts']
+        )
+        
+        # Clean up session
+        session.pop(quiz_session_key, None)
+        
+        return redirect(url_for('education.quiz_complete', 
+                              module_id=module_id, 
+                              lesson_id=lesson_id))
+    else:
+        # Continue to next question
+        return redirect(url_for('education.quiz_question', 
+                              module_id=module_id, 
+                              lesson_id=lesson_id))
+
 
 @education_bp.route('/quiz/<module_id>/<lesson_id>/complete')
 @login_required
 def quiz_complete(module_id, lesson_id):
-    """Quiz completion page"""
+    """Quiz completion page - simplified"""
     lesson = content_loader.get_lesson_by_id(module_id, lesson_id)
     if not lesson:
         flash('Lesson not found.', 'error')
         return redirect(url_for('education.education_home'))
     
-    quiz_session_key = f"quiz_{module_id}_{lesson_id}"
-    
-    if quiz_session_key not in session:
-        return redirect(url_for('education.quiz_detail', 
-                              module_id=module_id, 
-                              lesson_id=lesson_id))
-    
-    quiz_data = session[quiz_session_key]
-    
-    # Clean up session
-    session.pop(quiz_session_key, None)
-    
+    # Quiz est déjà marqué comme complété dans quiz_answer
+    # On affiche juste la page de completion
     module = content_loader.get_module_by_id(module_id)
     
-    return render_template('education/quiz_complete.html',
+    return render_template('education/quiz.html',
                          lesson=lesson,
                          module=module,
-                         total_attempts=quiz_data['total_attempts'],
-                         total_questions=len(lesson['quiz']['questions']))
+                         quiz_completed=True)
 
-# LEGACY/ADMIN ROUTES - Keep for development
-@education_bp.route('/module/<module_id>')
-@login_required
-def module_detail(module_id):
-    """Legacy route - View lessons in a specific module"""
-    module = content_loader.get_module_by_id(module_id)
-    if not module:
-        flash('Module not found.', 'error')
-        return redirect(url_for('education.education_home'))
-    
-    # For now, only allow first module
-    if module['order'] != 1:
-        flash('This module is locked. Complete previous modules to unlock it.', 'error')
-        return redirect(url_for('education.education_home'))
-    
-    # Prepare lesson data
-    lessons_data = []
-    for lesson in module.get('lessons', []):
-        lessons_data.append({
-            'lesson': lesson,
-            'is_unlocked': lesson['level'] == 1  # Only level 1 unlocked for now
-        })
-    
-    return render_template('education/module_detail.html',
-                         module=module,
-                         lessons_data=lessons_data)
-
+#####################
+# ADMIN/DEV ROUTES
 @education_bp.route('/reload-content')
 @login_required
 def reload_content():
     """Reload content from JSON files (for development)"""
-    if current_user.email.endswith('@admin.com') or True:  # Allow for now
+    try:
         content_loader.reload_content()
         flash('Content reloaded successfully!', 'success')
-    else:
-        flash('Admin access required.', 'error')
+    except Exception as e:
+        flash(f'Error reloading content: {str(e)}', 'error')
     return redirect(url_for('education.education_home'))
 
 @education_bp.route('/validate-content')
 @login_required
 def validate_content():
     """Validate all content files"""
-    if current_user.email.endswith('@admin.com') or True:  # Allow for now
+    try:
         is_valid = content_loader.validate_content()
         if is_valid:
             flash('All content files are valid!', 'success')
         else:
             flash('Content validation errors found. Check console.', 'error')
-    else:
-        flash('Admin access required.', 'error')
+    except Exception as e:
+        flash(f'Error validating content: {str(e)}', 'error')
     return redirect(url_for('education.education_home'))

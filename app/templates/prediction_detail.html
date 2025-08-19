@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Prediction – Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <!-- 只包含本页所需的精简样式 -->
+  <link rel="stylesheet" href= "{{ url_for('static', filename='css/prediction_detail.css')}}" />
+  <!-- 本页交互脚本（读取URL参数、切换区间、绘图） -->
+  <script defer src="{{ url_for('static', filename='js/prediction_detail.js') }}"></script>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- 顶部标题栏 -->
+    <div class="top-header">
+      <h2>AI Predictions</h2>
+      <div class="menu-wrapper">
+        <div class="menu-icon" onclick="toggleMenu()">⋮</div>
+        <div class="logout-menu" id="logoutMenu">
+            <a href="{{ url_for('auth.logout') }}" class="logout-button">
+            <span class="logout-text">Log Out</span>
+            <img src="{{ url_for('static', filename='images/logout.png') }}" class="logout-icon" alt="logout arrow" />
+            </a>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search" />
+    </div>
+
+    <!-- 可滚动区域 -->
+    <div class="scrollable-content">
+      <!-- 时间范围切换 -->
+      <div class="range-tabs">
+        <button class="range-btn active" data-range="1W">1W</button>
+        <button class="range-btn" data-range="1M">1M</button>
+        <button class="range-btn" data-range="1Y">1Y</button>
+      </div>
+
+      <!-- 预测卡片 -->
+      <div class="prediction-card">
+        <div class="card-header">
+          <!-- 可被JS替换的公司Logo -->
+          <img class="logo" id="companyLogo" src="../../static/images/apple_logo.png" alt="Company Logo" />
+          <div class="title-wrap">
+            <!-- 可被JS替换的公司名与Ticker -->
+            <div class="company" id="companyName">Apple Inc.</div>
+            <div class="ticker" id="tickerSymbol">AAPL</div>
+          </div>
+          <div class="date-chip" id="dateChip">Jul 31, 2025</div>
+        </div>
+
+        <!-- 指标区（数值/涨跌幅均可被JS替换） -->
+        <div class="metrics">
+          <div class="metric-row">
+            <span>Difference <strong id="diffVal">$2.0</strong></span>
+            <span class="pill neutral" id="diffChange">1.1%</span>
+          </div>
+          <div class="metric-row">
+              <span>
+                <img src="../../static/images/prediction-icon.png" alt="Prediction" class="metric-icon" />
+                Prediction <strong id="predVal">$213</strong>
+              </span>
+
+            <span class="pill up" id="predChange">+1.8%</span>
+          </div>
+          <div class="metric-row">
+            <span>Real Price <strong id="realVal">$211</strong></span>
+            <span class="pill down" id="realPriceChange">-2.9%</span>
+          </div>
+        </div>
+
+        <!-- 简易折线图（SVG） -->
+        <div class="chart-wrap">
+          <svg id="lineChart" viewBox="0 0 300 120" preserveAspectRatio="none"></svg>
+          <!-- 在图表上方覆盖一条可移动的竖向虚线 -->
+          <div class="v-guide" id="vGuide"></div>
+
+          <!-- 滑轨 + 拖拽圆钮 -->
+          <div class="chart-slider" id="chartSlider">
+            <div class="track" id="chartTrack"></div>
+            <div class="knob" id="chartKnob" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0"></div>
+          </div>
+
+          <!-- 两端日期标签 -->
+          <div class="chart-labels">
+            <span id="startLabel">Jul 22</span>
+            <span id="endLabel">Jul 31</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+      <a href="{{ url_for('main.ai_predictions') }}" class="nav-item active">
+        <img src="../../static/images/aiprediction.png" alt="predict" />
+        <div>AI Predictions</div>
+      </a>
+      <a href="{{ url_for('main.discover') }}" class="nav-item">
+        <img src="../../static/images/discovery.png" alt="discover" />
+        <div>Discover</div>
+      </a>
+      <a href="{{ url_for('main.learning')}}" class="nav-item">
+        <img src="../../static/images/learn.png" alt="learn" />
+        <div>Learn</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,94 +1,270 @@
 {
   "modules": [
     {
-      "id": "investment-basics",
-      "name": "Investment Basics!!",
-      "description": "Learn fundamental investment concepts",
+      "id": "foundations",
+      "title": "Foundations",
+      "description": "Start your investing journey",
+      "emoji": "🌱",
+      "icon": "foundations.png",
       "order": 1,
-      "unlock_requirement": 0,
-      "icon_path": "/static/icons/investment.svg",
       "lessons": [
         {
-          "id": "what-is-investing",
-          "title": "What is Investing?",
+          "id": "risk-vs-return",
+          "title": "Risk vs Return",
+          "description": "This is a little explanation of what the module is about",
           "level": 1,
-          "description": "Introduction to investing concepts",
-          "estimated_duration": 10,
+          "duration": 8,
+          "image-preview": "1-preview.png",
           "steps": [
             {
-              "title": "Investment Definition",
-              "content": "Investing is the act of allocating resources, usually money, with the expectation of generating income or profit over time."
+              "title": "Welcome Back! 👋",
+              "content": "Financial ratios are like a company's report card. They tell you if a business is healthy, profitable, and worth your money",
+              "image": "1-01.png"
             },
             {
-              "title": "Why People Invest",
-              "content": "People invest to grow their wealth, beat inflation, and achieve financial goals like retirement or buying a home."
+              "title": "What Are Financial Ratios? 🧮",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-02.png"
+          
             },
             {
-              "title": "Investment vs Saving",
-              "content": "Saving is keeping money safe for short-term needs. Investing is putting money to work for long-term growth, accepting some risk for higher returns."
+              "title": "The Big 3 Ratios You Need 🎯",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-03.png"
+          
+            },
+            {
+              "title": "[P/E = Price / Earnings per share]",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-04.png"
+          
+            },
+            {
+              "title": "New rule to learn!",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-05.png"
+          
+            },
+            {
+              "title": "Debt-to-Equity - The Stress Test ⚖️",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-06.png"
+          
+            },
+            {
+              "title": "ROE - The Efficiency Master 📈",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-07.png"
+          
+            },
+            {
+              "title": "Where to Find These Numbers 🔍",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-08.png"
+          
+            },
+            {
+              "title": "Real Example - Let's Practice! 💡",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-09.png"
+          
+            },
+            {
+              "title": "Quick Comparison Trick 🏆",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-10.png"
+          
+            },
+            {
+              "title": "You're Done! 🚀",
+              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "image":"1-11.png"
+          
             }
+
           ],
           "quiz": {
-            "title": "Investment Basics Quiz",
             "questions": [
               {
-                "text": "What is the primary goal of investing?",
+                "question": "A tech startup has a stock price of $50 and earns $2 per share annually. What is its P/E ratio, and how would you categorize it?",
                 "options": [
-                  "To keep money safe",
-                  "To grow wealth over time",
-                  "To spend money quickly",
-                  "To pay taxes"
+                  "P/E = 25, potentially expensive",
+                  "P/E = 25, potentially cheap",
+                  "P/E = 100, potentially expensive",
+                  "P/E = 0.04, potentially cheap"
                 ],
-                "correct_answer": 1,
-                "explanation": "The primary goal of investing is to grow wealth over time. While keeping money safe is important, investing involves taking calculated risks to achieve higher returns than savings accounts."
+                "correct_answer": 0,
+                "explanation": "P/E = Price ÷ Earnings = $50 ÷ $2 = 25. Since 25 is at our ~expensive~ threshold of 25+, it's potentially expensive (though normal for growth companies)."
               },
               {
-                "text": "How does investing differ from saving?",
+                "question": "You're researching two companies. Company X has a debt-to-equity ratio of 0.3, while Company Y has 1.2. What should you think?",
                 "options": [
-                  "Investing is risk-free",
-                  "Saving provides higher returns",
-                  "Investing accepts risk for potential higher returns",
-                  "There is no difference"
+                  "Both companies are equally risky",
+                  "Company X is healthier; Company Y is a red flag",
+                  "Company Y is healthier; Company X is too conservative",
+                  "You need more information to decide"
+                ],
+                "correct_answer": 1,
+                "explanation": "0.3 is in the healthy range (0.1-0.4), while 1.2 is above 1.0, which means Company Y has more debt than equity - a red flag!"
+              },
+              {
+                "question": "Which company would Warren Buffett likely prefer based on ROE alone?",
+                "options": [
+                  "Company A: 8% ROE",
+                  "Company B: 12% ROE",
+                  "Company C: 22% ROE",
+                  "Company D: 5% ROE"
                 ],
                 "correct_answer": 2,
-                "explanation": "Investing differs from saving because it accepts some risk in exchange for the potential of higher returns over time."
+                "explanation": "22% ROE is in the ~excellent~ range (15-20%+), showing the company is very efficient at generating profits with shareholders' money."
+              },
+              {
+                "question": "You want to check Apple's financial ratios quickly. What's the BEST approach from the lesson?",
+                "options": [
+                  "Calculate them manually from the annual report",
+                  "Call Apple's investor relations department",
+                  "Check Yahoo Finance or Google AAPL stock",
+                  "Wait for the quarterly earnings call"
+                ],
+                "correct_answer": 2,
+                "explanation": "The lesson emphasized that ratios are already calculated for you on sites like Yahoo Finance or by googling the stock ticker."
+              },
+              {
+                "question": "You found a restaurant chain with a P/E ratio of 35. Before deciding if it's expensive, what should you compare it to?",
+                "options": [
+                  "Only technology companies",
+                  "Other restaurant chains and the company's historical P/E",
+                  "Banks and financial institutions",
+                  "The overall market average only"
+                ],
+                "correct_answer": 1,
+                "explanation": "The lesson's pro-tip emphasized comparing within the same industry (other restaurants) and to the company's own history for proper context."
               }
             ]
           }
         },
         {
-          "id": "types-of-investments",
-          "title": "Types of Investments",
-          "level": 2,
-          "description": "Different investment options available",
-          "estimated_duration": 15,
+          "id": "research-methods",
+          "title": "Research Methods",
+          "description": "It's time to become an investment detective...",
+          "level": 1,
+          "duration": 4,
+          "image-preview": "2-preview.png",
           "steps": [
             {
-              "title": "Stocks",
-              "content": "Stocks represent ownership in companies. When you buy stock, you own a small part of that company."
+              "title": "Welcome Detective! 🕵️",
+              "content": "You've learned to read charts and understand the numbers, but how do you actually research a company before investing? Let's uncover the secrets that separate smart investors from gamblers.",
+              "image": "2-01.png"
             },
             {
-              "title": "Bonds",
-              "content": "Bonds are loans you give to governments or companies. They pay you interest over time."
+              "title": "The 3-Layer Research Approach 🎯",
+              "content": "Think of company research like buying a house. You wouldn't just look at the price, right? Smart investors use 3 layers:!",
+              "image": "2-02.png"
+              
             },
             {
-              "title": "Mutual Funds",
-              "content": "Mutual funds pool money from many investors to buy a diversified portfolio of stocks and bonds."
+              "title": "Layer 1 - Understanding the Business 🏢",
+              "content": "The 5-Minute Business Check:",
+              "image": "2-03.png"
+            },
+            {
+              "title": "Layer 2 - Checking the Competition 🏁",
+              "content": "Quick Competitive Analysis:",
+              "image": "2-04.png"
+            },
+            {
+              "title": "Layer 3 - Future Potential 🚀",
+              "content": "The Crystal Ball Questions:",
+              "image": "2-05.png"
+            },
+            {
+              "title": "Your Research Toolkit 🛠️",
+              "content": "Free Research Sources (Bookmark These!):",
+              "image": "2-06.png"
+            },
+            {
+              "title": "Putting It All Together - Tesla Example 🔍",
+              "content": "Text: Tesla Research in Action:",
+              "image": "2-07.png"
+            },
+            {
+              "title": "Great Job! ✨✨✨✨",
+              "content": "You now understand the three most important financial ratios. These tools will help you avoid expensive traps and find quality companies.",
+              "image": "2-08.png"
             }
           ],
           "quiz": {
-            "title": "Investment Types Quiz",
             "questions": [
               {
-                "text": "What do stocks represent?",
+                "question": "What is the main purpose of investing?",
                 "options": [
-                  "Loans to companies",
-                  "Ownership in companies",
-                  "Government debt",
-                  "Bank deposits"
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
                 ],
-                "correct_answer": 1,
-                "explanation": "Stocks represent ownership in companies. When you buy stock, you become a shareholder and own a small part of that company."
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "lesson-01-03",
+          "title": "Lesson 01 - 03",
+          "description": "Description",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "lesson-01-04",
+          "title": "Lesson 01 - 04",
+          "description": "Description",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
               }
             ]
           }
@@ -96,42 +272,524 @@
       ]
     },
     {
-      "id": "stock-market",
-      "name": "Stock Market",
-      "description": "Understanding stocks and trading",
+      "id": "grow0",
+      "title": "Grow",
+      "description": "Start your investing journey",
+      "emoji": "🔥", 
+      "icon": "grow.png",
       "order": 2,
-      "unlock_requirement": 1,
-      "icon_path": "/static/icons/stock.svg",
       "lessons": [
         {
-          "id": "stock-market-basics",
-          "title": "Stock Market Basics",
+          "id": "what-is-investing10",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
           "level": 1,
-          "description": "How the stock market works",
-          "estimated_duration": 12,
+          "duration": 8,
+          "image-preview": "1-preview.png",
           "steps": [
             {
-              "title": "What is the Stock Market?",
-              "content": "The stock market is a marketplace where investors buy and sell shares of publicly traded companies."
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
             },
             {
-              "title": "How Stock Prices Move",
-              "content": "Stock prices move based on supply and demand, company performance, and market sentiment."
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
             }
           ],
           "quiz": {
-            "title": "Stock Market Quiz",
             "questions": [
               {
-                "text": "What determines stock prices?",
+                "question": "What is the main purpose of investing?",
                 "options": [
-                  "Government regulations",
-                  "Supply and demand",
-                  "Company size only",
-                  "Random chance"
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
                 ],
-                "correct_answer": 1,
-                "explanation": "Stock prices are primarily determined by supply and demand - how many people want to buy vs sell the stock."
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "risk-vs-return11",
+          "title": "Risk vs Return",
+          "description": "Understanding investment risks",
+          "level": 1,
+          "duration": 6,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "What is Risk? ⚠️",
+              "content": "Risk is the possibility that your investment might lose value. But without risk, there's no reward!",
+              "image": "lessondetail.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "Higher risk usually means:",
+                "options": [
+                  "Higher potential returns",
+                  "Lower potential returns",
+                  "No returns",
+                  "Guaranteed losses"
+                ],
+                "correct_answer": 0,
+                "explanation": "Higher risk investments typically offer higher potential returns to compensate investors for taking on more risk."
+              }
+            ]
+          }
+        },
+        {
+          "id": "what-is-investing12",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "what-is-investing13",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        }
+      ]
+    },    
+    {
+      "id": "strategy",
+      "title": "Strategy",
+      "description": "Start your investing journey", 
+      "emoji": "📈",
+      "icon": "strategy.png",
+      "order": 3,
+      "lessons": [
+        {
+          "id": "what-is-investing",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "risk-vs-return",
+          "title": "Risk vs Return",
+          "description": "Understanding investment risks",
+          "level": 1,
+          "duration": 6,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "What is Risk? ⚠️",
+              "content": "Risk is the possibility that your investment might lose value. But without risk, there's no reward!",
+              "image": "lessondetail.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "Higher risk usually means:",
+                "options": [
+                  "Higher potential returns",
+                  "Lower potential returns",
+                  "No returns",
+                  "Guaranteed losses"
+                ],
+                "correct_answer": 0,
+                "explanation": "Higher risk investments typically offer higher potential returns to compensate investors for taking on more risk."
+              }
+            ]
+          }
+        },
+        {
+          "id": "what-is-investing03",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "what-is-investing04",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "grow",
+      "title": "Grow",
+      "description": "Start your investing journey",
+      "emoji": "🔥", 
+      "icon": "grow.png",
+      "order": 4,
+      "lessons": [
+        {
+          "id": "what-is-investing",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "risk-vs-return",
+          "title": "Risk vs Return",
+          "description": "Understanding investment risks",
+          "level": 1,
+          "duration": 6,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "What is Risk? ⚠️",
+              "content": "Risk is the possibility that your investment might lose value. But without risk, there's no reward!",
+              "image": "lessondetail.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "Higher risk usually means:",
+                "options": [
+                  "Higher potential returns",
+                  "Lower potential returns",
+                  "No returns",
+                  "Guaranteed losses"
+                ],
+                "correct_answer": 0,
+                "explanation": "Higher risk investments typically offer higher potential returns to compensate investors for taking on more risk."
+              }
+            ]
+          }
+        },
+        {
+          "id": "what-is-investing3",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+              }
+            ]
+          }
+        },
+        {
+          "id": "what-is-investing4",
+          "title": "What is Investing?",
+          "description": "Understanding the basics of investing",
+          "level": 1,
+          "duration": 8,
+          "image-preview": "1-preview.png",
+          "steps": [
+            {
+              "title": "Welcome to Investing! 👋",
+              "content": "Great job starting your investment journey! Investing is putting your money to work for you.",
+              "image": "lessondetail.png"
+            },
+            {
+              "title": "Why Should You Invest? 💰",
+              "content": "Inflation means your money loses value over time. Investing helps your money grow faster than inflation.",
+              "image": "lessondetail2.png",
+              "points": [
+                "Beat inflation and maintain purchasing power",
+                "Build wealth for future goals",
+                "Create passive income streams"
+              ]
+            },
+            {
+              "title": "You're Ready! 🚀",
+              "content": "Congratulations! You now understand the basics of investing. Let's test what you learned!",
+              "image": "lessondetail2.png"
+            }
+          ],
+          "quiz": {
+            "questions": [
+              {
+                "question": "What is the main purpose of investing?",
+                "options": [
+                  "To make your money grow over time",
+                  "To keep your money safe",
+                  "To spend money immediately", 
+                  "To hide money from taxes"
+                ],
+                "correct_answer": 0,
+                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
               }
             ]
           }

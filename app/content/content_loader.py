@@ -3,122 +3,195 @@ import os
 from pathlib import Path
 
 class ContentLoader:
-    def __init__(self, content_dir='content'):
+    def __init__(self, content_file='content/modules.json'):
         self.project_root = Path(__file__).parent.parent.parent
-        self.content_dir = self.project_root / content_dir
-        self.modules_index_file = self.content_dir / 'config' / 'modules-index.json'
-        self.modules_cache = {}
-        self._load_modules_index()
+        self.content_file = self.project_root / content_file
+        self.content_cache = None
+        self._load_content()
     
-    def _load_modules_index(self):
-        """Load the modules index file"""
+    def _load_content(self):
+        """Load the main content file"""
         try:
-            with open(self.modules_index_file, 'r') as file:
-                self.modules_index = json.load(file)
+            with open(self.content_file, 'r', encoding='utf-8') as file:
+                self.content_cache = json.load(file)
+                print(f"✅ Content loaded from {self.content_file}")
         except FileNotFoundError:
-            print(f"Modules index file {self.modules_index_file} not found!")
-            self.modules_index = {"modules": []}
+            print(f"❌ Content file {self.content_file} not found!")
+            self.content_cache = {"modules": []}
         except json.JSONDecodeError as e:
-            print(f"Invalid JSON in {self.modules_index_file}: {e}")
-            self.modules_index = {"modules": []}
-    
-    def _load_module_file(self, module_file_path):
-        """Load a specific module file"""
-        if module_file_path in self.modules_cache:
-            return self.modules_cache[module_file_path]
-        
-        full_path = self.content_dir / module_file_path
-        try:
-            with open(full_path, 'r') as file:
-                module_data = json.load(file)
-                self.modules_cache[module_file_path] = module_data
-                return module_data
-        except FileNotFoundError:
-            print(f"Module file {full_path} not found!")
-            return None
-        except json.JSONDecodeError as e:
-            print(f"Invalid JSON in {full_path}: {e}")
-            return None
+            print(f"❌ Invalid JSON in {self.content_file}: {e}")
+            self.content_cache = {"modules": []}
+        except Exception as e:
+            print(f"❌ Error loading content: {e}")
+            self.content_cache = {"modules": []}
     
     def get_modules(self):
         """Get all modules with their basic info"""
-        modules = []
-        for module_info in self.modules_index.get('modules', []):
-            module_data = self._load_module_file(module_info['file'])
-            if module_data:
-                # Merge index info with module data
-                module_data['order'] = module_info['order']
-                module_data['unlock_requirement'] = module_info['unlock_requirement']
-                modules.append(module_data)
+        if not self.content_cache:
+            self._load_content()
         
-        return sorted(modules, key=lambda x: x['order'])
+        modules = self.content_cache.get('modules', [])
+        # Sort by order if available, otherwise by array position
+        return sorted(modules, key=lambda x: x.get('order', 999))
     
     def get_module_by_id(self, module_id):
         """Get specific module by ID"""
-        # Find module info in index
-        module_info = None
-        for info in self.modules_index.get('modules', []):
-            if info['id'] == module_id:
-                module_info = info
-                break
+        if not self.content_cache:
+            self._load_content()
         
-        if not module_info:
-            return None
+        for module in self.content_cache.get('modules', []):
+            if module.get('id') == module_id:
+                return module
         
-        # Load the full module data
-        module_data = self._load_module_file(module_info['file'])
-        if module_data:
-            module_data['order'] = module_info['order']
-            module_data['unlock_requirement'] = module_info['unlock_requirement']
-        
-        return module_data
+        print(f"⚠️ Module '{module_id}' not found")
+        return None
     
     def get_lesson_by_id(self, module_id, lesson_id):
         """Get specific lesson by ID"""
         module = self.get_module_by_id(module_id)
-        if module:
-            for lesson in module.get('lessons', []):
-                if lesson['id'] == lesson_id:
-                    return lesson
+        if not module:
+            return None
+        
+        for lesson in module.get('lessons', []):
+            if lesson.get('id') == lesson_id:
+                return lesson
+        
+        print(f"⚠️ Lesson '{lesson_id}' not found in module '{module_id}'")
+        return None
+    
+    def get_quiz_by_ids(self, module_id, lesson_id):
+        """Get quiz from a specific lesson"""
+        lesson = self.get_lesson_by_id(module_id, lesson_id)
+        if lesson and 'quiz' in lesson:
+            return lesson['quiz']
+        
+        print(f"⚠️ Quiz not found for lesson '{lesson_id}' in module '{module_id}'")
         return None
     
     def reload_content(self):
         """Reload all content (useful for development)"""
-        self.modules_cache.clear()
-        self._load_modules_index()
-        print("✅ Content reloaded!")
+        self.content_cache = None
+        self._load_content()
+        print("🔄 Content reloaded!")
     
     def validate_content(self):
-        """Validate all content files"""
+        """Validate the content structure"""
+        if not self.content_cache:
+            self._load_content()
+        
         errors = []
         
-        for module_info in self.modules_index.get('modules', []):
-            module_data = self._load_module_file(module_info['file'])
-            if not module_data:
-                errors.append(f"Could not load module file: {module_info['file']}")
-                continue
+        # Check top-level structure
+        if 'modules' not in self.content_cache:
+            errors.append("Missing 'modules' key in root object")
+            return False
+        
+        modules = self.content_cache.get('modules', [])
+        if not isinstance(modules, list):
+            errors.append("'modules' should be an array")
+            return False
+        
+        # Validate each module
+        for i, module in enumerate(modules):
+            module_prefix = f"Module {i} ({module.get('id', 'unknown')})"
             
-            # Validate module structure
-            required_fields = ['id', 'name', 'description', 'lessons']
-            for field in required_fields:
-                if field not in module_data:
-                    errors.append(f"Module {module_info['id']} missing field: {field}")
+            # Required module fields
+            required_module_fields = ['id', 'title', 'description', 'emoji', 'icon', 'lessons']
+            for field in required_module_fields:
+                if field not in module:
+                    errors.append(f"{module_prefix}: missing required field '{field}'")
             
             # Validate lessons
-            for lesson in module_data.get('lessons', []):
-                lesson_required = ['id', 'title', 'level', 'steps']
-                for field in lesson_required:
+            lessons = module.get('lessons', [])
+            if not isinstance(lessons, list):
+                errors.append(f"{module_prefix}: 'lessons' should be an array")
+                continue
+            
+            for j, lesson in enumerate(lessons):
+                lesson_prefix = f"{module_prefix} -> Lesson {j} ({lesson.get('id', 'unknown')})"
+                
+                # Required lesson fields
+                required_lesson_fields = ['id', 'title', 'level', 'steps']
+                for field in required_lesson_fields:
                     if field not in lesson:
-                        errors.append(f"Lesson {lesson.get('id', 'unknown')} missing field: {field}")
+                        errors.append(f"{lesson_prefix}: missing required field '{field}'")
+                
+                # Validate steps
+                steps = lesson.get('steps', [])
+                if not isinstance(steps, list):
+                    errors.append(f"{lesson_prefix}: 'steps' should be an array")
+                    continue
+                
+                for k, step in enumerate(steps):
+                    step_prefix = f"{lesson_prefix} -> Step {k+1}"
+                    
+                    # Required step fields
+                    required_step_fields = ['title', 'content']
+                    for field in required_step_fields:
+                        if field not in step:
+                            errors.append(f"{step_prefix}: missing required field '{field}'")
+                
+                # Validate quiz if present
+                if 'quiz' in lesson:
+                    quiz = lesson['quiz']
+                    quiz_prefix = f"{lesson_prefix} -> Quiz"
+                    
+                    if 'questions' not in quiz:
+                        errors.append(f"{quiz_prefix}: missing 'questions' array")
+                    else:
+                        questions = quiz['questions']
+                        if not isinstance(questions, list):
+                            errors.append(f"{quiz_prefix}: 'questions' should be an array")
+                        else:
+                            for q_idx, question in enumerate(questions):
+                                q_prefix = f"{quiz_prefix} -> Question {q_idx+1}"
+                                required_q_fields = ['question', 'options', 'correct_answer', 'explanation']
+                                for field in required_q_fields:
+                                    if field not in question:
+                                        errors.append(f"{q_prefix}: missing required field '{field}'")
         
+        # Print results
         if errors:
             print("❌ Content validation errors:")
             for error in errors:
                 print(f"  - {error}")
+            return False
         else:
-            print("✅ All content files are valid!")
+            print("✅ All content is valid!")
+            return True
+    
+    def get_content_stats(self):
+        """Get statistics about the content"""
+        if not self.content_cache:
+            self._load_content()
         
-        return len(errors) == 0
+        modules = self.content_cache.get('modules', [])
+        total_lessons = sum(len(module.get('lessons', [])) for module in modules)
+        total_steps = 0
+        total_quizzes = 0
+        total_questions = 0
+        
+        for module in modules:
+            for lesson in module.get('lessons', []):
+                total_steps += len(lesson.get('steps', []))
+                if 'quiz' in lesson:
+                    total_quizzes += 1
+                    total_questions += len(lesson['quiz'].get('questions', []))
+        
+        stats = {
+            'modules': len(modules),
+            'lessons': total_lessons,
+            'steps': total_steps,
+            'quizzes': total_quizzes,
+            'questions': total_questions
+        }
+        
+        print("📊 Content Statistics:")
+        for key, value in stats.items():
+            print(f"  - {key.capitalize()}: {value}")
+        
+        return stats
+    
 
 # Global content loader instance
 content_loader = ContentLoader()

@@ -1,5 +1,6 @@
-# app/main/routes.py - Simplified version
-from flask import Blueprint, render_template, redirect, url_for, jsonify, request
+import json
+import os
+from flask import Blueprint, current_app, render_template, redirect, url_for, jsonify, request
 from flask_login import login_required, current_user
 from datetime import datetime
 from app.services.stock_service import stock_service
@@ -15,8 +16,51 @@ def index():
     else:
         return redirect(url_for('auth.login'))
 
+### ONBOARDING
+@main_bp.route('/onboarding')
+@login_required
+def onboarding():
+    """Onboarding slideshow for new users"""
+    return redirect(url_for('main.onboard1'))
+
+@main_bp.route('/onboard/1')
+@login_required
+def onboard1():
+    return render_template('onboarding/onboard1.html')
+
+@main_bp.route('/onboard/2')
+@login_required
+def onboard2():
+    return render_template('onboarding/onboard2.html')
+
+@main_bp.route('/onboard/3')
+@login_required
+def onboard3():
+    return render_template('onboarding/onboard3.html')
+
+@main_bp.route('/onboard/4')
+@login_required
+def onboard4():
+    return render_template('onboarding/onboard4.html')
+
+@main_bp.route('/onboard/5')
+@login_required
+def onboard5():
+    return render_template('onboarding/onboard5.html')
+
+@main_bp.route('/onboard/6')
+@login_required
+def onboard6():
+    return render_template('onboarding/onboard6.html')
+
+@main_bp.route('/onboarding/skip')
+@login_required
+def onboarding_skip():
+    """Skip onboarding and go to discover"""
+    return redirect(url_for('main.discover'))
 
 
+### DISCOVER PAGE
 @main_bp.route('/discover')
 @login_required
 def discover():
@@ -28,6 +72,11 @@ def discover():
                          user=current_user,
                          initial_stocks=initial_stocks,
                          selected_date=today)
+
+@main_bp.route('/detail/<ticker>')
+def stock_detail(ticker):
+    """Detail page for a specific stock"""
+    return render_template('detail.html', ticker=ticker.upper())
 
 @main_bp.route('/api/stocks')
 @login_required
@@ -48,63 +97,61 @@ def api_stocks():
             'error': str(e),
             'stocks': []
         }), 500
-
-@main_bp.route('/ai-predictions')
+    
+@main_bp.route('/api/stocks-list')
 @login_required
-def ai_predictions():
-    """AI Predictions page - single page for now"""
-    return render_template('ai_predictions.html', user=current_user)
+def api_stocks_list():
+    """API endpoint to get the list of all stocks"""
+    try:
+        # Path to the JSON file with the list of all the stocks
+        json_path = os.path.join(current_app.root_path, '..', 'content', 'stocks_list.json')
+        
+        with open(json_path, 'r', encoding='utf-8') as f:
+            stocks_data = json.load(f)
+        
+        return jsonify({
+            'success': True,
+            'stocks': stocks_data
+        })
+    except FileNotFoundError:
+        return jsonify({
+            'success': False,
+            'error': 'Stocks list file not found',
+            'stocks': []
+        }), 404
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'stocks': []
+        }), 500
 
+
+### LEARNING HUB
 @main_bp.route('/learning')
 @login_required
 def learning():
     """Learning tab - redirects to education section"""
-    # This redirects to your existing education home page
     return redirect(url_for('education.education_home'))
 
-@main_bp.route('/onboarding')
+### AI PREDICTIONS PAGE
+@main_bp.route('/ai-predictions')
 @login_required
-def onboarding():
-    """Onboarding slideshow for new users"""
-    return redirect(url_for('main.onboard1'))
+def ai_predictions():
+    """AI Predictions page - single page for now"""
+    return render_template('aipredictions.html', user=current_user)
 
-@main_bp.route('/onboard/1')
+
+@main_bp.route('/prediction-detail')
 @login_required
-def onboard1():
-    return render_template('onboard1.html')
-
-@main_bp.route('/onboard/2')
-@login_required
-def onboard2():
-    return render_template('onboard2.html')
-
-@main_bp.route('/onboard/3')
-@login_required
-def onboard3():
-    return render_template('onboard3.html')
-
-@main_bp.route('/onboard/4')
-@login_required
-def onboard4():
-    return render_template('onboard4.html')
-
-@main_bp.route('/onboard/5')
-@login_required
-def onboard5():
-    return render_template('onboard5.html')
-
-@main_bp.route('/onboard/6')
-@login_required
-def onboard6():
-    return render_template('onboard6.html')
-
-@main_bp.route('/onboarding/skip')
-@login_required
-def onboarding_skip():
-    """Skip onboarding and go to discover"""
-    return redirect(url_for('main.discover'))
+def prediction_detail():
+    """Prediction detail page for a specific stock"""
+    ticker = request.args.get('ticker', 'AAPL')
+    return render_template('prediction_detail.html', ticker=ticker.upper())
 
 
+
+####################################################################
 @main_bp.route('/debug-routes')
 def debug_routes():
     from flask import current_app

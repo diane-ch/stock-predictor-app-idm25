@@ -4,34 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ lesson.title }} - Step {{ step_number }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson.css') }}" />
 </head>
-<body>
-    <!-- Progress Bar -->
-    <div style="width: 100%; background-color: #f0f0f0; height: 10px; margin-bottom: 20px;">
-        <div style="width: {{ progress_percentage }}%; background-color: #007bff; height: 100%;"></div>
-    </div>
-    <p><strong>Progress: {{ progress_percentage }}% (Step {{ step_number }} of {{ total_steps }})</strong></p>
 
-    <!-- Lesson Content -->
-    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-        <h1>{{ lesson.title }}</h1>
-        <h2>Step {{ step_number }}</h2>
+  <div class="main-wrapper">
+    <div class="intro-card">
+      <div class="intro-close" onclick="showConfirm()">×</div>
+
+      <div class="intro-progress">
+        <div class="intro-progress-bar" style="width: {{ progress_percentage }}%"></div>
+      </div>
+
+      <div class="intro-content">
+        <h2 class="intro-title">{{ current_step.title }}</h2>
         
-        <!-- Current Step Content -->
-        <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 5px;">
-            {% if current_step.title %}
-                <h3>{{ current_step.title }}</h3>
-            {% endif %}
-            <p>{{ current_step.content }}</p>
-        </div>
+        {% if current_step.image %}
+          <img src="{{ url_for('static', filename='images/lessons/' + current_step.image) }}" alt="lesson image" class="intro-image" />
+        {% endif %}
         
-        <!-- Next/Quiz Button -->
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="{{ next_url }}" 
-               style="display: inline-block; padding: 15px 30px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
-                {{ button_text }}
-            </a>
+        <div class="intro-text">
+          {{ current_step.content | safe }}
         </div>
+
+        {% if current_step.points %}
+          <ul class="intro-list">
+            {% for point in current_step.points %}
+              <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if current_step.footer %}
+          <div class="intro-text">
+            {{ current_step.footer }}
+          </div>
+        {% endif %}
+
+        <button class="intro-button" onclick="goNext()">{{ button_text }}</button>
+      </div>
     </div>
+  </div>
+
+  <!-- Confirmation overlay -->
+  <div class="overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <div class="confirm-text">
+        <div class="confirm-title">Are you sure you want to stop<br>the lesson?</div>
+        <div class="confirm-subtitle">Your progress will be lost</div>
+      </div>
+      <div class="confirm-divider"></div>
+      <div class="confirm-actions">
+        <button class="confirm-btn quit" onclick="quitLesson()">Quit</button>
+        <div class="vertical-divider"></div>
+        <button class="confirm-btn keep" onclick="closeConfirm()">Keep Learning</button>
+      </div>
+    </div>
+  </div>
+  
+<script>
+    // Fonction qui utilise les variables Flask
+    function goNext() {
+      console.log("🔍 Navigating to:", "{{ next_url }}");
+      window.location.href = "{{ next_url }}";
+    }
+    
+    // Override quitLesson pour utiliser Flask
+    function quitLesson() {
+      window.location.href = "{{ url_for('education.education_home') }}";
+    }
+    
+    // Make functions global
+    window.goNext = goNext;
+    window.quitLesson = quitLesson;
+  </script>
+  
+  <!-- External JS exported at the end of the file -->
+  <script src="{{ url_for('static', filename='js/lesson.js') }}"></script>
+
 </body>
 </html>
+
+

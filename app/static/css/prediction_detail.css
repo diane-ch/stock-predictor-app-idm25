@@ -1,0 +1,244 @@
+/* 全局 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background: #ffffff;
+  height: 100%;
+  overflow: hidden;
+}
+.main-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  background: #f8f8f8;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部栏 */
+.top-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 24px 8px;
+}
+.top-header h2 { font-size: 30px; font-weight: 1500; color: #111; margin: 0; }
+.menu-icon { font-size: 24px; color: #aaa; cursor: pointer; user-select: none; }
+.menu-wrapper { position: relative; }
+.logout-menu {
+  position: absolute; top: 28px; right: 0; background: #fff; border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15); padding: 10px 16px; display: none; z-index: 999;
+}
+.logout-button {
+  background: none; border: none; color: #ff3b30; font-size: 16px; font-weight: 300;
+  cursor: pointer; display: flex; align-items: center; gap: 30px; white-space: nowrap;
+}
+.logout-icon { width: 20px; height: 20px; object-fit: contain; }
+.logout-text { color: #ff3b30; }
+
+/* 搜索栏 */
+.search-bar { display: flex; align-items: center; padding: 0 24px 16px; }
+.search-bar input {
+  flex: 1; padding: 12px 16px; border-radius: 12px; border: 1px solid #ccc; font-size: 16px; outline: none;
+}
+.search-bar .mic-icon { margin-left: -36px; width: 20px; height: 20px; opacity: 0.5; }
+
+/* 滚动区 */
+.scrollable-content { flex: 1; overflow-y: auto; }
+
+/* 时间范围 tabs */
+.range-tabs {
+  display: flex; gap: 12px; padding: 0 24px 12px; align-items: center;
+}
+.range-btn {
+  border: none; padding: 10px 14px; border-radius: 999px; background: #e9f2ef; color: #05564b;
+  font-weight: 600; cursor: pointer;
+}
+.range-btn.active { background: #05564b; color: #fff; }
+
+/* 预测卡片 */
+.prediction-card {
+  background: #fff; border-radius: 18px; margin: 0 24px 18px; padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.card-header { display: flex; align-items: center; gap: 12px; }
+.logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: #111; }
+.title-wrap { flex: 1; }
+.company { font-size: 16px; font-weight: 700; color: #111; }
+.ticker { font-size: 13px; color: #888; }
+.date-chip {
+  background: #e7f1ee; color: #05564b; padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 700;
+}
+
+/* 指标区（整块背景 + 行内横线分隔） */
+.metrics {
+  margin-top: 14px;
+  border-radius: 12px;
+  background: #f1f3f5;         /* 浅灰底 */
+  overflow: hidden;             /* 让上下圆角生效 */
+  display: flex;
+  flex-direction: column;
+}
+.metric-row {
+  background: transparent;      /* 行本身透明 */
+  border-radius: 0;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #111;
+  border-bottom: 1px solid rgba(0,0,0,0.08);  /* 分隔线 */
+}
+.metric-row:last-child { border-bottom: none; }
+.metric-row strong { font-weight: 700; margin-left: 4px; }
+
+/* 行左侧：让小图标与文本垂直居中且不变形 */
+.metric-row span {
+  display: flex;
+  align-items: center;
+}
+
+/* 左侧图标（Prediction闪电等） */
+.metric-icon {
+  width: 16px;
+  margin-right: 6px;
+  object-fit: contain;
+  display: inline-block;
+}
+
+/* 右侧 pill（按右图风格） */
+.pill {
+  position: relative;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Difference：白底黑描边 */
+.pill.neutral {
+  background: #fff;
+  color: #111;
+  border: 1.5px solid #111;
+}
+
+/* 涨/跌：底色 + 右侧箭头图标 */
+.pill.up,
+.pill.down {
+  padding-right: 36px; /* 预留右侧图标位置 */
+  border: none;
+}
+
+/* 涨：接近右图薄荷绿 */
+.pill.up {
+  background: #2AC2A0;
+  color: #fff;
+}
+.pill.up::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  background: no-repeat center / contain;
+  /* 替换为你的“上涨箭头”图标路径 */
+  background-image: url("../../static/images/up-logo.png");
+}
+
+/* 跌：接近右图深灰 */
+.pill.down {
+  background: #6B6E72;
+  color: #fff;
+}
+.pill.down::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  background: no-repeat center / contain;
+  /* 替换为你的“下降箭头/深灰版”图标路径 */
+  background-image: url("../../static/images/down-logo.png");
+}
+
+/* 折线图 */
+.chart-wrap { margin-top: 12px; }
+#lineChart { width: 100%; height: 120px; display: block; }
+
+.knob { width: 18px; height: 18px; border-radius: 50%; background: #0aa07f; }
+
+/* 底部导航 */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 64px; background: #fff; border-top: 1px solid #eaeaea;
+  display: flex; justify-content: space-around; align-items: center; max-width: 480px; margin: 0 auto; z-index: 100;
+}
+.nav-item { display: flex; flex-direction: column; align-items: center; font-size: 11px; color: #777; text-decoration: none; }
+.nav-item img { width: 22px; height: 22px; margin-bottom: 4px; }
+.nav-item.active { color: #00b686; }
+/* 让 chart-wrap 成为定位容器，虚线和滑轨能定位在里面 */
+.chart-wrap { 
+  margin-top: 12px; 
+  position: relative;
+}
+
+/* 覆盖在折线图上的竖向虚线指示 */
+.v-guide {
+  position: absolute;
+  top: 0;
+  left: 50%;                    /* 初始居中 */
+  width: 0;
+  height: 120px;                /* 与 svg 高度一致 */
+  border-left: 1.5px dashed rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+
+/* 滑轨区域 */
+.chart-slider {
+  position: relative;
+  margin-top: 10px;
+  padding: 12px 0;              /* 给轨道和阴影留空间 */
+}
+
+/* 轨道横线 */
+.chart-slider .track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: #E7ECEF;          /* 浅灰轨道 */
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.12);
+}
+
+/* 圆形可拖拽按钮 */
+#chartKnob {
+  position: absolute;
+  top: 50%;
+  left: 50%;                    /* 初始居中 */
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #0B5A55;          /* 深绿（接近右图） */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18), 0 1px 0 rgba(255,255,255,0.6) inset;
+  cursor: grab;
+  outline: none;
+}
+#chartKnob:active { cursor: grabbing; }
+
+/* 底部两端标签 */
+.chart-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #888;
+  margin-top: 6px;
+}

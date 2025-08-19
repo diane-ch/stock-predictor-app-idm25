@@ -1,0 +1,186 @@
+/* === 全局布局与字体 === */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #ffffff;
+  height: 100%;
+  overflow: hidden;
+}
+
+.main-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === 顶部栏 === */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 8px;
+}
+
+.top-header h2 {
+  font-size: 30px;
+  font-weight: 1500;
+  color: #111;
+  margin: 0;
+}
+
+.menu-icon {
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* === 登出菜单 === */
+.menu-wrapper {
+  position: relative;
+}
+
+.logout-menu {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  padding: 10px 16px;
+  display: none;
+  z-index: 999;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #ff3b30;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  white-space: nowrap;
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.logout-text {
+  color: #ff3b30;
+}
+
+/* === 中间可滚动区 === */
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* === 搜索栏 === */
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 24px 16px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar .mic-icon {
+  margin-left: -36px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+/* === 股票列表样式 === */
+.stock-list {
+  padding: 0 24px;
+}
+
+.stock-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  color: #111;
+  cursor: pointer;
+}
+
+.stock-item:last-child {
+  border-bottom: none;
+}
+
+/* === 底部导航栏 === */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: #fff;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #777;
+  text-decoration: none;
+}
+
+.nav-item img {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 4px;
+}
+
+.nav-item.active {
+  color: #01585A;
+}
+.no-result {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.no-result img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.no-result-title {
+  font-weight: bold;
+  font-size: 20px;
+  color: #154b4b; /* 深绿色 */
+  margin: 4px 0;
+}
+
+.no-result-sub {
+  font-size: 20px;
+  font-weight: 600;
+  color: #154b4b;
+  margin: 2px 0;
+}

@@ -1,0 +1,376 @@
+
+
+/* 全局样式 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #ffffff
+;
+  height: 100%;
+  overflow: hidden; /* 防止整个页面滚动，只允许中间区域滚动 */
+}
+
+
+.main-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: #f8f8f8; /* ✅ 继承背景 */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ===== 顶部标题栏 ===== */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 8px;
+}
+
+
+.top-header h2 {
+  font-size: 30px;     /* ✅ 更大 */
+  font-weight: 1500;    /* ✅ 更粗 */
+  color: #111;
+  margin: 0;
+}
+.menu-icon {
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+/* 右上角菜单整体容器 */
+.menu-wrapper {
+  position: relative;
+}
+.logout-menu {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  padding: 10px 16px;
+  display: none;
+  z-index: 999;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #ff3b30;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  white-space: nowrap;  /* ✅ 不允许内容换行 */
+}
+
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.logout-text {
+  color: #ff3b30;
+}
+
+
+/* 可滚动的中间区域 */
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+
+/* 内容占位区 */
+.content-placeholder {
+  padding: 16px 24px 24px; /* ✅ 从 80px 减到 24px 或更小 */
+  color: #ccc;
+  font-size: 14px;
+  text-align: center;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: #fff;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: space-around;   
+  align-items: center;
+  padding-left: 0px;            /* ✅ 整体向左缩进起始 */
+  gap: 0px;                     /* ✅ 控制导航项之间的间距 */
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 100;
+}
+
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #777;
+  text-decoration: none;
+}
+
+.nav-item img {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 4px;
+}
+
+.nav-item.active {
+  color: #00b686;
+}
+
+
+.stock-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 16px;
+  min-height: 80px; /* ✅ 调小高度，建议 100px 或更小 */
+}
+
+/* 保留链接无下划线 */
+.card-link {
+  text-decoration: none;
+}
+
+/* 避免全局破坏颜色继承 */
+.card-link * {
+  text-decoration: none !important;
+}
+
+
+
+/* 进度区域样式 */
+.progress-line-wrapper {
+  padding: 0 24px 8px;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+/* 简单横线样式 */
+.progress-line {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.learning-card {
+  width: 95%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px; /* ✅ 新增，控制卡片间距 */
+}
+
+
+/* 顶部部分：头像 + 文字 + 状态 */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 头像 */
+.card-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+/* 标题和副标题容器 */
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 标题行 */
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 副标题 */
+.card-subtitle {
+  font-size: 14px;
+  color: #888;
+}
+
+/* 右上角完成标记 */
+.card-status {
+  background-color: #00b686;
+  color: white;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* 下方星星行 */
+.card-stars {
+  display: flex;
+  justify-content: center;     /* 居中对齐 */
+  gap: 12px;                   /* 控制星星间距，可调 */
+  margin-top: 4px;
+}
+
+/* 每颗星星外面的绿色圆圈 */
+.star-circle {
+  width: 48px;
+  height: 48px;
+  background-color: #4dd7ac;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.star-circle img {
+  width: 24px;
+  height: 24px;
+}
+
+
+.video-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.video-popup-card {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.95));
+  border-radius: 24px;
+  width: 300px;
+  padding: 20px 16px 0; /* ⚠️ 注意移除底部 padding */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(6px);
+  overflow: hidden; /* 防止圆角溢出 */
+}
+
+
+.video-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.popup-badge {
+  background-color: #f0f0f0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.lesson-image {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.lesson-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #111;
+}
+
+.lesson-desc {
+  font-size: 14px;
+  color: #666;
+}
+
+
+
+.start-btn-container {
+  padding: 16px;
+  border-top: 2px solid rgba(150, 150, 150, 0.3); /* ✅ 更粗更明显 */
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+}
+
+
+
+.start-btn {
+  background-color: transparent;
+  color: #00796b;
+  font-weight: bold;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  text-decoration: none;
+}
+
+
+/* 灰色数字圆圈 */
+.gray-circle {
+  background-color: #ddd !important;
+  color: #555;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.learning-circle {
+  background-color: #05564b !important;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

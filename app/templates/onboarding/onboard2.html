@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>onboard2</title>
+  <!-- 引入 Space Grotesk 字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <script src="../../static/js/onboard.js"></script>
+  <link rel="stylesheet" href="../../static/css/onboard.css" />
+</head>
+
+<body>
+  <div class="main-wrapper">
+
+    <div class="top-section">
+      <!-- 返回按钮 -->
+        <a href="{{ url_for('main.onboard1') }}" class="back-button">〈 </a>
+
+      <div class="progress-bar">
+        <div class="progress-fill2"></div>
+      </div>
+
+      <!-- 背景图 -->
+      <img src="../../static/images/onboard6back.png" alt="Background" class="bg-image" />
+
+      <img src="../../static/images/onboard2.png" alt="onboard2-image" class="onboard2-image" />
+    </div>
+
+    <!-- ✅ 第二部分：底部白色卡片 -->
+    <div class="bottom-card">
+      <div class="form-title">Decode the picks.<br> Know what they mean</div>
+      <p class="intro-subtext">
+        ·Top 5 stock picks of the day<br>
+        ·Predicted price of the stock and expected change<br>
+        ·Confidence level of our AI<br>
+        ·Key factors behind each prediction
+      </p>
+      <button onclick="window.location.href='{{ url_for('main.onboard3') }}'" id="nextBtn" class="primary-btn">Continue</button>
+
+      <a href="{{ url_for('main.discover') }}" class="skip-link">Skip Tutorial</a>
+    </div>
+
+  </div>
+</body>
+</html>

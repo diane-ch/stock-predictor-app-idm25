@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learning Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/learn.css') }}">
+</head>
+<body>
+
+  <div class="main-wrapper">
+
+    <!-- 顶部标题栏 -->
+    <div class="top-header">
+      <h2>Your learning path</h2>
+      <div class="menu-wrapper">
+          <div class="menu-icon" onclick="toggleMenu()">⋮</div>
+          <div class="logout-menu" id="logoutMenu">
+            <a href="{{ url_for('auth.logout') }}" class="logout-button">
+            <span class="logout-text">Log Out</span>
+            <img src="{{ url_for('static', filename='images/logout.png') }}" class="logout-icon" alt="logout arrow" />
+            </a>
+          </div>
+
+      </div>
+    </div>
+
+    <!-- 学习进度文字 + 横线 -->
+    <div class="progress-line-wrapper">
+      <div class="progress-text">📚 
+        {% set total_completed_lessons = modules_data | sum(attribute='progress.completed_lessons', start=0) %}
+        {% set total_lessons = modules_data | sum(attribute='progress.total_lessons', start=0) %}
+        {{ total_completed_lessons }}/{{ total_lessons }} Completed
+      </div>
+      <hr class="progress-line" />
+    </div>
+
+
+    <!-- 可滚动内容区域 -->
+    <div class="scrollable-content">
+      <div class="content-placeholder">
+
+        {% for module_data in modules_data %}
+        <div class="learning-card">
+          <div class="card-top">
+            <img src="{{ url_for('static', filename='images/' + module_data.module['icon']) }}" alt="avatar" class="card-avatar" />
+            <div class="card-info">
+              <div class="card-title">
+                {{ module_data.module['emoji'] }} <strong>{{ module_data.module['title'] }}</strong>
+              </div>
+              <div class="card-subtitle">{{ module_data.module['description'] }}</div>
+            </div>
+            {% if module_data.status == "locked" %}
+              <div class="card-status" style="background-color: #ccc;">🔒 Locked</div>
+            {% elif module_data.status == "completed" %}
+              <div class="card-status" style="background-color: #4CAF50;">🎉 Completed</div>
+            {% elif module_data.status == "available" %}
+              <div class="card-status" style="background-color: #2196F3;">📚 Available</div>
+            {% endif %}
+          </div>
+          
+          <div class="card-stars">
+            {% for lesson_circle in module_data.lesson_circles %}
+              <div class="star-circle 
+                  {% if lesson_circle.is_unlocked %}
+                    {% if lesson_circle.is_completed %}
+                      completed-circle
+                    {% else %}
+                      learning-circle
+                    {% endif %}
+                  {% else %}
+                    gray-circle
+                  {% endif %}"
+                  {% if lesson_circle.is_unlocked %}
+                    onclick="openVideoCard('{{ module_data.module.id }}', '{{ lesson_circle.lesson_id }}')"
+                  {% endif %}>
+                
+                {% if lesson_circle.is_completed %}
+                  <img src="{{ url_for('static', filename='images/star.png') }}" alt="star" />
+                {% else %}
+                  {{ loop.index }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+      <nav class="bottom-nav">
+    <a href="{{ url_for('main.ai_predictions') }}" class="nav-item">
+      <img src="../../static/images/aiprediction.png" alt="AI Predictions">
+      <span>AI Predictions</span>
+    </a>
+    <a href="{{ url_for('main.discover') }}" class="nav-item">
+      <img src="../../static/images/discovery.png" alt="Disc#f5f6f7over">
+      <span>Discover</span>
+    </a>
+    <a href="{{ url_for('main.learning')}}" class="nav-item active">
+      <img src="../../static/images/learn.png" alt="Learn">
+      <span>Learn</span>
+    </a>
+  </nav>
+
+
+  </div>
+
+  
+<div class="video-popup-overlay" id="videoPopup">
+  <div class="video-popup-card">
+    <div class="video-popup-header">
+      <div class="popup-badge" id="popupCategory"></div>
+      <div class="popup-badge" id="popupTime"></div>
+    </div>
+
+    <img src="" alt="lesson" class="lesson-image" id="popupImage" />
+
+    <div class="lesson-title" id="popupTitle"></div>
+    <div class="lesson-desc" id="popupDesc"></div>
+
+    <div class="start-btn-container">
+      <div class="start-divider"></div>
+      <button class="start-btn" id="startLearningBtn" onclick="startLesson()">Start Learning</button>
+    </div>
+  </div>
+  
+
+<script>
+  // Make the static URL available to external JavaScript
+  window.STATIC_LESSONS_URL = "{{ url_for('static', filename='images/lessons/') }}";
+</script>
+<script src="{{ url_for('static', filename='js/learn.js') }}"></script>
+
+
+
+</body>
+</html>

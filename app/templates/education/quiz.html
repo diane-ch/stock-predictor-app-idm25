@@ -1,43 +1,97 @@
-<!-- templates/education/quiz.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ quiz.title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz - {{ lesson.title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}" />
 </head>
 <body>
-    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-        <h1>{{ lesson.title }}</h1>
-        <h2>{{ quiz.title }}</h2>
-        
-        <form method="POST" action="{{ url_for('education.quiz_submit', module_id=module.id, lesson_id=lesson.id) }}">
-            {% for question in quiz.questions %}
-            <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 5px;">
-                <h3>Question {{ loop.index }}: {{ question.text }}</h3>
-                
-                {% for option in question.options %}
-                <div style="margin: 10px 0;">
-                    <label>
-                        <input type="radio" name="question_{{ loop.index0 }}" value="{{ loop.index0 }}" required>
-                        {{ option }}
-                    </label>
-                </div>
-                {% endfor %}
-            </div>
-            {% endfor %}
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <button type="submit" style="padding: 15px 30px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    Submit Quiz
-                </button>
-            </div>
-        </form>
-        
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="{{ url_for('education.lesson_preview', module_id=module.id, lesson_id=lesson.id) }}">← Back to Lesson</a>
-        </div>
+  {% if quiz_completed %}
+    <!-- Mode completion: Page simplifiée avec seulement l'overlay -->
+    <div class="overlay" id="completionOverlay" style="display: flex;">
+      <div class="completion-box">
+        <div class="completion-image">🎉</div>
+        <div class="completion-title">You nailed it!</div>
+        <div class="completion-subtitle">Come back tomorrow for a new lesson</div>
+        <button class="completion-button" onclick="finishQuiz()">Finish</button>
+      </div>
     </div>
+    
+    <script>
+      function finishQuiz() {
+        window.location.href = "{{ url_for('education.education_home') }}";
+      }
+      window.finishQuiz = finishQuiz;
+    </script>
+    
+  {% else %}
+    <!-- Mode quiz normal -->
+    <div class="main-wrapper">
+      <div class="quiz-card">
+        <div class="quiz-close" onclick="showConfirm()">×</div>
+        <div class="quiz-content">
+          <div class="quiz-step">{{ question_number }}/{{ total_questions }}</div>
+          <div class="quiz-question">
+            {{ current_question.question }}
+          </div>
+
+          <form id="quizForm">
+            {% for option in current_question.options %}
+              <label class="quiz-option">
+                <input type="radio" name="answer" value="{{ loop.index0 }}">
+                <span class="custom-radio"></span>
+                {{ option }}
+              </label>
+            {% endfor %}
+
+            <div class="quiz-button-wrapper">
+              <button type="button" class="quiz-submit" onclick="checkAnswer()">Check Answer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 答案反馈弹窗 -->
+    <div class="quiz-feedback" id="feedback">
+      <div class="feedback-header" id="feedback-header">🎉 Correct!</div>
+      <div class="feedback-explanation" id="feedback-explanation">
+        {{ current_question.explanation }}
+      </div>
+      <button class="feedback-button" onclick="closeFeedback()">Continue</button>
+    </div>
+
+    <!-- 退出确认弹窗 -->
+    <div class="overlay" id="confirmOverlay">
+      <div class="confirm-box">
+        <div class="confirm-text">
+          <div class="confirm-title">Are you sure you want to stop<br>the lesson?</div>
+          <div class="confirm-subtitle">Your progress will be lost</div>
+        </div>
+        <div class="confirm-divider"></div>
+        <div class="confirm-actions">
+          <button class="confirm-btn quit" onclick="quitLesson()">Quit</button>
+          <div class="vertical-divider"></div>
+          <button class="confirm-btn keep" onclick="closeConfirm()">Keep Learning</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Pass data from Flask to JavaScript
+      window.quizData = {
+        questionsRemaining: {{ questions_remaining | default(0) }},
+        currentQuestion: {{ current_question | tojson | safe }},
+        submitUrl: "{{ url_for('education.quiz_answer', module_id=module.id, lesson_id=lesson.id) }}",
+        nextQuestionUrl: "{{ url_for('education.quiz_question', module_id=module.id, lesson_id=lesson.id) }}",
+        completeUrl: "{{ url_for('education.quiz_complete', module_id=module.id, lesson_id=lesson.id) }}"
+      };
+    </script>
+    
+    <!-- Load quiz JS only for normal quiz -->
+    <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+  {% endif %}
 </body>
 </html>
-
