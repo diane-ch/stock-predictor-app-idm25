@@ -1,0 +1,101 @@
+/* ../../static/css/onboard0.css */
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.main-wrapper {
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #245f60;
+  color: #e8fbf2;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px 280px; /* 底部预留手机图空间 */
+  box-sizing: border-box;
+}
+
+/* 顶部箭头 */
+.arrow-top{
+  position: absolute;
+  right: 44px;
+  top: 100px;
+  width: 150px;
+  height: auto;
+  filter: drop-shadow(0 4px 0 rgba(0,0,0,.35));
+  z-index: 3;
+}
+
+/* 中间透明卡片（撑起布局但不可见） */
+.center-card{
+  width: 100%;
+  max-width: 400px;
+  padding: 100px 20px 18px;
+  text-align: center;
+
+  background: transparent;   /* 背景透明 */
+  border: none;              /* 去掉边框 */
+  box-shadow: none;          /* 去掉阴影 */
+}
+
+.headline{
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+  color: #f2fff7;
+}
+.subhead{
+  margin: 0 0 22px;
+  font-size: 14px;
+  opacity: .95;
+}
+
+/* 按钮和跳过 */
+.cta{
+  display: block;
+  width: 84%;
+  margin: 0 auto 10px;
+  padding: 14px 18px;
+  font-size: 16px;
+  border: 0;
+  border-radius: 26px;
+  color: #ffffff;
+  background: #7fe6bf;
+  box-shadow: 0 2px 0 rgba(0,0,0,.15);
+  cursor: pointer;
+}
+.cta:active{ transform: translateY(1px); }
+
+.skip{
+  display: inline-block;
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  opacity: .95;
+}
+
+/* 底部手机卡片 */
+.phone-card{
+  position: absolute;
+  bottom: 0px;
+  width: 350px;
+  height: auto;
+  z-index: 1;
+}
+
+/* 小屏适配 */
+@media (max-width: 360px){
+  .center-card{ max-width: 340px; padding: 18px 16px; }
+  .headline{ font-size: 26px; }
+  .arrow-top{ width: 80px; right: 32px; top: 84px; }
+  .phone-card{ width: 360px; left: -16px; bottom: -34px; }
+}
