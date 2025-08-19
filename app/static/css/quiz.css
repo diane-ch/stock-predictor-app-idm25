@@ -285,9 +285,11 @@
 }
 
 .completion-image {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 12px;
+  display: block;
+  max-width: 100%;   /* 图片不会超过父容器宽度 */
+  max-height: 180px; /* 你可以根据需要调整高度，比如 150px、200px */
+  margin: 0 auto 12px;
+  object-fit: contain; /* 保持比例缩放，避免变形 */
 }
 
 .completion-title {
