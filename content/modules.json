@@ -18,66 +18,66 @@
           "steps": [
             {
               "title": "Welcome Back! 👋",
-              "content": "Financial ratios are like a company's report card. They tell you if a business is healthy, profitable, and worth your money",
+              "content": "<strong>Financial ratios</strong> are like a company's report card. They tell you if a business is healthy, profitable, and worth your money",
               "image": "1-01.png"
             },
             {
               "title": "What Are Financial Ratios? 🧮",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"Think of ratios like comparing apples to apples.<br> Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.'<br><br><strong>Who's more efficient?<br> The ratios tell the story!</strong>",
               "image":"1-02.png"
           
             },
             {
               "title": "The Big 3 Ratios You Need 🎯",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"Don't worry! You don't need to memorize 50 ratios!<br><strong>Focus on these game-changers:</strong><br><ul><li><strong>P/E Ratio - </strong>Is the stock expensive or cheap?</li><li><strong>Debt-to-Equity - </strong>Is the company drowning in debt?</li><li><strong>ROE - </strong>How good is the company at making money?</li></ul>",
               "image":"1-03.png"
           
             },
             {
-              "title": "[P/E = Price / Earnings per share]",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "title": "",
+              "content":"<strong>P/E</strong> means that if a stock costs $100 and the company earns $5 per share yearly, P/E = 20. <br><br>Quick rule: P/E under 15 = potentially cheap, P/E over 25 = potentially expensive. But remember - growth companies often have higher P/Es!",
               "image":"1-04.png"
           
             },
             {
               "title": "New rule to learn!",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"",
               "image":"1-05.png"
           
             },
             {
               "title": "Debt-to-Equity - The Stress Test ⚖️",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"<strong>DTE</strong> shows how much debt a company has vs. its own money.<br>Healthy range: 0.1 to 0.4 (company owns most of its assets) <br>Yellow flag: 0.5 to 0.8 (manageable but watch closely) <br>Red flag: above 1.0 (more debt than equity: risky!)<br><br>Banks and real estate can handle more debt than tech companies.",
               "image":"1-06.png"
           
             },
             {
               "title": "ROE - The Efficiency Master 📈",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"<strong>Return on Equity = </strong>How much profit a company makes with shareholders' money.<br><ul><li>15-20% ROE = Excellent (the company is a money-making machine!)</li><li>10-15% ROE = Good (solid performance)</li><li>Under 10% ROE = Meh (might want to look elsewhere)</li></ul>",
               "image":"1-07.png"
           
             },
             {
               "title": "Where to Find These Numbers 🔍",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"No math required! These ratios are already calculated for you.",
               "image":"1-08.png"
           
             },
             {
               "title": "Real Example - Let's Practice! 💡",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"This is an example with Apple:<br><ul><li><strong>P/E Ratio: 28</strong> (a bit expensive, but Apple has strong growth)</li><li><strong>Debt-to-Equity: 0.31</strong> (healthy - Apple isn't drowning in debt)</li><li><strong>ROE: 26%</strong> (excellent - Apple is super efficient!)</li></ul><br><br><strong>Conclusion: Expensive but high-quality company. Perfect for long-term growth!</strong>",
               "image":"1-09.png"
           
             },
             {
               "title": "Quick Comparison Trick 🏆",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"Pro tip: Never judge a ratio alone! Always compare:<br><ul><li>Same industry (compare Netflix to Disney, not to banks)</li><li>Company's history (is this normal for them?)</li><li>Market conditions (growth vs. recession times)</li></ul>Context is everything in investing!",
               "image":"1-10.png"
           
             },
             {
               "title": "You're Done! 🚀",
-              "content":"Think of ratios like comparing apples to apples. Instead of just saying 'Apple made $10 billion,' ratios help you compare: 'Apple made $10 billion with $50 billion in sales vs Netflix made $2 billion with $8 billion in sales.' Who's more efficient? The ratios tell the story!",
+              "content":"You now understand the three most important financial ratios. These tools will help you avoid expensive traps and find quality companies.",
               "image":"1-11.png"
           
             }
@@ -158,33 +158,33 @@
             },
             {
               "title": "The 3-Layer Research Approach 🎯",
-              "content": "Think of company research like buying a house. You wouldn't just look at the price, right? Smart investors use 3 layers:!",
+              "content": "Think of company research like buying a house. You wouldn't just look at the price, right? Smart investors use 3 layers:<br><br><ul><li><strong>Layer 1: The Business</strong> - What do they actually do?</li><li><strong>Layer 2: The Competition</strong> - Are they winning or losing?</li><li><strong>Layer 3: The Future</strong> - Where are they headed?</li></ul>This takes just 15-20 minutes per company!",
               "image": "2-02.png"
               
             },
             {
               "title": "Layer 1 - Understanding the Business 🏢",
-              "content": "The 5-Minute Business Check:",
+              "content": "The 5-Minute Business Check:<br><ul><li>Read the company description on their website</li><li>Check what % of revenue comes from their main product</li><li>Ask: 'Could I explain this business to my friend?'</li></ul>🚩 <strong>Red flag: If you can't understand what they do after 5 minutes, skip it. Stick to businesses you 'get' - Apple, Netflix, McDonald's make sense!</strong>",
               "image": "2-03.png"
             },
             {
               "title": "Layer 2 - Checking the Competition 🏁",
-              "content": "Quick Competitive Analysis:",
+              "content": "Quick Competitive Analysis:<br><br><ul><li>Google: '[Company name] competitors'</li><li>Compare market share numbers</li><li>Look at who's growing faster</li><li>Check recent news for 'wars' (streaming wars, phone wars)</li></ul><br><br><strong>Pro tip: The best companies often have a 'moat'. Something competitors can't easily copy (like Coca-Cola's brand or Apple's ecosystem).</strong>",
               "image": "2-04.png"
             },
             {
               "title": "Layer 3 - Future Potential 🚀",
-              "content": "The Crystal Ball Questions:",
+              "content": "The Crystal Ball Questions:<br><ul><li>Is their industry growing or shrinking?</li><li>Are they investing in new technology/products?</li><li>Do they have plans for new markets?</li><li>What do experts predict for next 3-5 years?</li></ul>Where to look: Company earnings calls, industry reports, tech blogs. Don't predict the future - just understand where they're headed.",
               "image": "2-05.png"
             },
             {
-              "title": "Your Research Toolkit 🛠️",
-              "content": "Free Research Sources (Bookmark These!):",
+              "title": "Your Research Toolkit 🛠️<br><br>Free Research Souces (Bookmark These!):",
+              "content": "Time budget: 20 minutes max per company. If you need more, it's probably too complicated!",
               "image": "2-06.png"
             },
             {
               "title": "Putting It All Together - Tesla Example 🔍",
-              "content": "Text: Tesla Research in Action:",
+              "content": "<strong>Conclusion: Innovative company in growing industry, but increasing competition. Good for risk-tolerant investors who believe in EV future.</strong>",
               "image": "2-07.png"
             },
             {
@@ -196,15 +196,59 @@
           "quiz": {
             "questions": [
               {
-                "question": "What is the main purpose of investing?",
+                "question": "According to the lesson, what are the three layers of company research in the correct order?",
                 "options": [
-                  "To make your money grow over time",
-                  "To keep your money safe",
-                  "To spend money immediately", 
-                  "To hide money from taxes"
+                  "Competition → Business → Future",
+                  "Future → Competition → Business",
+                  "Business → Competition → Future", 
+                  "Competition → Future → Business"
                 ],
-                "correct_answer": 0,
-                "explanation": "The main purpose of investing is to make your money grow over time, helping you build wealth and beat inflation."
+                "correct_answer": 2,
+                "explanation": "The systematic approach is: Layer 1 (The Business - understand what they do), Layer 2 (The Competition - are they winning?), Layer 3 (The Future - where are they headed?)."
+              },
+              {
+                "question": "When researching a company's business model, what's the key red flag mentioned in the lesson?",
+                "options": [
+                  "The company has been around for less than 5 years",
+                  "You can't understand what they do after 5 minutes",
+                  "They have more than 3 main products", 
+                  "Their website is difficult to navigate"
+                ],
+                "correct_answer": 1,
+                "explanation": "The lesson emphasized: if you can't explain the business to a friend after 5 minutes of research, skip it. Stick to businesses you understand."
+              },
+              {
+                "question": "What is a 'moat' in business terms, as mentioned in the lesson?",
+                "options": [
+                  "A company's debt protection strategy",
+                  "Something competitors can't easily copy ",
+                  "A company's marketing budget", 
+                  "The company's physical location advantages"
+                ],
+                "correct_answer": 1,
+                "explanation": "A 'moat' is a competitive advantage that's hard for competitors to copy, like Coca-Cola's brand recognition or Apple's ecosystem."
+              },
+              {
+                "question": "According to the lesson, how much time should you spend researching one company?",
+                "options": [
+                  "2-3 hours for thorough analysis",
+                  "20 minutes maximum",
+                  "At least 1 hour minimum", 
+                  "As much time as needed, no limit"
+                ],
+                "correct_answer": 1,
+                "explanation": "The lesson emphasized 20 minutes max per company. If you need more time, the investment is probably too complicated for beginner investors."
+              },
+              {
+                "question": "Based on the Tesla example in the lesson, what was the main concern identified about Tesla's future?",
+                "options": [
+                  "They're not innovative enough",
+                  "Electric vehicles are a shrinking market",
+                  "Increasing competition from GM and Ford", 
+                  "They don't have global expansion plans"
+                ],
+                "correct_answer": 2,
+                "explanation": "The lesson noted that while Tesla is ahead in EVs, their competitive advantage is shrinking as traditional automakers like GM and Ford catch up."
               }
             ]
           }
