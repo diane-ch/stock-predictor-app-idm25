@@ -1,42 +1,29 @@
+<!-- onboard6.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>onboard6</title>
-  <!-- 引入 Space Grotesk 字体 -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   <script src="../../static/js/onboard.js"></script>
-  <link rel="stylesheet" href="../../static/css/onboard.css" />
+  <link rel="stylesheet" href="../../static/css/onboard6.css" />
 </head>
 
 <body>
   <div class="main-wrapper">
+    <!-- 顶部：返回 + 进度线 -->
+    <header class="topbar">
+      <a href="onboard5.html" class="back-btn">〈</a>
+      <div class="progress-line"></div>
+    </header>
 
-    <div class="top-section">
-      <!-- 返回按钮 -->
-        <a href="onboard5.html" class="back-button">〈 </a>
+    <!-- 中间：整块合成图片（角色+三行字） -->
+    <img class="hero-composite" src="../../static/images/onboard6.png" alt="You're set to go" />
 
-      <div class="progress-bar">
-        <div class="progress-fill6"></div>
-      </div>
-
-      <!-- 背景图 -->
-      <img src="../../static/images/onboard6back.png" alt="Background" class="bg-image" />
-
-      <img src="../../static/images/onboard6.png" alt="onboard6-image" class="onboard6-image" />
-    </div>
-
-    <!-- ✅ 第二部分：底部白色卡片 -->
-    <div class="bottom-card">
-      <div class="form-title">You're set to go!<br>Ready to learn. Set to earn.</div>
-      <p class="intro-subtext">
-        You're all set to learn the basics, master the lingo, and unlock the skills to invest smarter every day.It's time to level up your money game - one lesson at a time.
-      </p>
-      <button id="nextBtn" class="primary-btn">Start My Journey</button>
-    </div>
-
+    <!-- 底部按钮 -->
+    <button id="nextBtn" class="primary-btn">Start My Journey</button>
   </div>
 </body>
 </html>
