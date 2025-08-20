@@ -39,6 +39,14 @@ def clear_registration_session():
     session.pop('registration_step', None)
 
 #########################
+# STEP 0: Before you begin
+#########################
+@auth_bp.route('/conditions')
+def terms_and_conditions():
+    return render_template('auth/conditions.html')
+
+
+#########################
 # STEP 1: Name Collection
 #########################
 

@@ -149,3 +149,32 @@ document.addEventListener("click", function(event) {
 function addTransition() {
   localStorage.setItem("transitionDirection", "up");
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  // 匹配 HTML 中实际存在的 ID
+  const tutorialBtn = document.getElementById("tutorialBtn");
+  const tutorialModal = document.getElementById("tutorialModal");
+  const tutorialCloseBtn = document.getElementById("tutorialCloseBtn");
+  const logoutMenu = document.getElementById("logoutMenu");
+
+  if (!tutorialBtn || !tutorialModal || !tutorialCloseBtn) return;
+
+  // 打开：显示为 flex 才能触发弹窗的居中布局
+  tutorialBtn.addEventListener("click", function (e) {
+    e.stopPropagation();                // 防止冒泡到“点击空白关闭菜单”的监听
+    tutorialModal.style.display = "flex";
+    if (logoutMenu) logoutMenu.style.display = "none"; // 顺手把右上角菜单收起
+  });
+
+  // 关闭按钮
+  tutorialCloseBtn.addEventListener("click", function () {
+    tutorialModal.style.display = "none";
+  });
+
+  // 点击遮罩关闭（只在点到遮罩本身时关闭）
+  tutorialModal.addEventListener("click", function (e) {
+    if (e.target === tutorialModal) {
+      tutorialModal.style.display = "none";
+    }
+  });
+});

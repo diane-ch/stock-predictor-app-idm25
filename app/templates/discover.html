@@ -17,12 +17,27 @@
       <h2>Smart picks</h2>
       <div class="menu-wrapper">
         <div class="menu-icon" onclick="toggleMenu()">⋮</div>
-        <div class="logout-menu" id="logoutMenu">
-            <a href="{{ url_for('auth.logout') }}" class="logout-button">
-            <span class="logout-text">Log Out</span>
-            <img src="{{ url_for('static', filename='images/logout.png') }}" class="logout-icon" alt="logout arrow" />
-            </a>
-        </div>
+          <div class="logout-menu" id="logoutMenu">
+              <a href="{{ url_for('auth.logout') }}" class="logout-button">
+              <span class="logout-text">Log Out</span>
+              <img src="{{ url_for('static', filename='images/logout.png') }}" class="logout-icon" alt="logout arrow" />
+              </a>
+
+            <div class="menu-divider"></div>
+            <!-- Tutorial -->
+            <button class="menu-item" id="tutorialBtn">
+              <span class="menu-text">Tutorial</span>
+              <img src="../../static/images/Tutoriallogo.png" class="menu-icon-right" alt="Tutorial Icon" />
+            </button>
+
+
+          <div class="menu-divider"></div>
+            <!-- Terms -->
+            <button class="menu-item" id="termsBtn">
+              <span class="menu-text">Terms & Privacy</span>
+              <img src="../../static/images/termslogo.png" class="menu-icon-right" alt="Terms Icon" />
+            </button>
+          </div>
         </div>
     </div>
 
@@ -81,19 +96,60 @@
   <!-- 底部导航栏 -->
   <nav class="bottom-nav">
     <a href="{{ url_for('main.ai_predictions') }}" class="nav-item">
-      <img src="../../static/images/aiprediction.png" alt="AI Predictions">
+      <img src="../../static/images/predictions-inactive.png" alt="AI Predictions">
       <span>AI Predictions</span>
     </a>
     <a href="{{ url_for('main.discover') }}" class="nav-item active">
-      <img src="../../static/images/discovery.png" alt="Disc#f5f6f7over">
+      <img src="../../static/images/discover-active.png" alt="Disc#f5f6f7over">
       <span>Discover</span>
     </a>
     <a href="{{ url_for('main.learning')}}" class="nav-item">
-      <img src="../../static/images/learn.png" alt="Learn">
+      <img src="../../static/images/learn-inactive.png" alt="Learn">
       <span>Learn</span>
     </a>
   </nav>
 
+
+<!-- Tutorial Modal（大弹窗） -->
+<div class="modal-overlay" id="tutorialModal">
+  <div class="modal-card">
+    <h3 class="modal-title">What you need to know about your Smart Picks</h3>
+
+    <p class="modal-sub">
+      In here you will find daily digest of the top five predictions or pick of stocks for the day.
+      <br>New picks every 24 hours
+    </p>
+
+    <!-- 1) 日期/倒计时示意图（替换为你的图片） -->
+    <figure class="tutorial-figure">
+      <img src="../../static/images/tutorial-date.png" alt="date example" class="tutorial-img">
+    </figure>
+
+    <p class="modal-desc">
+      Each pick includes: The name of the stock, the price and percentage of change that is predicted for the end of the day, and a confidence score
+    </p>
+
+    <!-- 2) 股票卡片示意图 -->
+    <figure class="tutorial-figure">
+      <img src="../../static/images/tutorial-card.png" alt="card example" class="tutorial-img">
+    </figure>
+
+    <p class="modal-desc">
+      Whenever you see this icon you will know that this was an AI prediction and the level of confidence it has
+    </p>
+
+    <!-- 3) 置信度示意图 -->
+    <figure class="tutorial-figure">
+      <img src="../../static/images/tutorial-confidence.png" alt="confidence example" class="tutorial-img">
+    </figure>
+
+    <p class="modal-desc">
+      You can see more details on the stock picks like the features taken into consideration for each prediction
+    </p>
+
+    <button class="modal-close" id="tutorialCloseBtn">Close</button>
+  </div>
+</div>
 
 
 
