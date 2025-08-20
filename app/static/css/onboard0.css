@@ -56,8 +56,7 @@ html, body {
 }
 .subhead{
   margin: 0 0 22px;
-  font-size: 14px;
-  opacity: .95;
+  font-size: 20px;
 }
 
 /* 按钮和跳过 */
@@ -69,11 +68,12 @@ html, body {
   font-size: 16px;
   border: 0;
   border-radius: 26px;
-  color: #ffffff;
-  background: #7fe6bf;
+  color: #01585A;
+  background: #ffffff;
   box-shadow: 0 2px 0 rgba(0,0,0,.15);
   cursor: pointer;
   text-decoration: none; /* 去掉下划线 */
+  font-weight: bold
 }
 .cta:active{ transform: translateY(1px); }
 

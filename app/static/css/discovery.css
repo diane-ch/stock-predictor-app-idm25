@@ -143,7 +143,7 @@ html, body {
 .countdown-text {
   min-width: 150px;
   font-size: 14px;
-
+  margin-right: 30px; 
   transform: translateY(-6px); 
   color: #999;
   border-radius: 12px;
@@ -166,7 +166,8 @@ html, body {
   padding: 6px 8px;
   border-radius: 12px;
   background-color: transparent;
-  font-weight: 500;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
   width: 48px;
   flex-shrink: 0;
   display: flex;
@@ -291,35 +292,20 @@ html, body {
 
 .stock-name {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
   color: #000;
 }
 
 .stock-ticker {
-  font-size: 13px;
-  color: #999;
+  font-size: 12px;
+  color: #000000;
   margin-top: 2px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
   text-align: left; /* 可选，确保左对齐 */
 }
 
 
-
-.stock-confidence {
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-}
-
-.confidence-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-}
-
-.confidence-dot.high { background-color: #00d084; }
-.confidence-dot.mid  { background-color: #ec7845; }
-.confidence-dot.low  { background-color: #ff4d4f; }
 
 .stock-right {
   text-align: right;
@@ -329,9 +315,10 @@ html, body {
 }
 
 .stock-price {
-  font-weight: 600;
-  font-size: 15px;
+  font-size: 20px;
   color: #111;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
 .stock-change {
@@ -340,14 +327,19 @@ html, body {
   margin-top: 6px;
   padding: 4px 10px;
   border-radius: 16px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 15px;
   color: white;
+  font-weight: bold;
+  font-family: 'Space Grotesk', sans-serif;
+  inline-size: 80px;         /* 固定宽度 */
+  justify-content: center;   /* 文本和箭头居中 */
+  align-self: flex-end;      /* 胶囊自身靠右 */
 }
 
+
 .stock-change img.arrow-icon {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   margin-left: 6px;
 }
 
@@ -455,7 +447,7 @@ html, body {
 
 .modal-title { margin: 6px 8px 10px; font-size: 20px; font-weight: 700; color: #000000; }
 .modal-sub   { margin: 0 8px 14px; font-size: 14px; line-height: 1.5; color: #000000; }
-.modal-desc  { margin: 8px 8px 12px; font-size: 14px; color: #000000; }
+.modal-desc  { margin: 8px 8px 12px; font-size: 14px; font-weight: 500;   font-family: 'Inter', sans-serif; color: #000000; }
 
 .tutorial-figure {
   background: transparent;   /* 去掉白底 */
@@ -516,4 +508,37 @@ html, body {
     transform: translateY(0);
     opacity: 1;
   }
+}
+/* 置信度容器 */
+.stock-confidence {
+  display: flex;
+  align-items: center;
+  gap: 6px;            /* 元素之间的间距 */
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;  /* ✅ 使用 Inter 字体 */
+}
+
+/* 左侧小图标 */
+.confidence-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: inline-block;
+}
+
+/* 数字部分 */
+.confidence-value {
+  color: #111;         /* 黑色 */
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;  /* ✅ 使用 Inter 字体 */
+}
+
+/* 灰色说明文字 */
+.confidence-label {
+  color: #999;         /* 灰色 */
+  font-weight: 400;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;  /* ✅ 使用 Inter 字体 */
 }

@@ -1,44 +1,60 @@
-/* 全局设置 */
+:root{
+  /* 可调：卡片固定高度 */
+  --card-height: 320px;
+}
+
+/* 页面整体为白色，绿色仅在中间容器显示 */
 html, body {
   margin: 0;
   padding: 0;
- font-family: 'Space Grotesk', sans-serif;
-  background-color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #ffffff;  /* 整体背景白色 */
+  min-height: 100%;
 }
 
-/* 主容器 */
+/* 中央容器（“手机宽度”） */
+/* 主容器公共样式 */
 .main-wrapper {
   max-width: 480px;
   margin: 0 auto;
-  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ===== 第一部分：顶部内容区 ===== */
+/* 深绿色版本 */
+.main-wrapper.green-bg {
+  background-color: #01585A;
+}
+
+/* 白色版本 */
+.main-wrapper.white-bg {
+  background-color: #A8E6D7;
+}
+
+
+/* 顶部区：放返回、进度条、图 */
 .top-section {
   position: relative;
-  height: 420px;
-  background-color: #d5f1f1;
-}
-
-/* 背景图 */
-.bg-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 0;
+  height: 320px;         /* 可按视觉调整 */
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* 返回按钮 */
 .back-button {
   position: absolute;
-  top: 10px;
+  top: 16px;
   left: 16px;
-  font-size: 22px;
-  font-weight: bold;
-  color: #01585A;
-  text-decoration: none;
+  width: 28px;
+  height: 28px;
   z-index: 3;
+}
+.back-button img {
+  width: 50%;
+  height: auto;
 }
 
 /* 进度条 */
@@ -48,89 +64,52 @@ html, body {
   left: 48px;
   right: 24px;
   height: 4px;
-  background-color: #ffffff;
+  background-color: rgba(255,255,255,0.35);
   border-radius: 2px;
   z-index: 2;
 }
+.progress-fill1 { width: 16%; height: 100%; background-color: #16CCA0; border-radius: 2px; }
+.progress-fill2 { width: 32%; height: 100%; background-color: #16CCA0; border-radius: 2px; }
+.progress-fill3 { width: 48%; height: 100%; background-color: #16CCA0; border-radius: 2px; }
+.progress-fill4 { width: 64%; height: 100%; background-color: #16CCA0; border-radius: 2px; }
+.progress-fill5 { width: 80%; height: 100%; background-color: #16CCA0; border-radius: 2px; }
+.progress-fill6 { width: 100%; height: 100%; background-color: #16CCA0; border-radius: 2px; }
 
-.progress-fill1 {
-  width: 16%;  /* 当前进度，例如20%，可根据页数变化设置 */
-  height: 100%;
-  background-color: #16CCA0;
-  border-radius: 2px;
-}
-
-.progress-fill2 {
-  width: 32%;  
-  height: 100%;
-  background-color: #16CCA0;
-  border-radius: 2px;
-}
-.progress-fill3 {
-  width: 48%;  
-  height: 100%;
-  background-color: #16CCA0;
-  border-radius: 2px;
-}
-.progress-fill4 {
-  width: 64%;  
-  height: 100%;
-  background-color: #16CCA0;
-  border-radius: 2px;
-}
-.progress-fill5 {
-  width: 80%;  
-  height: 100%;
-  background-color: #16CCA0;
-  border-radius: 2px;
-}
-.progress-fill6 {
-  width: 100%;  
-  height: 100%;
-  background-color: #16CCA0;
-  border-radius: 2px;
-}
-.bull-image {
+/* 顶部图片：水平居中 */
+.onboard1-image {
   position: absolute;
   top: 105px;
   left: 50%;
-  transform: translateX(calc(-50% + 20px)); /* 向右再偏移20px */
-  width: 300px;
+  transform: translateX(-50%);
+  width: 320px;
   z-index: 2;
 }
 
+/* Onboarding 页的图片（保持统一风格，区别在 top/width/偏移量） */
 .onboard2-image {
   position: absolute;
-  top: 85px;
-  left: 50%;
-  transform: translateX(calc(-50% + 0px)); /* 向右再偏移20px */
+  top: 100px;
   width: 300px;
   z-index: 2;
 }
 
 .onboard3-image {
   position: absolute;
-  top: 110px;
-  left: 50%;
-  transform: translateX(calc(-50% - 10px)); /* 向右再偏移20px */
-  width: 270px;
+  top: 120px;
+  width: 300px;
   z-index: 2;
 }
 
 .onboard4-image {
   position: absolute;
   top: 40px;
-  left: 50%;
-  transform: translateX(calc(-50% - 0px)); /* 向右再偏移20px */
   width: 400px;
   z-index: 2;
 }
 
 .onboard5-image {
   position: absolute;
-  top: 70px;
-  left: 50%;
-  transform: translateX(calc(-50% - 0px)); /* 向右再偏移20px */
+  top: 85px;
   width: 320px;
   z-index: 2;
 }
@@ -139,75 +118,88 @@ html, body {
   position: absolute;
   top: 140px;
   left: 50%;
-  transform: translateX(calc(-50% - 0px)); /* 向右再偏移20px */
+  transform: translateX(-50%);
   width: 180px;
   z-index: 2;
 }
-/* ===== 第二部分：白色底部卡片 ===== */
+
+
+/* 底部白色卡片：固定高度、内部用 Flex 排版 */
 .bottom-card {
-  background-color: white;
+  margin-top: auto;                 /* 贴底 */
+  background-color: #ffffff;
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
-  padding: 40px 24px 40px 24px;
+  padding: 40px 24px;
   text-align: center;
   box-sizing: border-box;
+  box-shadow: 0 -12px 40px rgba(0,0,0,0.15);
   position: relative;
+  z-index: 3;
 
-  margin-top: -18px;  /* ✅ 让白卡往上叠部分 */
-  z-index: 2;         /* ✅ 确保它盖住背景但不盖住牛博士 */
+  height: var(--card-height);       /* ✅ 固定高度 */
+  display: flex;                    /* 内部纵向布局 */
+  flex-direction: column;
 }
-
 
 /* 标题 */
 .form-title {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   color: #065c5c;
-  font-family: 'Space Grotesk', sans-serif;
   line-height: 1.4;
   margin-bottom: 10px;
 }
+
+/* 标题 */
 .form-subtitle {
-  font-size: 14px;
-  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
   color: #065c5c;
-  font-family: 'Space Grotesk', sans-serif;
-  line-height: 1;
-  margin-bottom: 10px;
 }
-/* 副标题 */
+/* 文案：限制显示行数，避免撑高卡片 */
 .intro-subtext {
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   color: #000000;
   opacity: 0.9;
-  margin-bottom: 28px;
   line-height: 1.6;
-  font-family: 'Inter', sans-serif;
+  margin-bottom: 16px;
+  /* 去掉 -webkit-line-clamp 相关代码 */
 }
 
 
-/* 按钮 */
+
+/* 主按钮固定在卡片底部 */
 .primary-btn {
-  background-color: #065c5c;
+  background-color: #01585A;
   color: white;
   border: none;
   border-radius: 24px;
   padding: 14px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   width: 100%;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.08s ease;
+  margin-top: auto;                 /* ✅ 把上面内容“顶”上去，按钮贴底 */
 }
+.primary-btn:hover { background-color: #01585A; }
+.primary-btn:active { transform: translateY(1px); }
 
-.primary-btn:hover {
-  background-color: #01585A;
-}
-
-/* 跳过链接 */
+/* “跳过”链接 */
 .skip-link {
   display: block;
-  margin-top: 16px;
+  margin-top: 12px;
   color: #01585A;
   font-size: 14px;
-  text-decoration: underline;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+/* 小屏优化（可选） */
+@media (max-width: 360px){
+  :root { --card-height: 300px; }
 }

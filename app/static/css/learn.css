@@ -216,7 +216,9 @@ html, body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center;     /* 竖直方向居中可保留 */
+  align-items: flex-start;      /* ⬅️ 子元素整体靠左 */
+  text-align: left;             /* ⬅️ 文本左对齐 */
 }
 
 /* 标题行 */
@@ -224,16 +226,24 @@ html, body {
   font-size: 16px;
   font-weight: 600;
   color: #111;
-  display: flex;
-  align-items: center;
+  display: flex;                /* 如果需要图标+文字横排 */
+  justify-content: flex-start;  /* ⬅️ 主轴开头（靠左） */
+  align-items: flex-start;      /* ⬅️ 交叉轴也靠上/靠左 */
   gap: 4px;
+  text-align: left;             /* 文本左对齐（保险） */
 }
 
 /* 副标题 */
 .card-subtitle {
   font-size: 14px;
   color: #888;
+  font-weight: 500;   
+  font-family: 'Inter', sans-serif;
+  /* align-items 对非 flex 元素无效，这里去掉 */
+  text-align: left;             /* ⬅️ 文本左对齐 */
+  display: block;               /* 保证 text-align 生效一致 */
 }
+
 
 /* 右上角完成标记 */
 .card-status {
