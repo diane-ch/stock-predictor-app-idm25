@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stock Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/detail.css">
+
+
+</head>
+<body>
+
+<div class="main-wrapper">
+
+  <!-- 顶部：左返回 + 右置信度 -->
+  <header class="detail-header">
+    <button class="back-btn" onclick="history.back()">
+      <img src="../../static/images/back.png" alt="Back">
+      <span>Back</span>
+    </button>
+
+    <div class="header-confidence">
+      <img class="confidence-logo" src="../../static/images/confidenceicon.png" alt="Confidence">
+      <span class="confidence-value">8.6/10</span>
+      <span class="confidence-label">Confidence</span>
+    </div>
+  </header>
+
+  <!-- 中心：大logo + 名称 + ticker -->
+  <section class="hero">
+    <img id="logoMain" class="brand-logo" src="../../static/images/apple-logo.png" alt="Apple">
+    <div class="brand-name">Apple Inc.</div>
+    <div class="brand-ticker">AAPL</div>
+  </section>
+
+  <!-- 价格 + 涨跌胶囊（置中） -->
+  <section class="price-row">
+    <div id="price" class="stock-price">211.16 USD</div>
+    <div id="change" class="stock-change positive">
+      +1.2% <img class="arrow-icon" src="../../static/images/up-logo.png" alt="Up">
+    </div>
+  </section>
+
+  <!-- 白色圆角卡片：Why we suggest this? -->
+  <section class="reason-card">
+    <div class="reason-title">
+      <span class="bulb">💡</span>
+      <span>Why we suggest this?</span>
+    </div>
+
+    <div class="reason-list">
+      <div class="reason-chip">Feature 1: Variable of the feature</div>
+      <div class="reason-chip">Feature 2: Variable of the feature</div>
+      <div class="reason-chip">Feature 3: Variable of the feature</div>
+    </div>
+
+    <div class="ai-footer">
+      <img class="confidence-logo" src="../../static/images/confidenceicon.png" alt="Icon">
+      <span class="ai-text">AI Analysis Based on 10 Factors</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- 底部导航与 discovery 一致 -->
+<nav class="bottom-nav">
+  <a href="#" class="nav-item">
+    <img src="../../static/images/aiprediction.png" alt="AI Predictions">
+    <span>AI Predictions</span>
+  </a>
+  <a href="#" class="nav-item active">
+    <img src="../../static/images/discovery.png" alt="Discover">
+    <span>Discover</span>
+  </a>
+  <a href="#" class="nav-item">
+    <img src="../../static/images/learn.png" alt="Learn">
+    <span>Learn</span>
+  </a>
+</nav>
+<script src="../../static/js/detail.js"></script>
+
+</body>
+</html>
