@@ -65,6 +65,31 @@ html, body {
   line-height: 1.4;
 }
 
+.pwd-specification {
+  color: white;
+  text-align: left;
+  margin: 16px 0;
+}
+
+.pwd-specification .pwd-title {
+  color: white;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.pwd-specification ul {
+  color: white;
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.pwd-specification li {
+  color: white;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
 /* 表单整体 */
 form {
   width: 100%;
@@ -104,8 +129,9 @@ button:hover {
 
 /* 上方装饰图 */
 .decor-top {
-  width: 100px;
-  margin-bottom: 16px;
+  width: 300px;
+  margin-bottom: 10px;
+  align-self: flex-end;
 }
 
 /* 下方装饰图 */
@@ -177,35 +203,68 @@ form label:not(:last-child) {
   margin-bottom: 16px;
 }
 
-/* Flash Messages */
-.flash-message {
-  padding: 12px 16px;
-  margin: 15px 0;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
+/* Error popup styling - matching video popup style */
+.error-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.error-popup-card {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.95));
+  border-radius: 24px;
+  width: 260px;
+  padding: 20px 16px 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   text-align: center;
-  animation: slideIn 0.3s ease-out;
-  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(6px);
+  overflow: hidden;
 }
 
-.flash-error {
-  background-color: rgba(255, 59, 48, 0.15);
-  color: #ff3b30;
-  border: 1px solid rgba(255, 59, 48, 0.3);
+
+.error-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #01585A;
 }
 
-.flash-success {
-  background-color: rgba(52, 199, 89, 0.15);
-  color: #34c759;
-  border: 1px solid rgba(52, 199, 89, 0.3);
+.error-desc {
+  font-size: 12px;
+  color: black;
 }
 
-.flash-info {
-  background-color: rgba(0, 122, 255, 0.15);
-  color: #007aff;
-  border: 1px solid rgba(0, 122, 255, 0.3);
+.error-btn-container {
+  padding: 0px;
+  border-top: 2px solid rgba(150, 150, 150, 0.3);
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
 }
+
+.error-btn {
+  background-color: transparent;
+  color: #01585A;  /* Same green color as your start button */
+  font-weight: bold;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.error-btn:hover {
+  background-color: transparent !important;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
 
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(-10px); }

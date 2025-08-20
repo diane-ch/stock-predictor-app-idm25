@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stock Detail</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/css/detail.css" />
+  <link rel="stylesheet" href="{{  url_for('static', filename='css/detail.css')  }}" />
 </head>
 <body>
 
@@ -13,7 +13,7 @@
     <!-- 返回按钮和置信度 -->
     <div class="top-bar">
       <div class="back-button" onclick="goBackToDiscovery()">
-        <img src="../../static/images/back.png" alt="Back">
+        <img src="{{ url_for('static', filename='images/back.png') }}" alt="Back">
         <span>Back</span>
       </div>
       <div class="confidence-badge">
@@ -26,7 +26,7 @@
     <div class="stock-info">
       <img id="stock-logo" src="" class="stock-logo" alt="Logo">
       <div id="stock-name" class="stock-name">Company Name</div>
-      <div id="stock-ticker" class="stock-ticker">TICKER</div>
+      <div id="stock-ticker" class="stock-ticker">{{ ticker }}</div>
     </div>
 
     <!-- 股价和涨跌 -->
@@ -64,6 +64,10 @@
     </a>
   </nav>
 
-  <script src="../../static/js/detail.js"></script>
+  <script>
+    window.TICKER = "{{ ticker }}";
+    window.STATIC_URL = "{{ url_for('static', filename='') }}";
+  </script>
+  <script src="{{ url_for('static', filename='js/detail.js') }}"></script>
 </body>
 </html>

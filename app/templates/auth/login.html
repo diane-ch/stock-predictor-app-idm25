@@ -11,18 +11,24 @@
   <div class="login-screen">
     <div class="login-card">
       <div class="hello-row">
-        <h1 class="hello-text">Hello again</h1>
+        <h1 class="hello-text">Hello</h1>
         <img src="{{ url_for('static', filename='images/yellow heart.png') }}" alt="Heart" class="heart-icon" />
       </div>
 
-      <!-- Flash messages for errors -->
-      <!-- {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class="flash-message flash-{{ category }}">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %} -->
+      <!-- Error message display -->
+      {% if error %}
+        <div class="error-popup-overlay">
+          <div class="error-popup-card">
+
+            <div class="error-title">Incorrect email or password</div>
+            <div class="error-desc">Please check your email and password<br>and try again</div>
+
+            <div class="error-btn-container">
+              <button onclick="this.closest('.error-popup-overlay').style.display='none'" class="error-btn">Try Again</button>
+            </div>
+          </div>
+        </div>
+      {% endif %}
 
       <form method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">

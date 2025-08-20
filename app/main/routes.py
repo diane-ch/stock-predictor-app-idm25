@@ -21,7 +21,12 @@ def index():
 @login_required
 def onboarding():
     """Onboarding slideshow for new users"""
-    return redirect(url_for('main.onboard1'))
+    return redirect(url_for('main.onboard0'))
+
+@main_bp.route('/onboard/0')
+@login_required
+def onboard0():
+    return render_template('onboarding/onboard0.html')
 
 @main_bp.route('/onboard/1')
 @login_required
@@ -73,10 +78,10 @@ def discover():
                          initial_stocks=initial_stocks,
                          selected_date=today)
 
-@main_bp.route('/detail/<ticker>')
+@main_bp.route('/stock-detail/<ticker>')
 def stock_detail(ticker):
     """Detail page for a specific stock"""
-    return render_template('detail.html', ticker=ticker.upper())
+    return render_template('stock_detail.html', ticker=ticker.upper())
 
 @main_bp.route('/api/stocks')
 @login_required

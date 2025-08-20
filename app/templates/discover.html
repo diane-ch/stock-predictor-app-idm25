@@ -44,7 +44,7 @@
         <div class="content-placeholder" id="stocks-container">
             <!-- Dynamic stock cards will be inserted here -->
             {% for stock in initial_stocks %}
-            <a href="detail.html?ticker={{ stock.ticker }}" class="card-link">
+            <a href="{{ url_for('main.stock_detail', ticker=stock.ticker) }}" class="card-link"></a>
             <div class="stock-card">
                 <div class="stock-left">
                 <div class="stock-top">

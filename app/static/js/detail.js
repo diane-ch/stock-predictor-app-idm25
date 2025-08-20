@@ -1,5 +1,5 @@
 function goBackToDiscovery() {
-  window.location.href = "discovery.html";
+  window.location.href = "{{ url_for('main.discover') }}";
 }
 
 const data = {

@@ -104,39 +104,72 @@ button:hover {
 .register-text a {
   color: #a5ffe1;
   text-decoration: none;
+  text-decoration: underline;
 }
 
 .register-text a:hover {
   text-decoration: underline;
 }
 
-/* Flash Messages */
-.flash-message {
-  padding: 12px 16px;
-  margin: 15px 0;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+/* Error popup styling - matching video popup style */
+.error-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.error-popup-card {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.95));
+  border-radius: 24px;
+  width: 260px;
+  padding: 20px 16px 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   text-align: center;
-  animation: slideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(6px);
+  overflow: hidden;
 }
 
-.flash-error {
-  background-color: rgba(255, 59, 48, 0.1);
-  color: #ff3b30;
-  border: 1px solid rgba(255, 59, 48, 0.2);
+
+.error-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
 }
 
-.flash-success {
-  background-color: rgba(52, 199, 89, 0.1);
-  color: #34c759;
-  border: 1px solid rgba(52, 199, 89, 0.2);
+.error-desc {
+  font-size: 12px;
+  color: black;
 }
 
-.flash-info {
-  background-color: rgba(0, 122, 255, 0.1);
-  color: #007aff;
-  border: 1px solid rgba(0, 122, 255, 0.2);
+.error-btn-container {
+  padding: 0px;
+  border-top: 2px solid rgba(150, 150, 150, 0.3);
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.error-btn {
+  background-color: transparent;
+  color: #01585A;  /* Same green color as your start button */
+  font-weight: bold;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.error-btn:hover {
+  background-color: transparent !important;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 @keyframes slideIn {
