@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const msLeft = next8am - now;
     const hoursLeft = Math.ceil(msLeft / (1000 * 60 * 60));
 
-    countdownEl.innerHTML = `<strong>${hoursLeft} hours</strong> until next prediction`;
+    countdownEl.innerHTML = `${hoursLeft} hours until next prediction`;
   }
 
   renderDates();

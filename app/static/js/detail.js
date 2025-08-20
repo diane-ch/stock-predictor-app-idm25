@@ -1,107 +1,79 @@
-function goBackToDiscovery() {
-  window.location.href = "discovery.html";
-}
+// ../../static/js/detail.js
+document.addEventListener('DOMContentLoaded', function () {
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const ticker = (params.get("ticker") || "").toUpperCase();
 
-const data = {
-  AAPL: {
-    name: "Apple Inc.",
-    logo: "../../static/images/apple-logo.png",
-    price: "211.16 USD",
-    change: "+1.9%",
-    changeIcon: "../../static/images/up-logo.png",
-    changePositive: true,
-    confidence: "high",
-    features: ["Feature 1: iPhone 16 Release", "Feature 2: Services Growth", "Feature 3: Strong Cash Flow"]
-  },
-  TSLA: {
-    name: "Tesla Inc.",
-    logo: "../../static/images/tesla-logo.png",
-    price: "313.51 USD",
-    change: "-1.8%",
-    changeIcon: "../../static/images/down-logo.png",
-    changePositive: false,
-    confidence: "mid",
-    features: ["Feature 1: EV Market Slowing", "Feature 2: Robotaxi Plans", "Feature 3: FSD Beta Expansion"]
-  },
-  AMZN: {
-    name: "Amazon",
-    logo: "../../static/images/amazon.png",
-    price: "225.02 USD",
-    change: "+1.2%",
-    changeIcon: "../../static/images/up-logo.png",
-    changePositive: true,
-    confidence: "high",
-    features: ["Feature 1: AWS Growth", "Feature 2: Ads Business", "Feature 3: AI Retail Integration"]
-  },
-  SOFI: {
-    name: "SoFi Technologies",
-    logo: "../../static/images/sofi.png",
-    price: "21.20 USD",
-    change: "+3.64%",
-    changeIcon: "../../static/images/up-logo.png",
-    changePositive: true,
-    confidence: "mid",
-    features: ["Feature 1: Lending Expansion", "Feature 2: New Licenses", "Feature 3: Brand Awareness"]
-  },
-  MSFT: {
-    name: "Microsoft Corp.",
-    logo: "../../static/images/microsoft-logo.png",
-    price: "351.30 USD",
-    change: "-0.7%",
-    changeIcon: "../../static/images/down-logo.png",
-    changePositive: false,
-    confidence: "low",
-    features: ["Feature 1: Copilot Integration", "Feature 2: Azure Market Share", "Feature 3: Gaming Growth"]
-  }
-};
+    const IMG = {
+      up: "../../static/images/up-logo.png",
+      down: "../../static/images/down-logo.png",
+      confidence: "../../static/images/confidenceicon.png",
+      logos: {
+        AAPL: "../../static/images/apple-logo.png",
+        TSLA: "../../static/images/tesla-logo.png",
+        AMZN: "../../static/images/amazon.png",
+        SOFI: "../../static/images/sofi.png",
+        MSFT: "../../static/images/microsoft-logo.png",
+      },
+    };
 
-// 读取 URL 参数中的 ticker
-const urlParams = new URLSearchParams(window.location.search);
-const ticker = urlParams.get("ticker");
+    const STOCKS = {
+      AAPL: { name:"Apple Inc.",  price:211.16, changePct:+2.30, confidence:8.2, factorsCount:10, reasons:["Strong iPhone sales momentum","High cash reserves","Ecosystem stickiness"] },
+      TSLA: { name:"Tesla Inc.",  price:313.51, changePct:-1.80, confidence:7.5, factorsCount:10, reasons:["EV market leadership","Energy storage growth","Software/ADAS optionality"] },
+      AMZN: { name:"Amazon",      price:225.02, changePct:+1.20, confidence:8.0, factorsCount:10, reasons:["Retail operating leverage","Ads monetization","AWS margin uptick"] },
+      SOFI: { name:"SoFi Technologies", price:21.20, changePct:+3.64, confidence:7.0, factorsCount:10, reasons:["Member growth","Improving unit economics","Product cross-sell"] },
+      MSFT: { name:"Microsoft Corp.",   price:351.30, changePct:-0.70, confidence:7.9, factorsCount:10, reasons:["Azure consumption growth","Copilot attach","Operating discipline"] },
+    };
 
-if (ticker && data[ticker]) {
-  const stock = data[ticker];
+    const data = STOCKS[ticker] || STOCKS["AAPL"];
 
-  document.getElementById("stock-name").textContent = stock.name;
-  document.getElementById("stock-ticker").textContent = ticker;
-  document.getElementById("stock-logo").src = stock.logo;
+    // 顶部置信度
+    const headerConfVal = document.querySelector(".header-confidence .confidence-value");
+    if (headerConfVal) headerConfVal.textContent = `${data.confidence.toFixed(1)}/10`;
 
-  document.getElementById("stock-price").textContent = stock.price;
-  document.getElementById("change-text").textContent = stock.change;
-  document.getElementById("change-icon").src = stock.changeIcon;
+    // 中间：logo/名称/ticker
+    const logoMain = document.getElementById("logoMain");
+    if (logoMain) logoMain.src = IMG.logos[ticker] || IMG.logos["AAPL"];
 
-  const changeEl = document.getElementById("stock-change");
-  changeEl.classList.add(stock.changePositive ? "positive" : "negative");
+    const nameEl = document.querySelector(".brand-name");
+    if (nameEl) nameEl.textContent = data.name;
 
-  const dot = document.getElementById("confidence-dot");
-  dot.classList.add(stock.confidence); // 添加 high / mid / low
-  document.getElementById("confidence-text").textContent =
-    stock.confidence.charAt(0).toUpperCase() + stock.confidence.slice(1) + " Confidence";
+    const tickerEl = document.querySelector(".brand-ticker");
+    if (tickerEl) tickerEl.textContent = ticker;
 
-  const featureList = document.getElementById("feature-list");
-  stock.features.forEach(f => {
-    const div = document.createElement("div");
-    div.className = "feature-item";
-    div.textContent = f;
-    featureList.appendChild(div);
-  });
-} else {
-  document.getElementById("stock-name").textContent = "Unknown";
-  document.getElementById("confidence-text").textContent = "Unknown Confidence";
-}
-// detail.js
+    // 价格 + 涨跌
+    const priceEl = document.getElementById("price");
+    if (priceEl) priceEl.textContent = `${data.price.toFixed(2)} USD`;
 
-window.addEventListener("DOMContentLoaded", () => {
-  const transitionDirection = localStorage.getItem("transitionDirection");
-  const container = document.querySelector(".page-transition");
-  
-  if (transitionDirection === "up") {
-    // 表示是从 discovery 页面来的，动画从下往上（上升）
-    container.classList.add("enter-from-top");  // ✅ 上升动画
-  } else {
-    // 表示是返回 discovery，动画从上往下（下降）
-    container.classList.add("enter-from-bottom");  // ✅ 下降动画
-  }
+    const changeEl = document.getElementById("change");
+    if (changeEl) {
+      changeEl.classList.remove("positive","negative");
+      const isUp = data.changePct >= 0;
+      changeEl.classList.add(isUp ? "positive" : "negative");
+      const arrow = changeEl.querySelector(".arrow-icon");
+      if (arrow) arrow.src = isUp ? IMG.up : IMG.down;
+      const pctText = `${isUp ? "+" : ""}${data.changePct.toFixed(2)}% `;
+      if (changeEl.firstChild && changeEl.firstChild.nodeType === 3) {
+        changeEl.firstChild.nodeValue = pctText;
+      } else {
+        changeEl.insertBefore(document.createTextNode(pctText), changeEl.firstChild);
+      }
+    }
 
-  localStorage.removeItem("transitionDirection");
+    // 推荐理由
+    const reasonList = document.querySelector(".reason-list");
+    if (reasonList) {
+      reasonList.innerHTML = "";
+      data.reasons.forEach(txt => {
+        const div = document.createElement("div");
+        div.className = "reason-chip";
+        div.textContent = txt;
+        reasonList.appendChild(div);
+      });
+    }
+
+    // 底部 factors
+    const aiText = document.querySelector(".ai-text");
+    if (aiText) aiText.textContent = `AI Analysis Based on ${data.factorsCount} Factors`;
+  })();
 });
