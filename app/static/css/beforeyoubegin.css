@@ -1,0 +1,107 @@
+
+    :root {
+      --green:#01585A;
+      --black:#000000;
+      --bg:#ffffff;
+      --maxw:480px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                  Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background:var(--bg);
+      color:var(--black);
+      line-height:1.5;
+    }
+
+    .page{
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    /* 顶部返回 */
+    .topbar{
+      width:100%;
+      display:flex;
+      justify-content:center;
+    }
+    .topbar-inner{
+      width:100%;
+      max-width:var(--maxw);
+      padding:14px 16px 0;
+    }
+    .back-link {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
+      color:#01585A;   /* 深绿色 */
+      font-weight:600;
+      font-size:14px;
+    }
+
+    .back-link img{
+      width:20px;
+      height:20px;
+      object-fit:contain;
+    }
+
+    /* 主体内容 */
+    .main-wrapper{
+      width:100%;
+      max-width:var(--maxw);
+      padding:10px 16px 24px;
+      margin:0 auto;
+    }
+
+    h1{
+      font-family:'Space Grotesk', sans-serif;
+      font-size:34px;
+      line-height:1.2;
+      margin:8px 0 14px;
+      color:var(--green); /* 标题绿色 */
+    }
+    p{ margin:0 0 14px; }
+    a{ color:var(--black); text-decoration:underline; text-underline-offset:2px; }
+
+    .section-title{ font-weight:800; margin:18px 0 8px; }
+    ul{ margin:0 0 12px 0; padding-left:18px; }
+    ul li{ margin:6px 0; }
+    ul li b{ font-weight:800; }
+
+    .note{ margin-top:18px; }
+
+    /* 底部按钮 */
+    .cta-wrap{
+      width:100%;
+      margin-top:auto;
+      display:flex;
+      justify-content:center;
+      padding:0 16px 24px;
+      background:linear-gradient(to top, #fff, #fff 60%, rgba(255,255,255,0));
+    }
+    .cta-inner{ width:100%; max-width:var(--maxw); }
+
+    .btn {
+      background-color: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 14px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      width: 90%;
+      max-width: 360px;
+      margin: 0 auto;
+      display: block;
+      font-weight: 600;
+    }
+    .btn:hover {
+      background-color: #047272;
+    }
+    .btn:active{ transform:translateY(1px); }

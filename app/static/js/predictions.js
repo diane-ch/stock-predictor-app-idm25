@@ -1,63 +1,66 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // 股票列表
-  /*const stocks = [
-    "3M (MMM)", "Amazon (AMZN)", "Apple (AAPL)", "Bank of America (BAC)",
-    "Boeing (BA)", "Caterpillar (CAT)", "Cisco Systems (CSCO)", "Coca-Cola (KO)",
-    "Disney (DIS)", "Goldman Sachs (GS)", "Home Depot (HD)", "Intel (INTC)",
-    "International Business Machines (IBM)"
-  ];*/
+// Global variables
+let stocks = [];
 
-  const listContainer = document.getElementById("stockList");
-  const searchInput = document.getElementById("searchInput");
-
-  let stocks = []; // Will be populated from JSON file
-
-  // Load stocks from API endpoints
-  async function loadStocks() {
-    try {
-      const response = await fetch('/api/stocks-list');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = await response.json();
-      
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to load stocks');
-      }
-      
-      const stocksData = result.stocks;
-      
-      // Transform JSON data to display format: "Company Name (TICKER)"
-      stocks = stocksData.map(stock => `${stock.name} (${stock.ticker})`);
-      
-      // Initial render after loading data
-      renderList(stocks);
-    } catch (error) {
-      console.error('Error loading stocks:', error);
-      // Fallback to hardcoded list if JSON fails to load
-      stocks = [
-        "3M Company (MMM)", "Amazon.com Inc. (AMZN)", "Apple Inc. (AAPL)", 
-        "Bank of America Corp. (BAC)", "The Boeing Company (BA)", 
-        "Caterpillar Inc. (CAT)", "Cisco Systems, Inc. (CSCO)", 
-        "The Coca-Cola Company (KO)", "The Walt Disney Company (DIS)", 
-        "The Goldman Sachs Group, Inc. (GS)", "The Home Depot, Inc. (HD)", 
-        "Intel Corporation (INTC)", "International Business Machines Corporation (IBM)"
-      ];
-      renderList(stocks);
-    }
+// Utility functions (can be called before DOM is ready)
+function toggleMenu() {
+  const menu = document.getElementById("logoutMenu");
+  if (menu) {
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
   }
+}
 
+function logout() {
+  alert("Logging out...");
+}
 
-  // 渲染股票列表
-  function renderList(filtered) {
-    listContainer.innerHTML = "";
+// Stock loading function
+async function loadStocks() {
+  try {
+    const response = await fetch('/api/stocks-list');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to load stocks');
+    }
+    
+    const stocksData = result.stocks;
+    
+    // Transform JSON data to display format: "Company Name (TICKER)"
+    stocks = stocksData.map(stock => `${stock.name} (${stock.ticker})`);
+    
+    // Initial render after loading data
+    renderList(stocks);
+  } catch (error) {
+    console.error('Error loading stocks:', error);
+    // Fallback to hardcoded list if JSON fails to load
+    stocks = [
+      "3M Company (MMM)", "Amazon.com Inc. (AMZN)", "Apple Inc. (AAPL)", 
+      "Bank of America Corp. (BAC)", "The Boeing Company (BA)", 
+      "Caterpillar Inc. (CAT)", "Cisco Systems, Inc. (CSCO)", 
+      "The Coca-Cola Company (KO)", "The Walt Disney Company (DIS)", 
+      "The Goldman Sachs Group, Inc. (GS)", "The Home Depot, Inc. (HD)", 
+      "Intel Corporation (INTC)", "International Business Machines Corporation (IBM)"
+    ];
+    renderList(stocks);
+  }
+}
+
+// Render stock list function
+function renderList(filtered) {
+  const listContainer = document.getElementById("stockList");
+  if (!listContainer) return;
+
+  listContainer.innerHTML = "";
 
   if (filtered.length === 0) {
     const noResultDiv = document.createElement("div");
     noResultDiv.className = "no-result";
 
     const noResultImg = document.createElement("img");
-    noResultImg.src = "../../static/images/noresult.png"; // 用你的图标路径
+    noResultImg.src = "../../static/images/noresult.png";
     noResultImg.alt = "No result";
 
     const noResultText1 = document.createElement("p");
@@ -65,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     noResultText1.classList.add("no-result-title");
 
     const noResultText2 = document.createElement("p");
-    noResultText2.textContent = "We couldn’t find the stock you’re looking for.";
+    noResultText2.textContent = "We couldn't find the stock you're looking for.";
     noResultText2.classList.add("no-result-sub");
 
     const noResultText3 = document.createElement("p");
@@ -79,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
     listContainer.appendChild(noResultDiv);
     return;
   }
-
 
   filtered.forEach(stock => {
     const item = document.createElement("div");
@@ -96,65 +98,78 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 }
 
+// Make functions global for onclick handlers
+window.toggleMenu = toggleMenu;
+window.logout = logout;
 
-  // 初始渲染
-  //renderList(stocks);
+// SINGLE DOMContentLoaded event listener - consolidating ALL functionality
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("📋 DOM loaded - initializing all functionality");
 
-  // 搜索过滤 Search functionality
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    const filtered = stocks.filter(stock => stock.toLowerCase().includes(query));
-    renderList(filtered);
-  });
+  // 1. Stock list functionality
+  const listContainer = document.getElementById("stockList");
+  const searchInput = document.getElementById("searchInput");
+
+  if (searchInput) {
+    // Search functionality
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const filtered = stocks.filter(stock => stock.toLowerCase().includes(query));
+      renderList(filtered);
+    });
+  }
 
   // Load stocks when page loads
-  loadStocks();
-});
-
-// 右上角菜单逻辑
-function toggleMenu() {
-  const menu = document.getElementById("logoutMenu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-
-function logout() {
-  alert("Logging out...");
-}
-
-// 点击外部关闭菜单
-document.addEventListener("click", function (event) {
-  const menu = document.getElementById("logoutMenu");
-  const icon = document.querySelector(".menu-icon");
-  if (!menu.contains(event.target) && !icon.contains(event.target)) {
-    menu.style.display = "none";
+  if (listContainer) {
+    loadStocks();
   }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-  // 匹配 HTML 中实际存在的 ID
+  // 2. Menu click outside functionality
+  document.addEventListener("click", function (event) {
+    const menu = document.getElementById("logoutMenu");
+    const icon = document.querySelector(".menu-icon");
+    if (menu && icon && !menu.contains(event.target) && !icon.contains(event.target)) {
+      menu.style.display = "none";
+    }
+  });
+
+  // 3. Tutorial functionality
   const tutorialBtn = document.getElementById("tutorialBtn");
   const tutorialModal = document.getElementById("tutorialModal");
   const tutorialCloseBtn = document.getElementById("tutorialCloseBtn");
   const logoutMenu = document.getElementById("logoutMenu");
 
-  if (!tutorialBtn || !tutorialModal || !tutorialCloseBtn) return;
-
-  // 打开：显示为 flex 才能触发弹窗的居中布局
-  tutorialBtn.addEventListener("click", function (e) {
-    e.stopPropagation();                // 防止冒泡到“点击空白关闭菜单”的监听
-    tutorialModal.style.display = "flex";
-    if (logoutMenu) logoutMenu.style.display = "none"; // 顺手把右上角菜单收起
+  console.log("Tutorial elements found:", {
+    button: !!tutorialBtn,
+    modal: !!tutorialModal,
+    closeBtn: !!tutorialCloseBtn
   });
 
-  // 关闭按钮
-  tutorialCloseBtn.addEventListener("click", function () {
-    tutorialModal.style.display = "none";
-  });
+  if (tutorialBtn && tutorialModal && tutorialCloseBtn) {
+    // Open tutorial modal
+    tutorialBtn.addEventListener("click", function (e) {
+      console.log("🎯 Tutorial button clicked!");
+      e.stopPropagation(); // Prevent event bubbling
+      tutorialModal.style.display = "flex";
+      if (logoutMenu) logoutMenu.style.display = "none";
+    });
 
-  // 点击遮罩关闭（只在点到遮罩本身时关闭）
-  tutorialModal.addEventListener("click", function (e) {
-    if (e.target === tutorialModal) {
+    // Close button
+    tutorialCloseBtn.addEventListener("click", function () {
+      console.log("🔄 Tutorial close button clicked!");
       tutorialModal.style.display = "none";
-    }
-  });
+    });
+
+    // Click outside to close
+    tutorialModal.addEventListener("click", function (e) {
+      if (e.target === tutorialModal) {
+        console.log("🔄 Clicked outside modal, closing");
+        tutorialModal.style.display = "none";
+      }
+    });
+  } else {
+    console.log("❌ Some tutorial elements not found");
+  }
+
+  console.log("✅ All functionality initialized");
 });

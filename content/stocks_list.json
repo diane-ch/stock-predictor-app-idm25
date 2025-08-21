@@ -2,102 +2,7 @@
   {
     "ticker": "AAPL",
     "name": "Apple Inc.",
-    "logo_url": "https://logo.clearbit.com/aapl.com"
-  },
-  {
-    "ticker": "MSFT",
-    "name": "Microsoft Corporation",
-    "logo_url": "https://logo.clearbit.com/msft.com"
-  },
-  {
-    "ticker": "NVDA",
-    "name": "NVIDIA Corporation",
-    "logo_url": "https://logo.clearbit.com/nvda.com"
-  },
-  {
-    "ticker": "AMZN",
-    "name": "Amazon.com, Inc.",
-    "logo_url": "https://logo.clearbit.com/amzn.com"
-  },
-  {
-    "ticker": "GOOGL",
-    "name": "Alphabet Inc. (Class\u202fA)",
-    "logo_url": "https://logo.clearbit.com/googl.com"
-  },
-  {
-    "ticker": "META",
-    "name": "Meta Platforms, Inc.",
-    "logo_url": "https://logo.clearbit.com/meta.com"
-  },
-  {
-    "ticker": "TSLA",
-    "name": "Tesla, Inc.",
-    "logo_url": "https://logo.clearbit.com/tsla.com"
-  },
-  {
-    "ticker": "BRK/B",
-    "name": "Berkshire Hathaway Inc. (Class\u202fB)",
-    "logo_url": "https://logo.clearbit.com/brk/b.com"
-  },
-  {
-    "ticker": "UNH",
-    "name": "UnitedHealth Group Incorporated",
-    "logo_url": "https://logo.clearbit.com/unh.com"
-  },
-  {
-    "ticker": "JPM",
-    "name": "JPMorgan Chase & Co.",
-    "logo_url": "https://logo.clearbit.com/jpm.com"
-  },
-  {
-    "ticker": "V",
-    "name": "Visa Inc.",
-    "logo_url": "https://logo.clearbit.com/v.com"
-  },
-  {
-    "ticker": "LLY",
-    "name": "Eli Lilly and Company",
-    "logo_url": "https://logo.clearbit.com/lly.com"
-  },
-  {
-    "ticker": "XOM",
-    "name": "Exxon Mobil Corporation",
-    "logo_url": "https://logo.clearbit.com/xom.com"
-  },
-  {
-    "ticker": "MA",
-    "name": "Mastercard Incorporated",
-    "logo_url": "https://logo.clearbit.com/ma.com"
-  },
-  {
-    "ticker": "AVGO",
-    "name": "Broadcom Inc.",
-    "logo_url": "https://logo.clearbit.com/avgo.com"
-  },
-  {
-    "ticker": "JNJ",
-    "name": "Johnson & Johnson",
-    "logo_url": "https://logo.clearbit.com/jnj.com"
-  },
-  {
-    "ticker": "HD",
-    "name": "Home Depot, Inc.",
-    "logo_url": "https://logo.clearbit.com/hd.com"
-  },
-  {
-    "ticker": "PG",
-    "name": "Procter & Gamble Company",
-    "logo_url": "https://logo.clearbit.com/pg.com"
-  },
-  {
-    "ticker": "MRK",
-    "name": "Merck & Co., Inc.",
-    "logo_url": "https://logo.clearbit.com/mrk.com"
-  },
-  {
-    "ticker": "COST",
-    "name": "Costco Wholesale Corporation",
-    "logo_url": "https://logo.clearbit.com/cost.com"
+    "logo_url": "https://logo.clearbit.com/apple.com"
   },
   {
     "ticker": "ABBV",
@@ -105,184 +10,14 @@
     "logo_url": "https://logo.clearbit.com/abbv.com"
   },
   {
-    "ticker": "ADBE",
-    "name": "Adobe Inc.",
-    "logo_url": "https://logo.clearbit.com/adbe.com"
-  },
-  {
-    "ticker": "CRM",
-    "name": "Salesforce, Inc.",
-    "logo_url": "https://logo.clearbit.com/crm.com"
-  },
-  {
-    "ticker": "NFLX",
-    "name": "Netflix, Inc.",
-    "logo_url": "https://logo.clearbit.com/nflx.com"
-  },
-  {
-    "ticker": "CVX",
-    "name": "Chevron Corporation",
-    "logo_url": "https://logo.clearbit.com/cvx.com"
-  },
-  {
-    "ticker": "WMT",
-    "name": "Walmart Inc.",
-    "logo_url": "https://logo.clearbit.com/wmt.com"
-  },
-  {
     "ticker": "ACN",
     "name": "Accenture plc",
     "logo_url": "https://logo.clearbit.com/acn.com"
   },
   {
-    "ticker": "AMD",
-    "name": "Advanced Micro Devices, Inc.",
-    "logo_url": "https://logo.clearbit.com/amd.com"
-  },
-  {
-    "ticker": "MCD",
-    "name": "McDonald\u2019s Corporation",
-    "logo_url": "https://logo.clearbit.com/mcd.com"
-  },
-  {
-    "ticker": "KO",
-    "name": "The Coca\u2011Cola Company",
-    "logo_url": "https://logo.clearbit.com/ko.com"
-  },
-  {
-    "ticker": "BAC",
-    "name": "Bank of America Corporation",
-    "logo_url": "https://logo.clearbit.com/bac.com"
-  },
-  {
-    "ticker": "TMO",
-    "name": "Thermo Fisher Scientific Inc.",
-    "logo_url": "https://logo.clearbit.com/tmo.com"
-  },
-  {
-    "ticker": "INTC",
-    "name": "Intel Corporation",
-    "logo_url": "https://logo.clearbit.com/intc.com"
-  },
-  {
-    "ticker": "LIN",
-    "name": "Linde plc",
-    "logo_url": "https://logo.clearbit.com/lin.com"
-  },
-  {
-    "ticker": "AMGN",
-    "name": "Amgen Inc.",
-    "logo_url": "https://logo.clearbit.com/amgn.com"
-  },
-  {
-    "ticker": "TXN",
-    "name": "Texas Instruments Incorporated",
-    "logo_url": "https://logo.clearbit.com/txn.com"
-  },
-  {
-    "ticker": "NEE",
-    "name": "NextEra Energy, Inc.",
-    "logo_url": "https://logo.clearbit.com/nee.com"
-  },
-  {
-    "ticker": "PFE",
-    "name": "Pfizer Inc.",
-    "logo_url": "https://logo.clearbit.com/pfe.com"
-  },
-  {
-    "ticker": "HON",
-    "name": "Honeywell International Inc.",
-    "logo_url": "https://logo.clearbit.com/hon.com"
-  },
-  {
-    "ticker": "MS",
-    "name": "Morgan Stanley",
-    "logo_url": "https://logo.clearbit.com/ms.com"
-  },
-  {
-    "ticker": "UNP",
-    "name": "Union Pacific Corporation",
-    "logo_url": "https://logo.clearbit.com/unp.com"
-  },
-  {
-    "ticker": "QCOM",
-    "name": "Qualcomm Incorporated",
-    "logo_url": "https://logo.clearbit.com/qcom.com"
-  },
-  {
-    "ticker": "PM",
-    "name": "Philip Morris International Inc.",
-    "logo_url": "https://logo.clearbit.com/pm.com"
-  },
-  {
-    "ticker": "GS",
-    "name": "Goldman Sachs Group, Inc.",
-    "logo_url": "https://logo.clearbit.com/gs.com"
-  },
-  {
-    "ticker": "NOW",
-    "name": "ServiceNow, Inc.",
-    "logo_url": "https://logo.clearbit.com/now.com"
-  },
-  {
-    "ticker": "VRTX",
-    "name": "Vertex Pharmaceuticals Incorporated",
-    "logo_url": "https://logo.clearbit.com/vrtx.com"
-  },
-  {
-    "ticker": "BKNG",
-    "name": "Booking Holdings Inc.",
-    "logo_url": "https://logo.clearbit.com/bkng.com"
-  },
-  {
-    "ticker": "LOW",
-    "name": "Lowe\u2019s Companies, Inc.",
-    "logo_url": "https://logo.clearbit.com/low.com"
-  },
-  {
-    "ticker": "RTX",
-    "name": "RTX Corporation",
-    "logo_url": "https://logo.clearbit.com/rtx.com"
-  },
-  {
-    "ticker": "ISRG",
-    "name": "Intuitive Surgical, Inc.",
-    "logo_url": "https://logo.clearbit.com/isrg.com"
-  },
-  {
-    "ticker": "LMT",
-    "name": "Lockheed Martin Corporation",
-    "logo_url": "https://logo.clearbit.com/lmt.com"
-  },
-  {
-    "ticker": "IBM",
-    "name": "International Business Machines Corporation",
-    "logo_url": "https://logo.clearbit.com/ibm.com"
-  },
-  {
-    "ticker": "SBUX",
-    "name": "Starbucks Corporation",
-    "logo_url": "https://logo.clearbit.com/sbux.com"
-  },
-  {
-    "ticker": "GE",
-    "name": "General Electric Company",
-    "logo_url": "https://logo.clearbit.com/ge.com"
-  },
-  {
-    "ticker": "CAT",
-    "name": "Caterpillar Inc.",
-    "logo_url": "https://logo.clearbit.com/cat.com"
-  },
-  {
-    "ticker": "BLK",
-    "name": "BlackRock, Inc.",
-    "logo_url": "https://logo.clearbit.com/blk.com"
-  },
-  {
-    "ticker": "DE",
-    "name": "Deere & Company",
-    "logo_url": "https://logo.clearbit.com/de.com"
+    "ticker": "ADBE",
+    "name": "Adobe Inc.",
+    "logo_url": "https://logo.clearbit.com/adbe.com"
   },
   {
     "ticker": "ADI",
@@ -290,319 +25,9 @@
     "logo_url": "https://logo.clearbit.com/adi.com"
   },
   {
-    "ticker": "MDT",
-    "name": "Medtronic plc",
-    "logo_url": "https://logo.clearbit.com/mdt.com"
-  },
-  {
-    "ticker": "ORCL",
-    "name": "Oracle Corporation",
-    "logo_url": "https://logo.clearbit.com/orcl.com"
-  },
-  {
-    "ticker": "INTU",
-    "name": "Intuit Inc.",
-    "logo_url": "https://logo.clearbit.com/intu.com"
-  },
-  {
-    "ticker": "CSCO",
-    "name": "Cisco Systems, Inc.",
-    "logo_url": "https://logo.clearbit.com/csco.com"
-  },
-  {
-    "ticker": "MU",
-    "name": "Micron Technology, Inc.",
-    "logo_url": "https://logo.clearbit.com/mu.com"
-  },
-  {
     "ticker": "ADSK",
     "name": "Autodesk, Inc.",
     "logo_url": "https://logo.clearbit.com/adsk.com"
-  },
-  {
-    "ticker": "PANW",
-    "name": "Palo Alto Networks, Inc.",
-    "logo_url": "https://logo.clearbit.com/panw.com"
-  },
-  {
-    "ticker": "SNPS",
-    "name": "Synopsys, Inc.",
-    "logo_url": "https://logo.clearbit.com/snps.com"
-  },
-  {
-    "ticker": "CDNS",
-    "name": "Cadence Design Systems, Inc.",
-    "logo_url": "https://logo.clearbit.com/cdns.com"
-  },
-  {
-    "ticker": "FTNT",
-    "name": "Fortinet, Inc.",
-    "logo_url": "https://logo.clearbit.com/ftnt.com"
-  },
-  {
-    "ticker": "ZM",
-    "name": "Zoom Video Communications, Inc.",
-    "logo_url": "https://logo.clearbit.com/zm.com"
-  },
-  {
-    "ticker": "REGN",
-    "name": "Regeneron Pharmaceuticals, Inc.",
-    "logo_url": "https://logo.clearbit.com/regn.com"
-  },
-  {
-    "ticker": "BMY",
-    "name": "Bristol\u2011Myers Squibb Company",
-    "logo_url": "https://logo.clearbit.com/bmy.com"
-  },
-  {
-    "ticker": "GILD",
-    "name": "Gilead Sciences, Inc.",
-    "logo_url": "https://logo.clearbit.com/gild.com"
-  },
-  {
-    "ticker": "BIIB",
-    "name": "Biogen Inc.",
-    "logo_url": "https://logo.clearbit.com/biib.com"
-  },
-  {
-    "ticker": "DHR",
-    "name": "Danaher Corporation",
-    "logo_url": "https://logo.clearbit.com/dhr.com"
-  },
-  {
-    "ticker": "CI",
-    "name": "Cigna Group",
-    "logo_url": "https://logo.clearbit.com/ci.com"
-  },
-  {
-    "ticker": "ELV",
-    "name": "Elevance Health, Inc. (formerly Anthem, Inc.)",
-    "logo_url": "https://logo.clearbit.com/elv.com"
-  },
-  {
-    "ticker": "ZBH",
-    "name": "Zimmer Biomet Holdings, Inc.",
-    "logo_url": "https://logo.clearbit.com/zbh.com"
-  },
-  {
-    "ticker": "IDXX",
-    "name": "IDEXX Laboratories, Inc.",
-    "logo_url": "https://logo.clearbit.com/idxx.com"
-  },
-  {
-    "ticker": "HCA",
-    "name": "HCA Healthcare, Inc.",
-    "logo_url": "https://logo.clearbit.com/hca.com"
-  },
-  {
-    "ticker": "SCHW",
-    "name": "Charles Schwab Corporation",
-    "logo_url": "https://logo.clearbit.com/schw.com"
-  },
-  {
-    "ticker": "AXP",
-    "name": "American Express Company",
-    "logo_url": "https://logo.clearbit.com/axp.com"
-  },
-  {
-    "ticker": "C",
-    "name": "Citigroup Inc.",
-    "logo_url": "https://logo.clearbit.com/c.com"
-  },
-  {
-    "ticker": "TFC",
-    "name": "Truist Financial Corporation",
-    "logo_url": "https://logo.clearbit.com/tfc.com"
-  },
-  {
-    "ticker": "SPGI",
-    "name": "S&P Global, Inc.",
-    "logo_url": "https://logo.clearbit.com/spgi.com"
-  },
-  {
-    "ticker": "ICE",
-    "name": "Intercontinental Exchange, Inc.",
-    "logo_url": "https://logo.clearbit.com/ice.com"
-  },
-  {
-    "ticker": "CB",
-    "name": "Chubb Limited",
-    "logo_url": "https://logo.clearbit.com/cb.com"
-  },
-  {
-    "ticker": "AON",
-    "name": "Aon plc",
-    "logo_url": "https://logo.clearbit.com/aon.com"
-  },
-  {
-    "ticker": "MMC",
-    "name": "Marsh & McLennan Companies, Inc.",
-    "logo_url": "https://logo.clearbit.com/mmc.com"
-  },
-  {
-    "ticker": "AMP",
-    "name": "Ameriprise Financial, Inc.",
-    "logo_url": "https://logo.clearbit.com/amp.com"
-  },
-  {
-    "ticker": "SLB",
-    "name": "SLB (formerly Schlumberger Limited)",
-    "logo_url": "https://logo.clearbit.com/slb.com"
-  },
-  {
-    "ticker": "COP",
-    "name": "ConocoPhillips",
-    "logo_url": "https://logo.clearbit.com/cop.com"
-  },
-  {
-    "ticker": "EOG",
-    "name": "EOG Resources, Inc.",
-    "logo_url": "https://logo.clearbit.com/eog.com"
-  },
-  {
-    "ticker": "PSX",
-    "name": "Phillips 66",
-    "logo_url": "https://logo.clearbit.com/psx.com"
-  },
-  {
-    "ticker": "MPC",
-    "name": "Marathon Petroleum Corporation",
-    "logo_url": "https://logo.clearbit.com/mpc.com"
-  },
-  {
-    "ticker": "OKE",
-    "name": "ONEOK, Inc.",
-    "logo_url": "https://logo.clearbit.com/oke.com"
-  },
-  {
-    "ticker": "WMB",
-    "name": "The Williams Companies, Inc.",
-    "logo_url": "https://logo.clearbit.com/wmb.com"
-  },
-  {
-    "ticker": "KMI",
-    "name": "Kinder Morgan, Inc.",
-    "logo_url": "https://logo.clearbit.com/kmi.com"
-  },
-  {
-    "ticker": "HAL",
-    "name": "Halliburton Company",
-    "logo_url": "https://logo.clearbit.com/hal.com"
-  },
-  {
-    "ticker": "FANG",
-    "name": "Diamondback Energy, Inc. (FANG ticker)",
-    "logo_url": "https://logo.clearbit.com/fang.com"
-  },
-  {
-    "ticker": "TGT",
-    "name": "Target Corporation",
-    "logo_url": "https://logo.clearbit.com/tgt.com"
-  },
-  {
-    "ticker": "DG",
-    "name": "Dollar General Corporation",
-    "logo_url": "https://logo.clearbit.com/dg.com"
-  },
-  {
-    "ticker": "ROST",
-    "name": "Ross Stores, Inc.",
-    "logo_url": "https://logo.clearbit.com/rost.com"
-  },
-  {
-    "ticker": "DLTR",
-    "name": "Dollar Tree, Inc.",
-    "logo_url": "https://logo.clearbit.com/dltr.com"
-  },
-  {
-    "ticker": "KHC",
-    "name": "The Kraft Heinz Company",
-    "logo_url": "https://logo.clearbit.com/khc.com"
-  },
-  {
-    "ticker": "SYY",
-    "name": "Sysco Corporation",
-    "logo_url": "https://logo.clearbit.com/syy.com"
-  },
-  {
-    "ticker": "KR",
-    "name": "The Kroger Co.",
-    "logo_url": "https://logo.clearbit.com/kr.com"
-  },
-  {
-    "ticker": "MNST",
-    "name": "Monster Beverage Corporation",
-    "logo_url": "https://logo.clearbit.com/mnst.com"
-  },
-  {
-    "ticker": "CHD",
-    "name": "Church & Dwight Co., Inc.",
-    "logo_url": "https://logo.clearbit.com/chd.com"
-  },
-  {
-    "ticker": "ETN",
-    "name": "Eaton Corporation plc",
-    "logo_url": "https://logo.clearbit.com/etn.com"
-  },
-  {
-    "ticker": "EMR",
-    "name": "Emerson Electric Co.",
-    "logo_url": "https://logo.clearbit.com/emr.com"
-  },
-  {
-    "ticker": "ROP",
-    "name": "Roper Technologies, Inc.",
-    "logo_url": "https://logo.clearbit.com/rop.com"
-  },
-  {
-    "ticker": "PH",
-    "name": "Parker\u2011Hannifin Corporation",
-    "logo_url": "https://logo.clearbit.com/ph.com"
-  },
-  {
-    "ticker": "ITW",
-    "name": "Illinois Tool Works Inc.",
-    "logo_url": "https://logo.clearbit.com/itw.com"
-  },
-  {
-    "ticker": "ROK",
-    "name": "Rockwell Automation, Inc.",
-    "logo_url": "https://logo.clearbit.com/rok.com"
-  },
-  {
-    "ticker": "FAST",
-    "name": "Fastenal Company",
-    "logo_url": "https://logo.clearbit.com/fast.com"
-  },
-  {
-    "ticker": "PCAR",
-    "name": "PACCAR Inc.",
-    "logo_url": "https://logo.clearbit.com/pcar.com"
-  },
-  {
-    "ticker": "XYL",
-    "name": "Xylem Inc.",
-    "logo_url": "https://logo.clearbit.com/xyl.com"
-  },
-  {
-    "ticker": "AOS",
-    "name": "A. O. Smith Corporation",
-    "logo_url": "https://logo.clearbit.com/aos.com"
-  },
-  {
-    "ticker": "SO",
-    "name": "The Southern Company",
-    "logo_url": "https://logo.clearbit.com/so.com"
-  },
-  {
-    "ticker": "D",
-    "name": "Dominion Energy, Inc.",
-    "logo_url": "https://logo.clearbit.com/d.com"
-  },
-  {
-    "ticker": "DUK",
-    "name": "Duke Energy Corporation",
-    "logo_url": "https://logo.clearbit.com/duk.com"
   },
   {
     "ticker": "AEP",
@@ -610,14 +35,159 @@
     "logo_url": "https://logo.clearbit.com/aep.com"
   },
   {
-    "ticker": "EXC",
-    "name": "Exelon Corporation",
-    "logo_url": "https://logo.clearbit.com/exc.com"
+    "ticker": "AMD",
+    "name": "Advanced Micro Devices, Inc.",
+    "logo_url": "https://logo.clearbit.com/amd.com"
   },
   {
-    "ticker": "PEG",
-    "name": "Public Service Enterprise Group Incorporated",
-    "logo_url": "https://logo.clearbit.com/peg.com"
+    "ticker": "AMGN",
+    "name": "Amgen Inc.",
+    "logo_url": "https://logo.clearbit.com/amgn.com"
+  },
+  {
+    "ticker": "AMP",
+    "name": "Ameriprise Financial, Inc.",
+    "logo_url": "https://logo.clearbit.com/amp.com"
+  },
+  {
+    "ticker": "AMZN",
+    "name": "Amazon.com, Inc.",
+    "logo_url": "https://logo.clearbit.com/amazon.com"
+  },
+  {
+    "ticker": "AON",
+    "name": "Aon plc",
+    "logo_url": "https://logo.clearbit.com/aon.com"
+  },
+  {
+    "ticker": "AOS",
+    "name": "A. O. Smith Corporation",
+    "logo_url": "https://logo.clearbit.com/aos.com"
+  },
+  {
+    "ticker": "AVGO",
+    "name": "Broadcom Inc.",
+    "logo_url": "https://logo.clearbit.com/avgo.com"
+  },
+  {
+    "ticker": "AXP",
+    "name": "American Express Company",
+    "logo_url": "https://logo.clearbit.com/axp.com"
+  },
+  {
+    "ticker": "BAC",
+    "name": "Bank of America Corporation",
+    "logo_url": "https://logo.clearbit.com/bankofamerica.com"
+  },
+  {
+    "ticker": "BIIB",
+    "name": "Biogen Inc.",
+    "logo_url": "https://logo.clearbit.com/biib.com"
+  },
+  {
+    "ticker": "BKNG",
+    "name": "Booking Holdings Inc.",
+    "logo_url": "https://logo.clearbit.com/bkng.com"
+  },
+  {
+    "ticker": "BLK",
+    "name": "BlackRock, Inc.",
+    "logo_url": "https://logo.clearbit.com/blk.com"
+  },
+  {
+    "ticker": "BMY",
+    "name": "Bristol-Myers Squibb Company",
+    "logo_url": "https://logo.clearbit.com/bmy.com"
+  },
+  {
+    "ticker": "C",
+    "name": "Citigroup Inc.",
+    "logo_url": "https://logo.clearbit.com/c.com"
+  },
+  {
+    "ticker": "CAT",
+    "name": "Caterpillar Inc.",
+    "logo_url": "https://logo.clearbit.com/cat.com"
+  },
+  {
+    "ticker": "CB",
+    "name": "Chubb Limited",
+    "logo_url": "https://logo.clearbit.com/cb.com"
+  },
+  {
+    "ticker": "CDNS",
+    "name": "Cadence Design Systems, Inc.",
+    "logo_url": "https://logo.clearbit.com/cdns.com"
+  },
+  {
+    "ticker": "CHD",
+    "name": "Church & Dwight Co., Inc.",
+    "logo_url": "https://logo.clearbit.com/chd.com"
+  },
+  {
+    "ticker": "CI",
+    "name": "Cigna Group",
+    "logo_url": "https://logo.clearbit.com/ci.com"
+  },
+  {
+    "ticker": "CL",
+    "name": "Colgate-Palmolive Company",
+    "logo_url": "https://logo.clearbit.com/cl.com"
+  },
+  {
+    "ticker": "COP",
+    "name": "ConocoPhillips",
+    "logo_url": "https://logo.clearbit.com/cop.com"
+  },
+  {
+    "ticker": "COST",
+    "name": "Costco Wholesale Corporation",
+    "logo_url": "https://logo.clearbit.com/cost.com"
+  },
+  {
+    "ticker": "CRM",
+    "name": "Salesforce, Inc.",
+    "logo_url": "https://logo.clearbit.com/crm.com"
+  },
+  {
+    "ticker": "CSCO",
+    "name": "Cisco Systems, Inc.",
+    "logo_url": "https://logo.clearbit.com/csco.com"
+  },
+  {
+    "ticker": "CVX",
+    "name": "Chevron Corporation",
+    "logo_url": "https://logo.clearbit.com/chevron.com"
+  },
+  {
+    "ticker": "D",
+    "name": "Dominion Energy, Inc.",
+    "logo_url": "https://logo.clearbit.com/d.com"
+  },
+  {
+    "ticker": "DE",
+    "name": "Deere & Company",
+    "logo_url": "https://logo.clearbit.com/de.com"
+  },
+  {
+    "ticker": "DG",
+    "name": "Dollar General Corporation",
+    "logo_url": "https://logo.clearbit.com/dg.com"
+  },
+  {
+    "ticker": "DHR",
+    "name": "Danaher Corporation",
+    "logo_url": "https://logo.clearbit.com/dhr.com"
+  },
+  {
+    "ticker": "DLTR",
+    "name": "Dollar Tree, Inc.",
+    "logo_url": "https://logo.clearbit.com/dltr.com"
+  },
+  {
+    "ticker": "DUK",
+    "name": "Duke Energy Corporation",
+    "logo_url": "https://logo.clearbit.com/duk.com"
   },
   {
     "ticker": "ED",
@@ -625,18 +195,455 @@
     "logo_url": "https://logo.clearbit.com/ed.com"
   },
   {
-    "ticker": "WEC",
-    "name": "WEC Energy Group, Inc.",
-    "logo_url": "https://logo.clearbit.com/wec.com"
-  },
-  {
     "ticker": "EIX",
     "name": "Edison International",
     "logo_url": "https://logo.clearbit.com/eix.com"
   },
   {
+    "ticker": "ELV",
+    "name": "Elevance Health, Inc.",
+    "logo_url": "https://logo.clearbit.com/elv.com"
+  },
+  {
+    "ticker": "EMR",
+    "name": "Emerson Electric Co.",
+    "logo_url": "https://logo.clearbit.com/emr.com"
+  },
+  {
+    "ticker": "EOG",
+    "name": "EOG Resources, Inc.",
+    "logo_url": "https://logo.clearbit.com/eog.com"
+  },
+  {
+    "ticker": "ETN",
+    "name": "Eaton Corporation plc",
+    "logo_url": "https://logo.clearbit.com/etn.com"
+  },
+  {
+    "ticker": "EXC",
+    "name": "Exelon Corporation",
+    "logo_url": "https://logo.clearbit.com/exc.com"
+  },
+  {
+    "ticker": "FANG",
+    "name": "Diamondback Energy, Inc.",
+    "logo_url": "https://logo.clearbit.com/fang.com"
+  },
+  {
+    "ticker": "FAST",
+    "name": "Fastenal Company",
+    "logo_url": "https://logo.clearbit.com/fast.com"
+  },
+  {
+    "ticker": "FTNT",
+    "name": "Fortinet, Inc.",
+    "logo_url": "https://logo.clearbit.com/ftnt.com"
+  },
+  {
+    "ticker": "GE",
+    "name": "General Electric Company",
+    "logo_url": "https://logo.clearbit.com/ge.com"
+  },
+  {
+    "ticker": "GILD",
+    "name": "Gilead Sciences, Inc.",
+    "logo_url": "https://logo.clearbit.com/gild.com"
+  },
+  {
+    "ticker": "GOOGL",
+    "name": "Alphabet Inc. (Class A)",
+    "logo_url": "https://logo.clearbit.com/google.com"
+  },
+  {
+    "ticker": "GS",
+    "name": "Goldman Sachs Group, Inc.",
+    "logo_url": "https://logo.clearbit.com/gs.com"
+  },
+  {
+    "ticker": "HAL",
+    "name": "Halliburton Company",
+    "logo_url": "https://logo.clearbit.com/hal.com"
+  },
+  {
+    "ticker": "HCA",
+    "name": "HCA Healthcare, Inc.",
+    "logo_url": "https://logo.clearbit.com/hca.com"
+  },
+  {
+    "ticker": "HD",
+    "name": "Home Depot, Inc.",
+    "logo_url": "https://logo.clearbit.com/homedepot.com"
+  },
+  {
+    "ticker": "HON",
+    "name": "Honeywell International Inc.",
+    "logo_url": "https://logo.clearbit.com/hon.com"
+  },
+  {
+    "ticker": "IBM",
+    "name": "International Business Machines Corporation",
+    "logo_url": "https://logo.clearbit.com/ibm.com"
+  },
+  {
+    "ticker": "ICE",
+    "name": "Intercontinental Exchange, Inc.",
+    "logo_url": "https://logo.clearbit.com/ice.com"
+  },
+  {
+    "ticker": "IDXX",
+    "name": "IDEXX Laboratories, Inc.",
+    "logo_url": "https://logo.clearbit.com/idxx.com"
+  },
+  {
+    "ticker": "INTC",
+    "name": "Intel Corporation",
+    "logo_url": "https://logo.clearbit.com/intc.com"
+  },
+  {
+    "ticker": "INTU",
+    "name": "Intuit Inc.",
+    "logo_url": "https://logo.clearbit.com/intu.com"
+  },
+  {
+    "ticker": "ISRG",
+    "name": "Intuitive Surgical, Inc.",
+    "logo_url": "https://logo.clearbit.com/isrg.com"
+  },
+  {
+    "ticker": "ITW",
+    "name": "Illinois Tool Works Inc.",
+    "logo_url": "https://logo.clearbit.com/itw.com"
+  },
+  {
+    "ticker": "JNJ",
+    "name": "Johnson & Johnson",
+    "logo_url": "https://logo.clearbit.com/jnj.com"
+  },
+  {
+    "ticker": "JPM",
+    "name": "JPMorgan Chase & Co.",
+    "logo_url": "https://logo.clearbit.com/jpmorgan.com"
+  },
+  {
+    "ticker": "KHC",
+    "name": "The Kraft Heinz Company",
+    "logo_url": "https://logo.clearbit.com/khc.com"
+  },
+  {
+    "ticker": "KMI",
+    "name": "Kinder Morgan, Inc.",
+    "logo_url": "https://logo.clearbit.com/kmi.com"
+  },
+  {
+    "ticker": "KO",
+    "name": "The Coca-Cola Company",
+    "logo_url": "https://logo.clearbit.com/ko.com"
+  },
+  {
+    "ticker": "KR",
+    "name": "The Kroger Co.",
+    "logo_url": "https://logo.clearbit.com/kr.com"
+  },
+  {
+    "ticker": "LIN",
+    "name": "Linde plc",
+    "logo_url": "https://logo.clearbit.com/lin.com"
+  },
+  {
+    "ticker": "LLY",
+    "name": "Eli Lilly and Company",
+    "logo_url": "https://logo.clearbit.com/lly.com"
+  },
+  {
+    "ticker": "LMT",
+    "name": "Lockheed Martin Corporation",
+    "logo_url": "https://logo.clearbit.com/lmt.com"
+  },
+  {
+    "ticker": "LOW",
+    "name": "Lowe's Companies, Inc.",
+    "logo_url": "https://logo.clearbit.com/low.com"
+  },
+  {
+    "ticker": "MA",
+    "name": "Mastercard Incorporated",
+    "logo_url": "https://logo.clearbit.com/mastercard.com"
+  },
+  {
+    "ticker": "MCD",
+    "name": "McDonald's Corporation",
+    "logo_url": "https://logo.clearbit.com/mcdonalds.com"
+  },
+  {
+    "ticker": "MDT",
+    "name": "Medtronic plc",
+    "logo_url": "https://logo.clearbit.com/mdt.com"
+  },
+  {
+    "ticker": "META",
+    "name": "Meta Platforms, Inc.",
+    "logo_url": "https://logo.clearbit.com/meta.com"
+  },
+  {
+    "ticker": "MMC",
+    "name": "Marsh & McLennan Companies, Inc.",
+    "logo_url": "https://logo.clearbit.com/mmc.com"
+  },
+  {
+    "ticker": "MNST",
+    "name": "Monster Beverage Corporation",
+    "logo_url": "https://logo.clearbit.com/mnst.com"
+  },
+  {
+    "ticker": "MPC",
+    "name": "Marathon Petroleum Corporation",
+    "logo_url": "https://logo.clearbit.com/mpc.com"
+  },
+  {
+    "ticker": "MRK",
+    "name": "Merck & Co., Inc.",
+    "logo_url": "https://logo.clearbit.com/mrk.com"
+  },
+  {
+    "ticker": "MS",
+    "name": "Morgan Stanley",
+    "logo_url": "https://logo.clearbit.com/ms.com"
+  },
+  {
+    "ticker": "MSFT",
+    "name": "Microsoft Corporation",
+    "logo_url": "https://logo.clearbit.com/microsoft.com"
+  },
+  {
+    "ticker": "MU",
+    "name": "Micron Technology, Inc.",
+    "logo_url": "https://logo.clearbit.com/mu.com"
+  },
+  {
+    "ticker": "NEE",
+    "name": "NextEra Energy, Inc.",
+    "logo_url": "https://logo.clearbit.com/nee.com"
+  },
+  {
+    "ticker": "NFLX",
+    "name": "Netflix, Inc.",
+    "logo_url": "https://logo.clearbit.com/netflix.com"
+  },
+  {
+    "ticker": "NOW",
+    "name": "ServiceNow, Inc.",
+    "logo_url": "https://logo.clearbit.com/now.com"
+  },
+  {
+    "ticker": "NVDA",
+    "name": "NVIDIA Corporation",
+    "logo_url": "https://logo.clearbit.com/nvidia.com"
+  },
+  {
+    "ticker": "OKE",
+    "name": "ONEOK, Inc.",
+    "logo_url": "https://logo.clearbit.com/oke.com"
+  },
+  {
+    "ticker": "ORCL",
+    "name": "Oracle Corporation",
+    "logo_url": "https://logo.clearbit.com/orcl.com"
+  },
+  {
+    "ticker": "PANW",
+    "name": "Palo Alto Networks, Inc.",
+    "logo_url": "https://logo.clearbit.com/panw.com"
+  },
+  {
+    "ticker": "PCAR",
+    "name": "PACCAR Inc.",
+    "logo_url": "https://logo.clearbit.com/pcar.com"
+  },
+  {
+    "ticker": "PEG",
+    "name": "Public Service Enterprise Group Incorporated",
+    "logo_url": "https://logo.clearbit.com/peg.com"
+  },
+  {
+    "ticker": "PEP",
+    "name": "PepsiCo, Inc.",
+    "logo_url": "https://logo.clearbit.com/pep.com"
+  },
+  {
+    "ticker": "PFE",
+    "name": "Pfizer Inc.",
+    "logo_url": "https://logo.clearbit.com/pfe.com"
+  },
+  {
+    "ticker": "PG",
+    "name": "Procter & Gamble Company",
+    "logo_url": "https://logo.clearbit.com/pg.com"
+  },
+  {
+    "ticker": "PH",
+    "name": "Parker-Hannifin Corporation",
+    "logo_url": "https://logo.clearbit.com/ph.com"
+  },
+  {
+    "ticker": "PM",
+    "name": "Philip Morris International Inc.",
+    "logo_url": "https://logo.clearbit.com/pm.com"
+  },
+  {
+    "ticker": "PSX",
+    "name": "Phillips 66",
+    "logo_url": "https://logo.clearbit.com/psx.com"
+  },
+  {
+    "ticker": "QCOM",
+    "name": "Qualcomm Incorporated",
+    "logo_url": "https://logo.clearbit.com/qcom.com"
+  },
+  {
+    "ticker": "REGN",
+    "name": "Regeneron Pharmaceuticals, Inc.",
+    "logo_url": "https://logo.clearbit.com/regn.com"
+  },
+  {
+    "ticker": "ROK",
+    "name": "Rockwell Automation, Inc.",
+    "logo_url": "https://logo.clearbit.com/rok.com"
+  },
+  {
+    "ticker": "ROP",
+    "name": "Roper Technologies, Inc.",
+    "logo_url": "https://logo.clearbit.com/rop.com"
+  },
+  {
+    "ticker": "ROST",
+    "name": "Ross Stores, Inc.",
+    "logo_url": "https://logo.clearbit.com/rost.com"
+  },
+  {
+    "ticker": "RTX",
+    "name": "RTX Corporation",
+    "logo_url": "https://logo.clearbit.com/rtx.com"
+  },
+  {
+    "ticker": "SBUX",
+    "name": "Starbucks Corporation",
+    "logo_url": "https://logo.clearbit.com/sbux.com"
+  },
+  {
+    "ticker": "SCHW",
+    "name": "Charles Schwab Corporation",
+    "logo_url": "https://logo.clearbit.com/schw.com"
+  },
+  {
+    "ticker": "SLB",
+    "name": "Schlumberger Limited",
+    "logo_url": "https://logo.clearbit.com/slb.com"
+  },
+  {
+    "ticker": "SNPS",
+    "name": "Synopsys, Inc.",
+    "logo_url": "https://logo.clearbit.com/snps.com"
+  },
+  {
+    "ticker": "SO",
+    "name": "The Southern Company",
+    "logo_url": "https://logo.clearbit.com/so.com"
+  },
+  {
+    "ticker": "SPGI",
+    "name": "S&P Global, Inc.",
+    "logo_url": "https://logo.clearbit.com/spgi.com"
+  },
+  {
+    "ticker": "SYY",
+    "name": "Sysco Corporation",
+    "logo_url": "https://logo.clearbit.com/syy.com"
+  },
+  {
+    "ticker": "TFC",
+    "name": "Truist Financial Corporation",
+    "logo_url": "https://logo.clearbit.com/tfc.com"
+  },
+  {
+    "ticker": "TGT",
+    "name": "Target Corporation",
+    "logo_url": "https://logo.clearbit.com/tgt.com"
+  },
+  {
+    "ticker": "TMO",
+    "name": "Thermo Fisher Scientific Inc.",
+    "logo_url": "https://logo.clearbit.com/tmo.com"
+  },
+  {
+    "ticker": "TSLA",
+    "name": "Tesla, Inc.",
+    "logo_url": "https://logo.clearbit.com/tesla.com"
+  },
+  {
+    "ticker": "TXN",
+    "name": "Texas Instruments Incorporated",
+    "logo_url": "https://logo.clearbit.com/txn.com"
+  },
+  {
+    "ticker": "UNH",
+    "name": "UnitedHealth Group Incorporated",
+    "logo_url": "https://logo.clearbit.com/uhg.com"
+  },
+  {
+    "ticker": "UNP",
+    "name": "Union Pacific Corporation",
+    "logo_url": "https://logo.clearbit.com/unp.com"
+  },
+  {
+    "ticker": "V",
+    "name": "Visa Inc.",
+    "logo_url": "https://logo.clearbit.com/visa.com"
+  },
+  {
+    "ticker": "VRTX",
+    "name": "Vertex Pharmaceuticals Incorporated",
+    "logo_url": "https://logo.clearbit.com/vrtx.com"
+  },
+  {
+    "ticker": "WEC",
+    "name": "WEC Energy Group, Inc.",
+    "logo_url": "https://logo.clearbit.com/wec.com"
+  },
+  {
+    "ticker": "WMB",
+    "name": "The Williams Companies, Inc.",
+    "logo_url": "https://logo.clearbit.com/wmb.com"
+  },
+  {
+    "ticker": "WMT",
+    "name": "Walmart Inc.",
+    "logo_url": "https://logo.clearbit.com/walmart.com"
+  },
+  {
     "ticker": "XEL",
     "name": "Xcel Energy Inc.",
     "logo_url": "https://logo.clearbit.com/xel.com"
+  },
+  {
+    "ticker": "XOM",
+    "name": "Exxon Mobil Corporation",
+    "logo_url": "https://logo.clearbit.com/exxonmobil.com"
+  },
+  {
+    "ticker": "XYL",
+    "name": "Xylem Inc.",
+    "logo_url": "https://logo.clearbit.com/xyl.com"
+  },
+  {
+    "ticker": "ZBH",
+    "name": "Zimmer Biomet Holdings, Inc.",
+    "logo_url": "https://logo.clearbit.com/zbh.com"
+  },
+  {
+    "ticker": "ZM",
+    "name": "Zoom Video Communications, Inc.",
+    "logo_url": "https://logo.clearbit.com/zm.com"
   }
 ]
+
+

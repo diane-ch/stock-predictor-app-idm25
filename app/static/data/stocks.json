@@ -1,0 +1,3457 @@
+{
+  "daily_picks": {
+    "2025-08-19": [
+      {
+        "ticker": "SLB",
+        "name": "SLB",
+        "logo_path": "https://logo.clearbit.com/slb.com",
+        "logo_url": "https://logo.clearbit.com/slb.com",
+        "price": 33.77,
+        "change": 1.6,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "COP",
+        "name": "COP",
+        "logo_path": "https://logo.clearbit.com/cop.com",
+        "logo_url": "https://logo.clearbit.com/cop.com",
+        "price": 94.72,
+        "change": 1.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MSFT",
+        "name": "MSFT",
+        "logo_path": "https://logo.clearbit.com/microsoft.com",
+        "logo_url": "https://logo.clearbit.com/microsoft.com",
+        "price": 522.35,
+        "change": 1.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "MA(5)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CVX",
+        "name": "CVX",
+        "logo_path": "https://logo.clearbit.com/chevron.com",
+        "logo_url": "https://logo.clearbit.com/chevron.com",
+        "price": 155.27,
+        "change": 1.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "MA(5)",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MCD",
+        "name": "MCD",
+        "logo_path": "https://logo.clearbit.com/mcdonalds.com",
+        "logo_url": "https://logo.clearbit.com/mcdonalds.com",
+        "price": 312.64,
+        "change": 1.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      }
+    ]
+  },
+  "all_predictions": {
+    "2025-08-19": [
+      {
+        "ticker": "SLB",
+        "name": "SLB",
+        "logo_path": "https://logo.clearbit.com/slb.com",
+        "logo_url": "https://logo.clearbit.com/slb.com",
+        "price": 33.77,
+        "change": 1.6,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "COP",
+        "name": "COP",
+        "logo_path": "https://logo.clearbit.com/cop.com",
+        "logo_url": "https://logo.clearbit.com/cop.com",
+        "price": 94.72,
+        "change": 1.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MSFT",
+        "name": "MSFT",
+        "logo_path": "https://logo.clearbit.com/microsoft.com",
+        "logo_url": "https://logo.clearbit.com/microsoft.com",
+        "price": 522.35,
+        "change": 1.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "MA(5)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CVX",
+        "name": "CVX",
+        "logo_path": "https://logo.clearbit.com/chevron.com",
+        "logo_url": "https://logo.clearbit.com/chevron.com",
+        "price": 155.27,
+        "change": 1.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "MA(5)",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MCD",
+        "name": "MCD",
+        "logo_path": "https://logo.clearbit.com/mcdonalds.com",
+        "logo_url": "https://logo.clearbit.com/mcdonalds.com",
+        "price": 312.64,
+        "change": 1.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MMC",
+        "name": "MMC",
+        "logo_path": "https://logo.clearbit.com/mmc.com",
+        "logo_url": "https://logo.clearbit.com/mmc.com",
+        "price": 209.75,
+        "change": 1.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "ΔVIX",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "XOM",
+        "name": "XOM",
+        "logo_path": "https://logo.clearbit.com/exxonmobil.com",
+        "logo_url": "https://logo.clearbit.com/exxonmobil.com",
+        "price": 107.62,
+        "change": 1.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "HD",
+        "name": "HD",
+        "logo_path": "https://logo.clearbit.com/homedepot.com",
+        "logo_url": "https://logo.clearbit.com/homedepot.com",
+        "price": 406.76,
+        "change": 0.9,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MDT",
+        "name": "MDT",
+        "logo_path": "https://logo.clearbit.com/mdt.com",
+        "logo_url": "https://logo.clearbit.com/mdt.com",
+        "price": 89.92,
+        "change": 0.9,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "COST",
+        "name": "COST",
+        "logo_path": "https://logo.clearbit.com/cost.com",
+        "logo_url": "https://logo.clearbit.com/cost.com",
+        "price": 985.55,
+        "change": 0.7,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Bollinger %B",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AAPL",
+        "name": "AAPL",
+        "logo_path": "https://logo.clearbit.com/apple.com",
+        "logo_url": "https://logo.clearbit.com/apple.com",
+        "price": 231.96,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "LIN",
+        "name": "LIN",
+        "logo_path": "https://logo.clearbit.com/lin.com",
+        "logo_url": "https://logo.clearbit.com/lin.com",
+        "price": 481.15,
+        "change": 0.6,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "V",
+        "name": "V",
+        "logo_path": "https://logo.clearbit.com/visa.com",
+        "logo_url": "https://logo.clearbit.com/visa.com",
+        "price": 344.29,
+        "change": 0.5,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "ΔVIX",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "KO",
+        "name": "KO",
+        "logo_path": "https://logo.clearbit.com/ko.com",
+        "logo_url": "https://logo.clearbit.com/ko.com",
+        "price": 69.57,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "Prev sign",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PEP",
+        "name": "PEP",
+        "logo_path": "https://logo.clearbit.com/pep.com",
+        "logo_url": "https://logo.clearbit.com/pep.com",
+        "price": 149.9,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "EIX",
+        "name": "EIX",
+        "logo_path": "https://logo.clearbit.com/eix.com",
+        "logo_url": "https://logo.clearbit.com/eix.com",
+        "price": 55.92,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "KR",
+        "name": "KR",
+        "logo_path": "https://logo.clearbit.com/kr.com",
+        "logo_url": "https://logo.clearbit.com/kr.com",
+        "price": 70.3,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "GARCH vol",
+          "Prev intraday",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "SO",
+        "name": "SO",
+        "logo_path": "https://logo.clearbit.com/so.com",
+        "logo_url": "https://logo.clearbit.com/so.com",
+        "price": 93.26,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "KMI",
+        "name": "KMI",
+        "logo_path": "https://logo.clearbit.com/kmi.com",
+        "logo_url": "https://logo.clearbit.com/kmi.com",
+        "price": 26.27,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev intraday",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "RTX",
+        "name": "RTX",
+        "logo_path": "https://logo.clearbit.com/rtx.com",
+        "logo_url": "https://logo.clearbit.com/rtx.com",
+        "price": 155.45,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Vol(5)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CB",
+        "name": "CB",
+        "logo_path": "https://logo.clearbit.com/cb.com",
+        "logo_url": "https://logo.clearbit.com/cb.com",
+        "price": 274.53,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Bollinger %B",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "JNJ",
+        "name": "JNJ",
+        "logo_path": "https://logo.clearbit.com/jnj.com",
+        "logo_url": "https://logo.clearbit.com/jnj.com",
+        "price": 176.53,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPM",
+        "logo_path": "https://logo.clearbit.com/jpmorgan.com",
+        "logo_url": "https://logo.clearbit.com/jpmorgan.com",
+        "price": 291.38,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "GARCH vol",
+          "Vol(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ICE",
+        "name": "ICE",
+        "logo_path": "https://logo.clearbit.com/ice.com",
+        "logo_url": "https://logo.clearbit.com/ice.com",
+        "price": 178.53,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PM",
+        "name": "PM",
+        "logo_path": "https://logo.clearbit.com/pm.com",
+        "logo_url": "https://logo.clearbit.com/pm.com",
+        "price": 166.88,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ADSK",
+        "name": "ADSK",
+        "logo_path": "https://logo.clearbit.com/adsk.com",
+        "logo_url": "https://logo.clearbit.com/adsk.com",
+        "price": 290.45,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "EXC",
+        "name": "EXC",
+        "logo_path": "https://logo.clearbit.com/exc.com",
+        "logo_url": "https://logo.clearbit.com/exc.com",
+        "price": 44.06,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "VRTX",
+        "name": "VRTX",
+        "logo_path": "https://logo.clearbit.com/vrtx.com",
+        "logo_url": "https://logo.clearbit.com/vrtx.com",
+        "price": 389.93,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "GARCH vol",
+          "Vol(5)",
+          "Prev intraday",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ED",
+        "name": "ED",
+        "logo_path": "https://logo.clearbit.com/ed.com",
+        "logo_url": "https://logo.clearbit.com/ed.com",
+        "price": 100.44,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ITW",
+        "name": "ITW",
+        "logo_path": "https://logo.clearbit.com/itw.com",
+        "logo_url": "https://logo.clearbit.com/itw.com",
+        "price": 260.81,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "GARCH vol",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ORCL",
+        "name": "ORCL",
+        "logo_path": "https://logo.clearbit.com/orcl.com",
+        "logo_url": "https://logo.clearbit.com/orcl.com",
+        "price": 249.19,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(5)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "XEL",
+        "name": "XEL",
+        "logo_path": "https://logo.clearbit.com/xel.com",
+        "logo_url": "https://logo.clearbit.com/xel.com",
+        "price": 72.36,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "ΔVIX",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "IBM",
+        "name": "IBM",
+        "logo_path": "https://logo.clearbit.com/ibm.com",
+        "logo_url": "https://logo.clearbit.com/ibm.com",
+        "price": 239.88,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "WEC",
+        "name": "WEC",
+        "logo_path": "https://logo.clearbit.com/wec.com",
+        "logo_url": "https://logo.clearbit.com/wec.com",
+        "price": 106.99,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ISRG",
+        "name": "ISRG",
+        "logo_path": "https://logo.clearbit.com/isrg.com",
+        "logo_url": "https://logo.clearbit.com/isrg.com",
+        "price": 481.3,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Prev sign",
+          "Prev intraday",
+          "ΔVIX",
+          "Overnight drift"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "BKNG",
+        "name": "BKNG",
+        "logo_path": "https://logo.clearbit.com/bkng.com",
+        "logo_url": "https://logo.clearbit.com/bkng.com",
+        "price": 5532.89,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "DUK",
+        "name": "DUK",
+        "logo_path": "https://logo.clearbit.com/duk.com",
+        "logo_url": "https://logo.clearbit.com/duk.com",
+        "price": 122.04,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ROST",
+        "name": "ROST",
+        "logo_path": "https://logo.clearbit.com/rost.com",
+        "logo_url": "https://logo.clearbit.com/rost.com",
+        "price": 146.02,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ADBE",
+        "name": "ADBE",
+        "logo_path": "https://logo.clearbit.com/adbe.com",
+        "logo_url": "https://logo.clearbit.com/adbe.com",
+        "price": 357.4,
+        "change": 0.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Prev sign",
+          "ΔVIX",
+          "Prev intraday",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AEP",
+        "name": "AEP",
+        "logo_path": "https://logo.clearbit.com/aep.com",
+        "logo_url": "https://logo.clearbit.com/aep.com",
+        "price": 110.73,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Prev sign",
+          "Overnight drift",
+          "MA(20)",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "NFLX",
+        "name": "NFLX",
+        "logo_path": "https://logo.clearbit.com/netflix.com",
+        "logo_url": "https://logo.clearbit.com/netflix.com",
+        "price": 1241.65,
+        "change": 0.0,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Prev intraday",
+          "Overnight drift",
+          "ΔVIX",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CL",
+        "name": "CL",
+        "logo_path": "https://logo.clearbit.com/cl.com",
+        "logo_url": "https://logo.clearbit.com/cl.com",
+        "price": 84.23,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 3,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "HAL",
+        "name": "HAL",
+        "logo_path": "https://logo.clearbit.com/hal.com",
+        "logo_url": "https://logo.clearbit.com/hal.com",
+        "price": 21.48,
+        "change": 1.6,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MPC",
+        "name": "MPC",
+        "logo_path": "https://logo.clearbit.com/mpc.com",
+        "logo_url": "https://logo.clearbit.com/mpc.com",
+        "price": 164.47,
+        "change": 1.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Bollinger %B",
+          "Prev sign",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "UNH",
+        "name": "UNH",
+        "logo_path": "https://logo.clearbit.com/uhg.com",
+        "logo_url": "https://logo.clearbit.com/uhg.com",
+        "price": 314.55,
+        "change": 1.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "MA(5)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "FANG",
+        "name": "FANG",
+        "logo_path": "https://logo.clearbit.com/fang.com",
+        "logo_url": "https://logo.clearbit.com/fang.com",
+        "price": 140.82,
+        "change": 1.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(5)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AVGO",
+        "name": "AVGO",
+        "logo_path": "https://logo.clearbit.com/avgo.com",
+        "logo_url": "https://logo.clearbit.com/avgo.com",
+        "price": 305.69,
+        "change": 1.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "MA(5)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "BAC",
+        "name": "BAC",
+        "logo_path": "https://logo.clearbit.com/bankofamerica.com",
+        "logo_url": "https://logo.clearbit.com/bankofamerica.com",
+        "price": 48.28,
+        "change": 1.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "Bollinger %B",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PSX",
+        "name": "PSX",
+        "logo_path": "https://logo.clearbit.com/psx.com",
+        "logo_url": "https://logo.clearbit.com/psx.com",
+        "price": 123.21,
+        "change": 1.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Bollinger %B",
+          "RSI"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "DE",
+        "name": "DE",
+        "logo_path": "https://logo.clearbit.com/de.com",
+        "logo_url": "https://logo.clearbit.com/de.com",
+        "price": 495.97,
+        "change": 0.9,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Vol(5)",
+          "Prev intraday",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CI",
+        "name": "CI",
+        "logo_path": "https://logo.clearbit.com/ci.com",
+        "logo_url": "https://logo.clearbit.com/ci.com",
+        "price": 300.55,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "Prev sign",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "GE",
+        "name": "GE",
+        "logo_path": "https://logo.clearbit.com/ge.com",
+        "logo_url": "https://logo.clearbit.com/ge.com",
+        "price": 270.31,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "TFC",
+        "name": "TFC",
+        "logo_path": "https://logo.clearbit.com/tfc.com",
+        "logo_url": "https://logo.clearbit.com/tfc.com",
+        "price": 44.68,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CRM",
+        "name": "CRM",
+        "logo_path": "https://logo.clearbit.com/crm.com",
+        "logo_url": "https://logo.clearbit.com/crm.com",
+        "price": 246.45,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Bollinger %B",
+          "Overnight drift",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "FTNT",
+        "name": "FTNT",
+        "logo_path": "https://logo.clearbit.com/ftnt.com",
+        "logo_url": "https://logo.clearbit.com/ftnt.com",
+        "price": 81.16,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "GARCH vol",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AMZN",
+        "name": "AMZN",
+        "logo_path": "https://logo.clearbit.com/amazon.com",
+        "logo_url": "https://logo.clearbit.com/amazon.com",
+        "price": 230.0,
+        "change": -0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "ΔVIX",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PANW",
+        "name": "PANW",
+        "logo_path": "https://logo.clearbit.com/panw.com",
+        "logo_url": "https://logo.clearbit.com/panw.com",
+        "price": 185.81,
+        "change": -1.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "Bollinger %B",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "LOW",
+        "name": "LOW",
+        "logo_path": "https://logo.clearbit.com/low.com",
+        "logo_url": "https://logo.clearbit.com/low.com",
+        "price": 259.15,
+        "change": 1.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "Prev sign",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AXP",
+        "name": "AXP",
+        "logo_path": "https://logo.clearbit.com/axp.com",
+        "logo_url": "https://logo.clearbit.com/axp.com",
+        "price": 309.18,
+        "change": 1.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "ΔVIX",
+          "GARCH vol",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PFE",
+        "name": "PFE",
+        "logo_path": "https://logo.clearbit.com/pfe.com",
+        "logo_url": "https://logo.clearbit.com/pfe.com",
+        "price": 25.37,
+        "change": 1.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "ΔVIX",
+          "Daily return (lag1)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ADI",
+        "name": "ADI",
+        "logo_path": "https://logo.clearbit.com/adi.com",
+        "logo_url": "https://logo.clearbit.com/adi.com",
+        "price": 233.34,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "GARCH vol",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ROP",
+        "name": "ROP",
+        "logo_path": "https://logo.clearbit.com/rop.com",
+        "logo_url": "https://logo.clearbit.com/rop.com",
+        "price": 536.56,
+        "change": 0.7,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "SCHW",
+        "name": "SCHW",
+        "logo_path": "https://logo.clearbit.com/schw.com",
+        "logo_url": "https://logo.clearbit.com/schw.com",
+        "price": 96.8,
+        "change": 0.7,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "GARCH vol",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "EOG",
+        "name": "EOG",
+        "logo_path": "https://logo.clearbit.com/eog.com",
+        "logo_url": "https://logo.clearbit.com/eog.com",
+        "price": 117.86,
+        "change": 0.6,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MA",
+        "name": "MA",
+        "logo_path": "https://logo.clearbit.com/mastercard.com",
+        "logo_url": "https://logo.clearbit.com/mastercard.com",
+        "price": 587.58,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVDA",
+        "logo_path": "https://logo.clearbit.com/nvidia.com",
+        "logo_url": "https://logo.clearbit.com/nvidia.com",
+        "price": 182.83,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "TXN",
+        "name": "TXN",
+        "logo_path": "https://logo.clearbit.com/txn.com",
+        "logo_url": "https://logo.clearbit.com/txn.com",
+        "price": 195.17,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(20)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "GOOGL",
+        "logo_path": "https://logo.clearbit.com/google.com",
+        "logo_url": "https://logo.clearbit.com/google.com",
+        "price": 203.27,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "ΔVIX",
+          "Bollinger %B"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MU",
+        "name": "MU",
+        "logo_path": "https://logo.clearbit.com/mu.com",
+        "logo_url": "https://logo.clearbit.com/mu.com",
+        "price": 122.87,
+        "change": -0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Overnight drift",
+          "Prev intraday",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AMP",
+        "name": "AMP",
+        "logo_path": "https://logo.clearbit.com/amp.com",
+        "logo_url": "https://logo.clearbit.com/amp.com",
+        "price": 512.58,
+        "change": 1.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Bollinger %B",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ABBV",
+        "name": "ABBV",
+        "logo_path": "https://logo.clearbit.com/abbv.com",
+        "logo_url": "https://logo.clearbit.com/abbv.com",
+        "price": 208.19,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PG",
+        "name": "PG",
+        "logo_path": "https://logo.clearbit.com/pg.com",
+        "logo_url": "https://logo.clearbit.com/pg.com",
+        "price": 157.19,
+        "change": 0.7,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ZBH",
+        "name": "ZBH",
+        "logo_path": "https://logo.clearbit.com/zbh.com",
+        "logo_url": "https://logo.clearbit.com/zbh.com",
+        "price": 102.44,
+        "change": 0.6,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "GARCH vol",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AON",
+        "name": "AON",
+        "logo_path": "https://logo.clearbit.com/aon.com",
+        "logo_url": "https://logo.clearbit.com/aon.com",
+        "price": 369.38,
+        "change": 0.5,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CHD",
+        "name": "CHD",
+        "logo_path": "https://logo.clearbit.com/chd.com",
+        "logo_url": "https://logo.clearbit.com/chd.com",
+        "price": 92.92,
+        "change": 0.5,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Vol(5)",
+          "GARCH vol",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ACN",
+        "name": "ACN",
+        "logo_path": "https://logo.clearbit.com/acn.com",
+        "logo_url": "https://logo.clearbit.com/acn.com",
+        "price": 250.77,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CAT",
+        "name": "CAT",
+        "logo_path": "https://logo.clearbit.com/cat.com",
+        "logo_url": "https://logo.clearbit.com/cat.com",
+        "price": 422.0,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "HCA",
+        "name": "HCA",
+        "logo_path": "https://logo.clearbit.com/hca.com",
+        "logo_url": "https://logo.clearbit.com/hca.com",
+        "price": 395.36,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MS",
+        "name": "MS",
+        "logo_path": "https://logo.clearbit.com/ms.com",
+        "logo_url": "https://logo.clearbit.com/ms.com",
+        "price": 145.43,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "SYY",
+        "name": "SYY",
+        "logo_path": "https://logo.clearbit.com/syy.com",
+        "logo_url": "https://logo.clearbit.com/syy.com",
+        "price": 79.83,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "WMB",
+        "name": "WMB",
+        "logo_path": "https://logo.clearbit.com/wmb.com",
+        "logo_url": "https://logo.clearbit.com/wmb.com",
+        "price": 57.12,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AMGN",
+        "name": "AMGN",
+        "logo_path": "https://logo.clearbit.com/amgn.com",
+        "logo_url": "https://logo.clearbit.com/amgn.com",
+        "price": 293.59,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "C",
+        "name": "C",
+        "logo_path": "https://logo.clearbit.com/c.com",
+        "logo_url": "https://logo.clearbit.com/c.com",
+        "price": 94.34,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev intraday",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "HON",
+        "name": "HON",
+        "logo_path": "https://logo.clearbit.com/hon.com",
+        "logo_url": "https://logo.clearbit.com/hon.com",
+        "price": 216.46,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "ΔVIX",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "QCOM",
+        "name": "QCOM",
+        "logo_path": "https://logo.clearbit.com/qcom.com",
+        "logo_url": "https://logo.clearbit.com/qcom.com",
+        "price": 158.55,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PEG",
+        "name": "PEG",
+        "logo_path": "https://logo.clearbit.com/peg.com",
+        "logo_url": "https://logo.clearbit.com/peg.com",
+        "price": 84.72,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "META",
+        "name": "META",
+        "logo_path": "https://logo.clearbit.com/meta.com",
+        "logo_url": "https://logo.clearbit.com/meta.com",
+        "price": 765.07,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "RSI",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "IDXX",
+        "name": "IDXX",
+        "logo_path": "https://logo.clearbit.com/idxx.com",
+        "logo_url": "https://logo.clearbit.com/idxx.com",
+        "price": 637.34,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Prev sign",
+          "Prev intraday",
+          "Overnight drift",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MNST",
+        "name": "MNST",
+        "logo_path": "https://logo.clearbit.com/mnst.com",
+        "logo_url": "https://logo.clearbit.com/mnst.com",
+        "price": 64.19,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Prev intraday",
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "BIIB",
+        "name": "BIIB",
+        "logo_path": "https://logo.clearbit.com/biib.com",
+        "logo_url": "https://logo.clearbit.com/biib.com",
+        "price": 136.2,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AOS",
+        "name": "AOS",
+        "logo_path": "https://logo.clearbit.com/aos.com",
+        "logo_url": "https://logo.clearbit.com/aos.com",
+        "price": 71.89,
+        "change": -0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "RSI",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "TSLA",
+        "name": "TSLA",
+        "logo_path": "https://logo.clearbit.com/tesla.com",
+        "logo_url": "https://logo.clearbit.com/tesla.com",
+        "price": 334.29,
+        "change": -0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "Prev intraday",
+          "ΔVIX",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ROK",
+        "name": "ROK",
+        "logo_path": "https://logo.clearbit.com/rok.com",
+        "logo_url": "https://logo.clearbit.com/rok.com",
+        "price": 346.7,
+        "change": 1.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "DHR",
+        "name": "DHR",
+        "logo_path": "https://logo.clearbit.com/dhr.com",
+        "logo_url": "https://logo.clearbit.com/dhr.com",
+        "price": 211.05,
+        "change": 0.8,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "LMT",
+        "name": "LMT",
+        "logo_path": "https://logo.clearbit.com/lmt.com",
+        "logo_url": "https://logo.clearbit.com/lmt.com",
+        "price": 442.89,
+        "change": 0.5,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "EMR",
+        "name": "EMR",
+        "logo_path": "https://logo.clearbit.com/emr.com",
+        "logo_url": "https://logo.clearbit.com/emr.com",
+        "price": 131.98,
+        "change": 0.4,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "INTU",
+        "name": "INTU",
+        "logo_path": "https://logo.clearbit.com/intu.com",
+        "logo_url": "https://logo.clearbit.com/intu.com",
+        "price": 716.05,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "OKE",
+        "name": "OKE",
+        "logo_path": "https://logo.clearbit.com/oke.com",
+        "logo_url": "https://logo.clearbit.com/oke.com",
+        "price": 73.2,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "Daily return (lag1)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "XYL",
+        "name": "XYL",
+        "logo_path": "https://logo.clearbit.com/xyl.com",
+        "logo_url": "https://logo.clearbit.com/xyl.com",
+        "price": 141.7,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "Prev sign",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "AMD",
+        "name": "AMD",
+        "logo_path": "https://logo.clearbit.com/amd.com",
+        "logo_url": "https://logo.clearbit.com/amd.com",
+        "price": 173.94,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "MA(5)",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "BMY",
+        "name": "BMY",
+        "logo_path": "https://logo.clearbit.com/bmy.com",
+        "logo_url": "https://logo.clearbit.com/bmy.com",
+        "price": 48.24,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(5)",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "D",
+        "name": "D",
+        "logo_path": "https://logo.clearbit.com/d.com",
+        "logo_url": "https://logo.clearbit.com/d.com",
+        "price": 60.5,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ETN",
+        "name": "ETN",
+        "logo_path": "https://logo.clearbit.com/etn.com",
+        "logo_url": "https://logo.clearbit.com/etn.com",
+        "price": 352.72,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "GS",
+        "name": "GS",
+        "logo_path": "https://logo.clearbit.com/gs.com",
+        "logo_url": "https://logo.clearbit.com/gs.com",
+        "price": 730.97,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "NEE",
+        "name": "NEE",
+        "logo_path": "https://logo.clearbit.com/nee.com",
+        "logo_url": "https://logo.clearbit.com/nee.com",
+        "price": 75.77,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "GARCH vol",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "NOW",
+        "name": "NOW",
+        "logo_path": "https://logo.clearbit.com/now.com",
+        "logo_url": "https://logo.clearbit.com/now.com",
+        "price": 887.43,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "SBUX",
+        "name": "SBUX",
+        "logo_path": "https://logo.clearbit.com/sbux.com",
+        "logo_url": "https://logo.clearbit.com/sbux.com",
+        "price": 92.9,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "MA(20)",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CSCO",
+        "name": "CSCO",
+        "logo_path": "https://logo.clearbit.com/csco.com",
+        "logo_url": "https://logo.clearbit.com/csco.com",
+        "price": 66.85,
+        "change": 0.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "CDNS",
+        "name": "CDNS",
+        "logo_path": "https://logo.clearbit.com/cdns.com",
+        "logo_url": "https://logo.clearbit.com/cdns.com",
+        "price": 353.83,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "ΔVIX",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "DLTR",
+        "name": "DLTR",
+        "logo_path": "https://logo.clearbit.com/dltr.com",
+        "logo_url": "https://logo.clearbit.com/dltr.com",
+        "price": 111.7,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "Prev intraday",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "KHC",
+        "name": "KHC",
+        "logo_path": "https://logo.clearbit.com/khc.com",
+        "logo_url": "https://logo.clearbit.com/khc.com",
+        "price": 27.31,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign",
+          "ΔVIX"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "REGN",
+        "name": "REGN",
+        "logo_path": "https://logo.clearbit.com/regn.com",
+        "logo_url": "https://logo.clearbit.com/regn.com",
+        "price": 574.93,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "ΔVIX",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "UNP",
+        "name": "UNP",
+        "logo_path": "https://logo.clearbit.com/unp.com",
+        "logo_url": "https://logo.clearbit.com/unp.com",
+        "price": 221.01,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ZM",
+        "name": "ZM",
+        "logo_path": "https://logo.clearbit.com/zm.com",
+        "logo_url": "https://logo.clearbit.com/zm.com",
+        "price": 74.04,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "ΔVIX",
+          "Prev intraday",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "MRK",
+        "name": "MRK",
+        "logo_path": "https://logo.clearbit.com/mrk.com",
+        "logo_url": "https://logo.clearbit.com/mrk.com",
+        "price": 84.36,
+        "change": -0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "WMT",
+        "name": "WMT",
+        "logo_path": "https://logo.clearbit.com/walmart.com",
+        "logo_url": "https://logo.clearbit.com/walmart.com",
+        "price": 100.42,
+        "change": -0.6,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "MA(5)",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "FAST",
+        "name": "FAST",
+        "logo_path": "https://logo.clearbit.com/fast.com",
+        "logo_url": "https://logo.clearbit.com/fast.com",
+        "price": 49.41,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(20)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "INTC",
+        "name": "INTC",
+        "logo_path": "https://logo.clearbit.com/intc.com",
+        "logo_url": "https://logo.clearbit.com/intc.com",
+        "price": 25.04,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "RSI",
+          "MA(5)",
+          "MA(20)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PCAR",
+        "name": "PCAR",
+        "logo_path": "https://logo.clearbit.com/pcar.com",
+        "logo_url": "https://logo.clearbit.com/pcar.com",
+        "price": 98.48,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "SPGI",
+        "name": "SPGI",
+        "logo_path": "https://logo.clearbit.com/spgi.com",
+        "logo_url": "https://logo.clearbit.com/spgi.com",
+        "price": 554.81,
+        "change": 0.2,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "GILD",
+        "name": "GILD",
+        "logo_path": "https://logo.clearbit.com/gild.com",
+        "logo_url": "https://logo.clearbit.com/gild.com",
+        "price": 118.71,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "SNPS",
+        "name": "SNPS",
+        "logo_path": "https://logo.clearbit.com/snps.com",
+        "logo_url": "https://logo.clearbit.com/snps.com",
+        "price": 622.42,
+        "change": 0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev sign",
+          "Prev intraday",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "TMO",
+        "name": "TMO",
+        "logo_path": "https://logo.clearbit.com/tmo.com",
+        "logo_url": "https://logo.clearbit.com/tmo.com",
+        "price": 490.18,
+        "change": -0.0,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "Prev intraday",
+          "Prev sign",
+          "MA(20)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "BLK",
+        "name": "BLK",
+        "logo_path": "https://logo.clearbit.com/blk.com",
+        "logo_url": "https://logo.clearbit.com/blk.com",
+        "price": 1128.42,
+        "change": -0.1,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "PH",
+        "name": "PH",
+        "logo_path": "https://logo.clearbit.com/ph.com",
+        "logo_url": "https://logo.clearbit.com/ph.com",
+        "price": 734.96,
+        "change": -0.3,
+        "confidence": "low",
+        "confidence_score": 2,
+        "features": [
+          "Overnight drift",
+          "MA(5)",
+          "MA(20)",
+          "Prev sign"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "DG",
+        "name": "DG",
+        "logo_path": "https://logo.clearbit.com/dg.com",
+        "logo_url": "https://logo.clearbit.com/dg.com",
+        "price": 114.72,
+        "change": 1.8,
+        "confidence": "low",
+        "confidence_score": 1,
+        "features": [
+          "Overnight drift",
+          "MA(20)",
+          "MA(5)",
+          "GARCH vol"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "LLY",
+        "name": "LLY",
+        "logo_path": "https://logo.clearbit.com/lly.com",
+        "logo_url": "https://logo.clearbit.com/lly.com",
+        "price": 711.98,
+        "change": 0.5,
+        "confidence": "low",
+        "confidence_score": 1,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "MA(20)",
+          "MA(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "TGT",
+        "name": "TGT",
+        "logo_path": "https://logo.clearbit.com/tgt.com",
+        "logo_url": "https://logo.clearbit.com/tgt.com",
+        "price": 103.63,
+        "change": -1.7,
+        "confidence": "low",
+        "confidence_score": 1,
+        "features": [
+          "Overnight drift",
+          "RSI",
+          "MA(20)",
+          "Vol(5)"
+        ],
+        "prediction_date": "2025-08-19"
+      },
+      {
+        "ticker": "ELV",
+        "name": "ELV",
+        "logo_path": "https://logo.clearbit.com/elv.com",
+        "logo_url": "https://logo.clearbit.com/elv.com",
+        "price": 310.88,
+        "change": 0.3,
+        "confidence": "low",
+        "confidence_score": 1,
+        "features": [
+          "Overnight drift",
+          "GARCH vol",
+          "MA(20)",
+          "Prev intraday"
+        ],
+        "prediction_date": "2025-08-19"
+      }
+    ]
+  },
+  "stock_history": {
+    "AAPL": [
+      {
+        "date": "2025-08-19",
+        "price": 231.96,
+        "change": 0.8,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "ABBV": [
+      {
+        "date": "2025-08-19",
+        "price": 208.19,
+        "change": 0.8,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ACN": [
+      {
+        "date": "2025-08-19",
+        "price": 250.77,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ADBE": [
+      {
+        "date": "2025-08-19",
+        "price": 357.4,
+        "change": 0.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "ADI": [
+      {
+        "date": "2025-08-19",
+        "price": 233.34,
+        "change": 0.8,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ADSK": [
+      {
+        "date": "2025-08-19",
+        "price": 290.45,
+        "change": -0.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "AEP": [
+      {
+        "date": "2025-08-19",
+        "price": 110.73,
+        "change": -0.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "AMD": [
+      {
+        "date": "2025-08-19",
+        "price": 173.94,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "AMGN": [
+      {
+        "date": "2025-08-19",
+        "price": 293.59,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "AMP": [
+      {
+        "date": "2025-08-19",
+        "price": 512.58,
+        "change": 1.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "AMZN": [
+      {
+        "date": "2025-08-19",
+        "price": 230.0,
+        "change": -0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "AON": [
+      {
+        "date": "2025-08-19",
+        "price": 369.38,
+        "change": 0.5,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "AOS": [
+      {
+        "date": "2025-08-19",
+        "price": 71.89,
+        "change": -0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "AVGO": [
+      {
+        "date": "2025-08-19",
+        "price": 305.69,
+        "change": 1.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "AXP": [
+      {
+        "date": "2025-08-19",
+        "price": 309.18,
+        "change": 1.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "BAC": [
+      {
+        "date": "2025-08-19",
+        "price": 48.28,
+        "change": 1.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "BIIB": [
+      {
+        "date": "2025-08-19",
+        "price": 136.2,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "BKNG": [
+      {
+        "date": "2025-08-19",
+        "price": 5532.89,
+        "change": -0.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "BLK": [
+      {
+        "date": "2025-08-19",
+        "price": 1128.42,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "BMY": [
+      {
+        "date": "2025-08-19",
+        "price": 48.24,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "C": [
+      {
+        "date": "2025-08-19",
+        "price": 94.34,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "CAT": [
+      {
+        "date": "2025-08-19",
+        "price": 422.0,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "CB": [
+      {
+        "date": "2025-08-19",
+        "price": 274.53,
+        "change": 0.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "CDNS": [
+      {
+        "date": "2025-08-19",
+        "price": 353.83,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "CHD": [
+      {
+        "date": "2025-08-19",
+        "price": 92.92,
+        "change": 0.5,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "CI": [
+      {
+        "date": "2025-08-19",
+        "price": 300.55,
+        "change": 0.8,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "CL": [
+      {
+        "date": "2025-08-19",
+        "price": 84.23,
+        "change": -0.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "COP": [
+      {
+        "date": "2025-08-19",
+        "price": 94.72,
+        "change": 1.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "COST": [
+      {
+        "date": "2025-08-19",
+        "price": 985.55,
+        "change": 0.7,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "CRM": [
+      {
+        "date": "2025-08-19",
+        "price": 246.45,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "CSCO": [
+      {
+        "date": "2025-08-19",
+        "price": 66.85,
+        "change": 0.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "CVX": [
+      {
+        "date": "2025-08-19",
+        "price": 155.27,
+        "change": 1.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "D": [
+      {
+        "date": "2025-08-19",
+        "price": 60.5,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "DE": [
+      {
+        "date": "2025-08-19",
+        "price": 495.97,
+        "change": 0.9,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "DG": [
+      {
+        "date": "2025-08-19",
+        "price": 114.72,
+        "change": 1.8,
+        "confidence_score": 1,
+        "predicted": true
+      }
+    ],
+    "DHR": [
+      {
+        "date": "2025-08-19",
+        "price": 211.05,
+        "change": 0.8,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "DLTR": [
+      {
+        "date": "2025-08-19",
+        "price": 111.7,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "DUK": [
+      {
+        "date": "2025-08-19",
+        "price": 122.04,
+        "change": 0.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "ED": [
+      {
+        "date": "2025-08-19",
+        "price": 100.44,
+        "change": 0.8,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "EIX": [
+      {
+        "date": "2025-08-19",
+        "price": 55.92,
+        "change": 0.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "ELV": [
+      {
+        "date": "2025-08-19",
+        "price": 310.88,
+        "change": 0.3,
+        "confidence_score": 1,
+        "predicted": true
+      }
+    ],
+    "EMR": [
+      {
+        "date": "2025-08-19",
+        "price": 131.98,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "EOG": [
+      {
+        "date": "2025-08-19",
+        "price": 117.86,
+        "change": 0.6,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ETN": [
+      {
+        "date": "2025-08-19",
+        "price": 352.72,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "EXC": [
+      {
+        "date": "2025-08-19",
+        "price": 44.06,
+        "change": -0.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "FANG": [
+      {
+        "date": "2025-08-19",
+        "price": 140.82,
+        "change": 1.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "FAST": [
+      {
+        "date": "2025-08-19",
+        "price": 49.41,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "FTNT": [
+      {
+        "date": "2025-08-19",
+        "price": 81.16,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "GE": [
+      {
+        "date": "2025-08-19",
+        "price": 270.31,
+        "change": 0.8,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "GILD": [
+      {
+        "date": "2025-08-19",
+        "price": 118.71,
+        "change": 0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "GOOGL": [
+      {
+        "date": "2025-08-19",
+        "price": 203.27,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "GS": [
+      {
+        "date": "2025-08-19",
+        "price": 730.97,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "HAL": [
+      {
+        "date": "2025-08-19",
+        "price": 21.48,
+        "change": 1.6,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "HCA": [
+      {
+        "date": "2025-08-19",
+        "price": 395.36,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "HD": [
+      {
+        "date": "2025-08-19",
+        "price": 406.76,
+        "change": 0.9,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "HON": [
+      {
+        "date": "2025-08-19",
+        "price": 216.46,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "IBM": [
+      {
+        "date": "2025-08-19",
+        "price": 239.88,
+        "change": 0.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "ICE": [
+      {
+        "date": "2025-08-19",
+        "price": 178.53,
+        "change": 0.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "IDXX": [
+      {
+        "date": "2025-08-19",
+        "price": 637.34,
+        "change": -0.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "INTC": [
+      {
+        "date": "2025-08-19",
+        "price": 25.04,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "INTU": [
+      {
+        "date": "2025-08-19",
+        "price": 716.05,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ISRG": [
+      {
+        "date": "2025-08-19",
+        "price": 481.3,
+        "change": -0.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "ITW": [
+      {
+        "date": "2025-08-19",
+        "price": 260.81,
+        "change": 0.3,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "JNJ": [
+      {
+        "date": "2025-08-19",
+        "price": 176.53,
+        "change": 0.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "JPM": [
+      {
+        "date": "2025-08-19",
+        "price": 291.38,
+        "change": 0.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "KHC": [
+      {
+        "date": "2025-08-19",
+        "price": 27.31,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "KMI": [
+      {
+        "date": "2025-08-19",
+        "price": 26.27,
+        "change": 0.3,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "KO": [
+      {
+        "date": "2025-08-19",
+        "price": 69.57,
+        "change": 0.4,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "KR": [
+      {
+        "date": "2025-08-19",
+        "price": 70.3,
+        "change": 0.4,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "LIN": [
+      {
+        "date": "2025-08-19",
+        "price": 481.15,
+        "change": 0.6,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "LLY": [
+      {
+        "date": "2025-08-19",
+        "price": 711.98,
+        "change": 0.5,
+        "confidence_score": 1,
+        "predicted": true
+      }
+    ],
+    "LMT": [
+      {
+        "date": "2025-08-19",
+        "price": 442.89,
+        "change": 0.5,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "LOW": [
+      {
+        "date": "2025-08-19",
+        "price": 259.15,
+        "change": 1.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "MA": [
+      {
+        "date": "2025-08-19",
+        "price": 587.58,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "MCD": [
+      {
+        "date": "2025-08-19",
+        "price": 312.64,
+        "change": 1.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "MDT": [
+      {
+        "date": "2025-08-19",
+        "price": 89.92,
+        "change": 0.9,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "META": [
+      {
+        "date": "2025-08-19",
+        "price": 765.07,
+        "change": 0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "MMC": [
+      {
+        "date": "2025-08-19",
+        "price": 209.75,
+        "change": 1.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "MNST": [
+      {
+        "date": "2025-08-19",
+        "price": 64.19,
+        "change": -0.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "MPC": [
+      {
+        "date": "2025-08-19",
+        "price": 164.47,
+        "change": 1.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "MRK": [
+      {
+        "date": "2025-08-19",
+        "price": 84.36,
+        "change": -0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "MS": [
+      {
+        "date": "2025-08-19",
+        "price": 145.43,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "MSFT": [
+      {
+        "date": "2025-08-19",
+        "price": 522.35,
+        "change": 1.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "MU": [
+      {
+        "date": "2025-08-19",
+        "price": 122.87,
+        "change": -0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "NEE": [
+      {
+        "date": "2025-08-19",
+        "price": 75.77,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "NFLX": [
+      {
+        "date": "2025-08-19",
+        "price": 1241.65,
+        "change": 0.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "NOW": [
+      {
+        "date": "2025-08-19",
+        "price": 887.43,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "NVDA": [
+      {
+        "date": "2025-08-19",
+        "price": 182.83,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "OKE": [
+      {
+        "date": "2025-08-19",
+        "price": 73.2,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ORCL": [
+      {
+        "date": "2025-08-19",
+        "price": 249.19,
+        "change": 0.3,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "PANW": [
+      {
+        "date": "2025-08-19",
+        "price": 185.81,
+        "change": -1.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "PCAR": [
+      {
+        "date": "2025-08-19",
+        "price": 98.48,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "PEG": [
+      {
+        "date": "2025-08-19",
+        "price": 84.72,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "PEP": [
+      {
+        "date": "2025-08-19",
+        "price": 149.9,
+        "change": 0.3,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "PFE": [
+      {
+        "date": "2025-08-19",
+        "price": 25.37,
+        "change": 1.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "PG": [
+      {
+        "date": "2025-08-19",
+        "price": 157.19,
+        "change": 0.7,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "PH": [
+      {
+        "date": "2025-08-19",
+        "price": 734.96,
+        "change": -0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "PM": [
+      {
+        "date": "2025-08-19",
+        "price": 166.88,
+        "change": 0.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "PSX": [
+      {
+        "date": "2025-08-19",
+        "price": 123.21,
+        "change": 1.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "QCOM": [
+      {
+        "date": "2025-08-19",
+        "price": 158.55,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "REGN": [
+      {
+        "date": "2025-08-19",
+        "price": 574.93,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ROK": [
+      {
+        "date": "2025-08-19",
+        "price": 346.7,
+        "change": 1.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ROP": [
+      {
+        "date": "2025-08-19",
+        "price": 536.56,
+        "change": 0.7,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ROST": [
+      {
+        "date": "2025-08-19",
+        "price": 146.02,
+        "change": 0.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "RTX": [
+      {
+        "date": "2025-08-19",
+        "price": 155.45,
+        "change": 0.3,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "SBUX": [
+      {
+        "date": "2025-08-19",
+        "price": 92.9,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "SCHW": [
+      {
+        "date": "2025-08-19",
+        "price": 96.8,
+        "change": 0.7,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "SLB": [
+      {
+        "date": "2025-08-19",
+        "price": 33.77,
+        "change": 1.6,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "SNPS": [
+      {
+        "date": "2025-08-19",
+        "price": 622.42,
+        "change": 0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "SO": [
+      {
+        "date": "2025-08-19",
+        "price": 93.26,
+        "change": 0.4,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "SPGI": [
+      {
+        "date": "2025-08-19",
+        "price": 554.81,
+        "change": 0.2,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "SYY": [
+      {
+        "date": "2025-08-19",
+        "price": 79.83,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "TFC": [
+      {
+        "date": "2025-08-19",
+        "price": 44.68,
+        "change": 0.8,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "TGT": [
+      {
+        "date": "2025-08-19",
+        "price": 103.63,
+        "change": -1.7,
+        "confidence_score": 1,
+        "predicted": true
+      }
+    ],
+    "TMO": [
+      {
+        "date": "2025-08-19",
+        "price": 490.18,
+        "change": -0.0,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "TSLA": [
+      {
+        "date": "2025-08-19",
+        "price": 334.29,
+        "change": -0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "TXN": [
+      {
+        "date": "2025-08-19",
+        "price": 195.17,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "UNH": [
+      {
+        "date": "2025-08-19",
+        "price": 314.55,
+        "change": 1.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "UNP": [
+      {
+        "date": "2025-08-19",
+        "price": 221.01,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "V": [
+      {
+        "date": "2025-08-19",
+        "price": 344.29,
+        "change": 0.5,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "VRTX": [
+      {
+        "date": "2025-08-19",
+        "price": 389.93,
+        "change": -0.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "WEC": [
+      {
+        "date": "2025-08-19",
+        "price": 106.99,
+        "change": 0.1,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "WMB": [
+      {
+        "date": "2025-08-19",
+        "price": 57.12,
+        "change": 0.4,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "WMT": [
+      {
+        "date": "2025-08-19",
+        "price": 100.42,
+        "change": -0.6,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "XEL": [
+      {
+        "date": "2025-08-19",
+        "price": 72.36,
+        "change": 0.2,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "XOM": [
+      {
+        "date": "2025-08-19",
+        "price": 107.62,
+        "change": 1.0,
+        "confidence_score": 3,
+        "predicted": true
+      }
+    ],
+    "XYL": [
+      {
+        "date": "2025-08-19",
+        "price": 141.7,
+        "change": 0.3,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ZBH": [
+      {
+        "date": "2025-08-19",
+        "price": 102.44,
+        "change": 0.6,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ],
+    "ZM": [
+      {
+        "date": "2025-08-19",
+        "price": 74.04,
+        "change": -0.1,
+        "confidence_score": 2,
+        "predicted": true
+      }
+    ]
+  },
+  "metadata": {
+    "last_updated": "2025-08-21T21:10:07.986996",
+    "total_dates": 1,
+    "total_stocks": 5,
+    "total_predictions": 129
+  }
+}

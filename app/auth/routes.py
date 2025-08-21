@@ -43,7 +43,7 @@ def clear_registration_session():
 #########################
 @auth_bp.route('/conditions')
 def terms_and_conditions():
-    return render_template('auth/conditions.html')
+    return render_template('auth/before-you-begin.html')
 
 
 #########################

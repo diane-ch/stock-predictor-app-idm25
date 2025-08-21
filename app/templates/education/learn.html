@@ -190,7 +190,136 @@
   
 
 
+<script>
+  // Make the static URL available first
+  window.STATIC_LESSONS_URL = "{{ url_for('static', filename='images/lessons/') }}";
+  
+  console.log("🚀 Inline script started");
+  
+  let currentModuleId = null;
+  let currentLessonId = null;
 
+  function toggleMenu() {
+    const menu = document.getElementById('logoutMenu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function openVideoCard(moduleId, lessonId) {
+    currentModuleId = moduleId;
+    currentLessonId = lessonId;
+    
+    fetch(`/education/lesson/${moduleId}/${lessonId}/preview`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('popupCategory').textContent = `${data.module.emoji} ${data.module.title}`;
+        document.getElementById('popupTime').textContent = `${data.lesson.duration} min`;
+        document.getElementById('popupTitle').textContent = data.lesson.title;
+        document.getElementById('popupDesc').textContent = data.lesson.description;
+        
+        let imagePreview = 'default.png';
+        if (data.lesson && data.lesson['image-preview']) {
+          imagePreview = data.lesson['image-preview'];
+        } else if (data.lesson && data.lesson.image_preview) {
+          imagePreview = data.lesson.image_preview;
+        }
+        
+        const imageSrc = window.STATIC_LESSONS_URL + imagePreview;
+        document.getElementById('popupImage').src = imageSrc;
+        document.getElementById('videoPopup').style.display = 'flex';
+      })
+      .catch(error => {
+        console.error('Error fetching lesson data:', error);
+        document.getElementById('popupCategory').textContent = "🌱 Foundations";
+        document.getElementById('popupTime').textContent = "8 min";
+        document.getElementById('popupTitle').textContent = "Loading...";
+        document.getElementById('popupDesc').textContent = "Loading lesson details...";
+        document.getElementById('videoPopup').style.display = 'flex';
+      });
+  }
+
+  function startLesson() {
+    if (currentModuleId && currentLessonId) {
+      document.getElementById('videoPopup').style.display = 'none';
+      window.location.href = `/education/lesson/${currentModuleId}/${currentLessonId}/start`;
+    } else {
+      alert('Please select a lesson first.');
+    }
+  }
+
+  // Close menu when clicking outside
+  document.addEventListener("click", function(event) {
+    const menu = document.getElementById("logoutMenu");
+    const icon = document.querySelector(".menu-icon");
+    if (menu && icon && !menu.contains(event.target) && !icon.contains(event.target)) {
+      menu.style.display = "none";
+    }
+  });
+
+  // Make functions global
+  window.toggleMenu = toggleMenu;
+  window.openVideoCard = openVideoCard;
+  window.startLesson = startLesson;
+
+  // Wait for DOM to be ready
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("📋 DOM ready!");
+    
+    // Video popup
+    const popup = document.getElementById('videoPopup');
+    if (popup) {
+      popup.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.style.display = 'none';
+        }
+      });
+    }
+
+    // Tutorial functionality
+    const tutorialBtn = document.getElementById("tutorialBtn");
+    const tutorialModal = document.getElementById("tutorialModal");
+    const tutorialCloseBtn = document.getElementById("tutorialCloseBtn");
+    
+    console.log("Tutorial elements found:", {
+      button: !!tutorialBtn,
+      modal: !!tutorialModal,
+      closeBtn: !!tutorialCloseBtn
+    });
+
+    if (tutorialBtn && tutorialModal) {
+      tutorialBtn.addEventListener("click", function (e) {
+        console.log("🎯 Tutorial button clicked!");
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Show modal
+        tutorialModal.style.display = "flex";
+        
+        // Hide menu
+        const logoutMenu = document.getElementById("logoutMenu");
+        if (logoutMenu) logoutMenu.style.display = "none";
+        
+        console.log("✅ Tutorial modal shown");
+      });
+    }
+
+    if (tutorialCloseBtn && tutorialModal) {
+      tutorialCloseBtn.addEventListener("click", function () {
+        console.log("🔄 Close button clicked");
+        tutorialModal.style.display = "none";
+      });
+    }
+
+    if (tutorialModal) {
+      tutorialModal.addEventListener("click", function (e) {
+        if (e.target === tutorialModal) {
+          tutorialModal.style.display = "none";
+        }
+      });
+    }
+  });
+  
+  console.log("🏁 Inline script loaded");
+</script>
 
 
 </body>

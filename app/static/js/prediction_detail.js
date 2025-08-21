@@ -1,9 +1,13 @@
-// ===== 顶部菜单 =====
+// ===== Menu functionality =====
 function toggleMenu() {
   const menu = document.getElementById("logoutMenu");
   menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
-function logout() { alert("Logging out..."); }
+
+function logout() { 
+  alert("Logging out..."); 
+}
+
 document.addEventListener("click", (e) => {
   const menu = document.getElementById("logoutMenu");
   const icon = document.querySelector(".menu-icon");
@@ -12,171 +16,16 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// ===== 各股票的演示数据（你可替换为真实数据） =====
-const TICKER_MAP = {
-  MMM: {
-    name: "3M Company",
-    logo: "../../static/images/mmm_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [98, 101] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [95, 101] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [88, 101] },
-    },
-    metrics: { diff: 1.2, diffPct: 1.2, pred: 101, predPct: 1.5, real: 100, realPct: -0.3 }
-  },
+// ===== Global data storage =====
+let currentPredictionData = null;
 
-  AMZN: {
-    name: "Amazon.com Inc.",
-    logo: "../../static/images/amazon_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [179, 186] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [171, 186] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [132, 186] },
-    },
-    metrics: { diff: 1.2, diffPct: 0.6, pred: 186, predPct: 1.4, real: 185, realPct: -0.4 }
-  },
-
-  AAPL: {
-    name: "Apple Inc.",
-    logo: "../../static/images/apple-logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [205, 213] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [198, 213] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [176, 213] },
-    },
-    metrics: { diff: 2.0, diffPct: 1.1, pred: 213, predPct: 1.8, real: 211, realPct: -2.9 }
-  },
-
-  BAC: {
-    name: "Bank of America Corp.",
-    logo: "../../static/images/bac_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [39.8, 40.9] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [38.5, 40.9] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [30.2, 40.9] },
-    },
-    metrics: { diff: 0.3, diffPct: 0.7, pred: 40.9, predPct: 1.2, real: 40.6, realPct: -0.5 }
-  },
-
-  BA: {
-    name: "The Boeing Company",
-    logo: "../../static/images/ba_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [180, 187] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [172, 187] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [145, 187] },
-    },
-    metrics: { diff: 2.1, diffPct: 1.1, pred: 187, predPct: 2.2, real: 185, realPct: -0.8 }
-  },
-
-  CAT: {
-    name: "Caterpillar Inc.",
-    logo: "../../static/images/cat_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [325, 334] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [312, 334] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [258, 334] },
-    },
-    metrics: { diff: 1.8, diffPct: 0.5, pred: 334, predPct: 1.6, real: 332, realPct: -0.3 }
-  },
-
-  CSCO: {
-    name: "Cisco Systems, Inc.",
-    logo: "../../static/images/csco_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [48.2, 49.5] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [47.0, 49.5] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [41.8, 49.5] },
-    },
-    metrics: { diff: 0.4, diffPct: 0.8, pred: 49.5, predPct: 1.5, real: 49.1, realPct: -0.4 }
-  },
-
-  KO: {
-    name: "The Coca-Cola Company",
-    logo: "../../static/images/ko_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [61.0, 62.2] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [59.8, 62.2] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [54.6, 62.2] },
-    },
-    metrics: { diff: 0.3, diffPct: 0.5, pred: 62.2, predPct: 1.0, real: 61.9, realPct: -0.3 }
-  },
-
-  DIS: {
-    name: "The Walt Disney Company",
-    logo: "../../static/images/dis_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [95, 101] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [92, 101] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [82, 101] },
-    },
-    metrics: { diff: 0.9, diffPct: 0.9, pred: 101, predPct: 1.8, real: 100, realPct: -0.5 }
-  },
-
-  GS: {
-    name: "The Goldman Sachs Group, Inc.",
-    logo: "../../static/images/gs_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [421, 432] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [405, 432] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [342, 432] },
-    },
-    metrics: { diff: 3.2, diffPct: 0.8, pred: 432, predPct: 1.9, real: 428, realPct: -0.6 }
-  },
-
-  HD: {
-    name: "The Home Depot, Inc.",
-    logo: "../../static/images/hd_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [330, 338] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [316, 338] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [282, 338] },
-    },
-    metrics: { diff: 1.6, diffPct: 0.5, pred: 338, predPct: 1.7, real: 336, realPct: -0.4 }
-  },
-
-  INTC: {
-    name: "Intel Corporation",
-    logo: "../../static/images/intc_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [33.2, 34.5] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [31.8, 34.5] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [28.4, 34.5] },
-    },
-    metrics: { diff: 0.4, diffPct: 1.2, pred: 34.5, predPct: 2.0, real: 34.1, realPct: -0.8 }
-  },
-
-  IBM: {
-    name: "International Business Machines Corporation",
-    logo: "../../static/images/ibm_logo.png",
-    date: "Jul 31, 2025",
-    series: {
-      "1W": { dates: ["Jul 22","Jul 31"], values: [183, 188] },
-      "1M": { dates: ["Jul 1","Jul 31"], values: [176, 188] },
-      "1Y": { dates: ["Aug '24","Jul '25"], values: [150, 188] },
-    },
-    metrics: { diff: 1.1, diffPct: 0.6, pred: 188, predPct: 1.4, real: 187, realPct: -0.3 }
-  }
-};
-
-
-// ===== 画线 & 切换区间 =====
+// ===== Chart functionality =====
 function drawLine(svgEl, data) {
   const w = 300, h = 120, pad = 10;
   svgEl.setAttribute("viewBox", `0 0 ${w} ${h}`);
   svgEl.innerHTML = "";
+
+  if (!data || data.length === 0) return;
 
   const min = Math.min(...data), max = Math.max(...data);
   const range = max - min || 1;
@@ -198,69 +47,145 @@ function drawLine(svgEl, data) {
 }
 
 function setRange(range, series) {
+  if (!series || !series[range]) {
+    console.error(`No data for range: ${range}`);
+    return;
+  }
+  
   const { dates, values } = series[range];
-  document.getElementById("startLabel").textContent = dates[0];
-  document.getElementById("endLabel").textContent = dates[dates.length - 1];
+  document.getElementById("startLabel").textContent = dates[0] || "Start";
+  document.getElementById("endLabel").textContent = dates[dates.length - 1] || "End";
   drawLine(document.getElementById("lineChart"), values);
 }
 
-// ===== 初始化页面 =====
-document.addEventListener("DOMContentLoaded", () => {
-  // 1) 读参数
-  const ticker = (new URLSearchParams(location.search).get("ticker") || "AAPL").toUpperCase();
-  const info = TICKER_MAP[ticker] || TICKER_MAP["AAPL"];
+// ===== Load prediction data from API =====
+async function loadPredictionData(ticker, date = null) {
+  try {
+    console.log(`📊 Loading prediction data for ${ticker}...`);
+    
+    // Show loading state
+    showLoadingState();
+    
+    let apiUrl = `/api/prediction-detail/${ticker}`;
+    if (date) {
+      apiUrl += `?date=${date}`;
+    }
+    
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    
+    if (data.success) {
+      console.log(`✅ Prediction data loaded for ${ticker}`);
+      currentPredictionData = data.prediction;
+      displayPredictionData(data.prediction);
+    } else {
+      console.error(`❌ API Error: ${data.error}`);
+      showErrorState(data.error);
+    }
+    
+  } catch (error) {
+    console.error('❌ Network error:', error);
+    showErrorState('Network error while loading prediction data');
+  }
+}
 
-  // 2) 写入头部信息
-  document.getElementById("companyName").textContent = info.name;
-  document.getElementById("tickerSymbol").textContent = ticker;
-  document.getElementById("companyLogo").src = info.logo;
-  document.getElementById("companyLogo").alt = info.name;
-  document.getElementById("dateChip").textContent = info.date;
-
-  // 3) 写入指标
-  const { diff, diffPct, pred, predPct, real, realPct } = info.metrics;
-  document.getElementById("diffVal").textContent = `$${diff.toFixed(1)}`;
-  document.getElementById("diffChange").textContent = `${diffPct.toFixed(1)}%`;
-
-  document.getElementById("predVal").textContent = `$${pred.toFixed(0)}`;
-  document.getElementById("predChange").textContent = `${predPct >= 0 ? "+" : ""}${predPct.toFixed(1)}%`;
-  document.getElementById("predChange").className = `pill ${predPct >= 0 ? "up" : "down"}`;
-
-  document.getElementById("realVal").textContent = `$${real.toFixed(0)}`;
-  document.getElementById("realPriceChange").textContent = `${realPct >= 0 ? "+" : ""}${realPct.toFixed(1)}%`;
-  document.getElementById("realPriceChange").className = `pill ${realPct >= 0 ? "up" : "down"}`;
-
-  // 4) 默认区间 & 切换
-  setRange("1W", info.series);
-  document.querySelectorAll(".range-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".range-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      setRange(btn.dataset.range, info.series);
-    });
+function displayPredictionData(prediction) {
+  // 1. Update header info
+  document.getElementById("companyName").textContent = prediction.name;
+  document.getElementById("tickerSymbol").textContent = prediction.ticker;
+  document.getElementById("companyLogo").src = prediction.logo_url;
+  document.getElementById("companyLogo").alt = prediction.name;
+  
+  // Format date nicely
+  const dateObj = new Date(prediction.date + 'T00:00:00');
+  const formattedDate = dateObj.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
   });
-});
-  // ===== 滑轨拖拽 =====
+  document.getElementById("dateChip").textContent = formattedDate;
+
+  // 2. Update metrics
+  const { difference, difference_pct, predicted_price, predicted_change, real_price, real_change } = prediction;
+  
+  document.getElementById("diffVal").textContent = `$${Math.abs(difference).toFixed(1)}`;
+  document.getElementById("diffChange").textContent = `${difference_pct >= 0 ? '+' : ''}${difference_pct.toFixed(1)}%`;
+
+  document.getElementById("predVal").textContent = `$${predicted_price}`;
+  document.getElementById("predChange").textContent = `${predicted_change >= 0 ? "+" : ""}${predicted_change.toFixed(1)}%`;
+  document.getElementById("predChange").className = `pill ${predicted_change >= 0 ? "up" : "down"}`;
+
+  document.getElementById("realVal").textContent = `$${real_price}`;
+  document.getElementById("realPriceChange").textContent = `${real_change >= 0 ? "+" : ""}${real_change.toFixed(1)}%`;
+  document.getElementById("realPriceChange").className = `pill ${real_change >= 0 ? "up" : "down"}`;
+
+  // 3. Set up chart with default range
+  if (prediction.series) {
+    setRange("1W", prediction.series);
+    
+    // Add event listeners for range buttons
+    document.querySelectorAll(".range-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".range-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        setRange(btn.dataset.range, prediction.series);
+      });
+    });
+  }
+  
+  console.log("📈 Prediction data displayed successfully");
+}
+
+function showLoadingState() {
+  // Show loading indicators
+  const elements = [
+    { id: 'companyName', text: 'Loading...' },
+    { id: 'tickerSymbol', text: '...' },
+    { id: 'predVal', text: '$--' },
+    { id: 'realVal', text: '$--' },
+    { id: 'diffVal', text: '$--' }
+  ];
+  
+  elements.forEach(({ id, text }) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.textContent = text;
+    }
+  });
+}
+
+function showErrorState(errorMessage) {
+  // Show error state
+  document.getElementById("companyName").textContent = 'Error loading data';
+  document.getElementById("companyName").style.color = '#ff4444';
+  
+  console.error("Error state:", errorMessage);
+}
+
+// ===== Slider functionality =====
+function initializeSlider() {
   const svg = document.getElementById("lineChart");
   const track = document.getElementById("chartTrack");
   const knob = document.getElementById("chartKnob");
   const vGuide = document.getElementById("vGuide");
   const chartWrap = document.querySelector(".chart-wrap");
 
-  // 当前百分比（0~1）
+  if (!track || !knob || !vGuide || !chartWrap) {
+    console.log("Slider elements not found, skipping slider initialization");
+    return;
+  }
+
   let pct = 0.5;
 
-  function clamp(x, min=0, max=1){ return Math.max(min, Math.min(max, x)); }
+  function clamp(x, min=0, max=1){ 
+    return Math.max(min, Math.min(max, x)); 
+  }
 
   function placeByPercent(p) {
-    // 放置 knob：相对 track 的宽度
     const rect = track.getBoundingClientRect();
-    const x = rect.left + p * rect.width;
-
     knob.style.left = `${p * 100}%`;
     knob.setAttribute("aria-valuenow", Math.round(p * 100));
 
-    // 放置 vGuide：相对 svg 的宽度定位
     const svgRect = svg.getBoundingClientRect();
     const wrapRect = chartWrap.getBoundingClientRect();
     const guideLeft = svgRect.left - wrapRect.left + p * svgRect.width;
@@ -272,14 +197,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return clamp((clientX - rect.left) / rect.width);
   }
 
-  // 点击轨道也能跳转
   track.addEventListener("pointerdown", (e) => {
     track.setPointerCapture(e.pointerId);
     pct = pointerToPercent(e.clientX);
     placeByPercent(pct);
   });
 
-  // 拖拽圆钮
   knob.addEventListener("pointerdown", (e) => {
     knob.setPointerCapture(e.pointerId);
     const move = (ev) => {
@@ -295,7 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("pointerup", up);
   });
 
-  // 键盘无障碍：左右键微调、Home/End
   knob.addEventListener("keydown", (e) => {
     const step = 0.02;
     if (e.key === "ArrowLeft") { pct = clamp(pct - step); placeByPercent(pct); }
@@ -304,38 +226,56 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "End") { pct = 1; placeByPercent(pct); }
   });
 
-  // 窗口变化时重算定位
   window.addEventListener("resize", () => placeByPercent(pct));
-
-  // 初始化一次
   placeByPercent(pct);
+}
 
-
-  document.addEventListener("DOMContentLoaded", function () {
-  // 匹配 HTML 中实际存在的 ID
+// ===== Tutorial functionality =====
+function initializeTutorial() {
   const tutorialBtn = document.getElementById("tutorialBtn");
   const tutorialModal = document.getElementById("tutorialModal");
   const tutorialCloseBtn = document.getElementById("tutorialCloseBtn");
   const logoutMenu = document.getElementById("logoutMenu");
 
-  if (!tutorialBtn || !tutorialModal || !tutorialCloseBtn) return;
+  if (!tutorialBtn || !tutorialModal || !tutorialCloseBtn) {
+    console.log("Tutorial elements not found");
+    return;
+  }
 
-  // 打开：显示为 flex 才能触发弹窗的居中布局
   tutorialBtn.addEventListener("click", function (e) {
-    e.stopPropagation();                // 防止冒泡到“点击空白关闭菜单”的监听
+    e.stopPropagation();
     tutorialModal.style.display = "flex";
-    if (logoutMenu) logoutMenu.style.display = "none"; // 顺手把右上角菜单收起
+    if (logoutMenu) logoutMenu.style.display = "none";
   });
 
-  // 关闭按钮
   tutorialCloseBtn.addEventListener("click", function () {
     tutorialModal.style.display = "none";
   });
 
-  // 点击遮罩关闭（只在点到遮罩本身时关闭）
   tutorialModal.addEventListener("click", function (e) {
     if (e.target === tutorialModal) {
       tutorialModal.style.display = "none";
     }
   });
+}
+
+// ===== Main initialization =====
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("🚀 Prediction Detail page loaded");
+  
+  // 1. Get ticker from URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticker = (urlParams.get("ticker") || "AAPL").toUpperCase();
+  const date = urlParams.get("date"); // Optional date parameter
+  
+  console.log(`🎯 Loading prediction for: ${ticker}${date ? ` on ${date}` : ''}`);
+  
+  // 2. Load prediction data
+  loadPredictionData(ticker, date);
+  
+  // 3. Initialize other functionality
+  initializeSlider();
+  initializeTutorial();
+  
+  console.log("✅ Prediction Detail page initialized");
 });
