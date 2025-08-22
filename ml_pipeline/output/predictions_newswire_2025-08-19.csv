@@ -1,14 +1,14 @@
 date,ticker,name,price,change,confidence,feature1,feature2,feature3,feature4
-2025-08-19,SLB,SLB,33.77,1.6,3.5,Overnight drift,MA(5),ΔVIX,Bollinger %B
-2025-08-19,COP,COP,94.72,1.2,3.5,Overnight drift,MA(5),MA(20),Prev sign
-2025-08-19,MSFT,MSFT,522.35,1.1,3.5,RSI,Overnight drift,MA(5),Prev intraday
-2025-08-19,CVX,CVX,155.27,1.2,3.4,RSI,Overnight drift,MA(5),Bollinger %B
-2025-08-19,MCD,MCD,312.64,1.1,3.4,Overnight drift,Prev intraday,MA(5),ΔVIX
 2025-08-19,MMC,MMC,209.75,1.0,3.4,Overnight drift,Prev sign,ΔVIX,GARCH vol
 2025-08-19,XOM,XOM,107.62,1.0,3.4,Overnight drift,MA(5),Prev sign,MA(20)
 2025-08-19,HD,HD,406.76,0.9,3.4,RSI,Overnight drift,Prev intraday,Prev sign
 2025-08-19,MDT,MDT,89.92,0.9,3.4,Overnight drift,RSI,MA(20),MA(5)
 2025-08-19,COST,COST,985.55,0.7,3.4,Overnight drift,Prev sign,Bollinger %B,ΔVIX
+2025-08-19,SLB,SLB,33.77,1.6,3.5,Overnight drift,MA(5),ΔVIX,Bollinger %B
+2025-08-19,COP,COP,94.72,1.2,3.5,Overnight drift,MA(5),MA(20),Prev sign
+2025-08-19,MSFT,MSFT,522.35,1.1,3.5,RSI,Overnight drift,MA(5),Prev intraday
+2025-08-19,CVX,CVX,155.27,1.2,3.4,RSI,Overnight drift,MA(5),Bollinger %B
+2025-08-19,MCD,MCD,312.64,1.1,3.4,Overnight drift,Prev intraday,MA(5),ΔVIX
 2025-08-19,AAPL,AAPL,231.96,0.8,3.3,Overnight drift,RSI,ΔVIX,Bollinger %B
 2025-08-19,LIN,LIN,481.15,0.6,3.3,Overnight drift,MA(5),MA(20),Prev sign
 2025-08-19,V,V,344.29,0.5,3.3,Overnight drift,Prev intraday,ΔVIX,Prev sign

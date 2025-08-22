@@ -165,12 +165,13 @@ function updateStockDisplay(stocks) {
                         </div>
                     </div>
                     <div class="stock-confidence">
-                        <span class="confidence-dot ${stock.confidence}"></span>
-                        <span class="confidence-text">${stock.confidence.charAt(0).toUpperCase() + stock.confidence.slice(1)} Confidence</span>
+                        <img class="confidence-logo" src="../../static/images/confidenceicon.png" alt="Logo">
+                        <span class="confidence-value">${stock.confidence_score || '8.2'}/10</span>
+                        <span class="confidence-label">Confidence</span>
                     </div>
                 </div>
                 <div class="stock-right">
-                    <div class="stock-price">${stock.price} USD</div>
+                    <div class="stock-price">$${stock.price}</div>
                     <div class="stock-change ${stock.change >= 0 ? 'positive' : 'negative'}">
                         ${stock.change >= 0 ? '+' : ''}${stock.change.toFixed(1)}% 
                         <img class="arrow-icon" src="/static/images/${stock.change >= 0 ? 'up' : 'down'}-logo.png" 

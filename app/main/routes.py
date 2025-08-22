@@ -429,25 +429,13 @@ def api_get_prediction_detail(ticker):
                 # Différence
                 "difference": round(difference, 2),
                 "difference_pct": round(difference_pct, 1),
-                
+
                 # Historique pour graphiques
                 "history": history[:7],  # 7 derniers jours pour le graphique
                 
-                # Séries temporelles pour différentes périodes (simulées)
-                "series": {
-                    "1W": {
-                        "dates": generate_date_labels(7, requested_date),
-                        "values": generate_price_series(predicted_price, 7, predicted_change)
-                    },
-                    "1M": {
-                        "dates": generate_date_labels(30, requested_date),
-                        "values": generate_price_series(predicted_price, 30, predicted_change)
-                    },
-                    "1Y": {
-                        "dates": generate_date_labels(365, requested_date),
-                        "values": generate_price_series(predicted_price, 365, predicted_change * 0.1)
-                    }
-                }
+                # Note: Les graphiques historiques sont maintenant chargés via /api/historical-prices
+                "has_historical_data": True
+                
             }
         }
         
@@ -504,6 +492,114 @@ def generate_price_series(base_price, days, target_change_pct):
         prices.append(round(final_price, 2))
     
     return prices
+
+# ========================================
+# AI predictions - GRAPH
+# ========================================
+# Ajoutez cette route dans routes.py :
+
+@main_bp.route('/api/historical-prices/<ticker>')
+@login_required
+def api_get_historical_prices(ticker):
+    """API : Retourne les prix historiques d'un ticker depuis le CSV"""
+    ticker = ticker.upper()
+    period = request.args.get('period', '1Y')  # 1W, 1M, 1Y
+    
+    try:
+        import pandas as pd
+        from datetime import datetime, timedelta
+        
+        # Charge le CSV des prix historiques
+        csv_path = 'ml_pipeline/data/historical_closing_prices.csv'
+        
+        if not os.path.exists(csv_path):
+            return jsonify({
+                "success": False,
+                "error": "Historical prices CSV not found"
+            }), 404
+        
+        # Lit le CSV
+        df = pd.read_csv(csv_path)
+        
+        # Vérifie que le ticker existe
+        if ticker not in df.columns:
+            available_tickers = [col for col in df.columns if col != 'Date']
+            return jsonify({
+                "success": False,
+                "error": f"Ticker {ticker} not found in historical data",
+                "available_tickers": available_tickers[:20]
+            }), 404
+        
+        # Parse les dates
+        df['Date'] = pd.to_datetime(df['Date'])
+        df = df.sort_values('Date')
+        
+        # Filtre selon la période demandée
+        end_date = df['Date'].max()
+        
+        if period == '1W':
+            start_date = end_date - timedelta(weeks=1)
+        elif period == '1M':
+            start_date = end_date - timedelta(days=30)
+        elif period == '1Y':
+            start_date = end_date - timedelta(days=365)
+        else:
+            start_date = end_date - timedelta(days=365)  # Default to 1 year
+        
+        # Filtre les données
+        mask = (df['Date'] >= start_date) & (df['Date'] <= end_date)
+        filtered_df = df.loc[mask, ['Date', ticker]].copy()
+        
+        # Supprime les valeurs NaN
+        filtered_df = filtered_df.dropna()
+        
+        if filtered_df.empty:
+            return jsonify({
+                "success": False,
+                "error": f"No historical data found for {ticker} in period {period}"
+            }), 404
+        
+        # Convertit en format JSON
+        dates = filtered_df['Date'].dt.strftime('%Y-%m-%d').tolist()
+        prices = filtered_df[ticker].round(2).tolist()
+        
+        # Calcule les labels de dates pour l'affichage
+        if period == '1W':
+            date_labels = filtered_df['Date'].dt.strftime('%b %d').tolist()
+        elif period == '1M':
+            # Prend le premier et dernier jour
+            date_labels = [
+                filtered_df['Date'].iloc[0].strftime('%b %d'),
+                filtered_df['Date'].iloc[-1].strftime('%b %d')
+            ] if len(filtered_df) > 1 else [filtered_df['Date'].iloc[0].strftime('%b %d')]
+        else:  # 1Y
+            date_labels = [
+                filtered_df['Date'].iloc[0].strftime("%b '%y"),
+                filtered_df['Date'].iloc[-1].strftime("%b '%y")
+            ] if len(filtered_df) > 1 else [filtered_df['Date'].iloc[0].strftime("%b '%y")]
+        
+        return jsonify({
+            "success": True,
+            "ticker": ticker,
+            "period": period,
+            "data": {
+                "dates": dates,
+                "prices": prices,
+                "date_labels": date_labels,
+                "start_date": dates[0] if dates else None,
+                "end_date": dates[-1] if dates else None,
+                "total_points": len(dates)
+            }
+        })
+        
+    except Exception as e:
+        print(f"💥 Erreur dans api_get_historical_prices : {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            "success": False,
+            "error": f"Internal server error: {str(e)}"
+        }), 500
 
 
 

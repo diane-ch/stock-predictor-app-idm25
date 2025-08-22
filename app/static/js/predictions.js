@@ -60,8 +60,8 @@ function renderList(filtered) {
     noResultDiv.className = "no-result";
 
     const noResultImg = document.createElement("img");
-    noResultImg.src = "../../static/images/noresult.png";
-    noResultImg.alt = "No result";
+    noResultImg.src = "../../static/images/not-found.png";
+    noResultImg.alt = "Not Found";
 
     const noResultText1 = document.createElement("p");
     noResultText1.textContent = "Whoops!";

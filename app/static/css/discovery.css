@@ -311,8 +311,30 @@ html, body {
   display: flex;
   align-items: center;
   font-size: 13px;
+  gap: 6px;
 }
 
+.confidence-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: inline-block;
+}
+.confidence-value {
+  color: #111;      
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.confidence-label {
+  color: #999;         /* Gris */
+  font-weight: 400;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+}
+
+/*
 .confidence-dot {
   width: 10px;
   height: 10px;
@@ -323,7 +345,7 @@ html, body {
 .confidence-dot.high { background-color: #00d084; }
 .confidence-dot.mid  { background-color: #ec7845; }
 .confidence-dot.low  { background-color: #ff4d4f; }
-
+*/
 .stock-right {
   text-align: right;
   display: flex;
@@ -374,9 +396,10 @@ html, body {
 }
 
 /* 显式设置 High Confidence 字样颜色 */
-.confidence-text {
+/*.confidence-text {
   color: #999;
-}
+}*/
+
 /* 页面进入动画 */
 .page-transition {
   animation-duration: 0.4s;
