@@ -45,6 +45,10 @@ def clear_registration_session():
 def terms_and_conditions():
     return render_template('auth/before-you-begin.html')
 
+@auth_bp.route('/terms_full')
+def terms_full():
+    return render_template('auth/terms.html')
+
 
 #########################
 # STEP 1: Name Collection

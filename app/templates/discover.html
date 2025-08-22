@@ -33,7 +33,7 @@
 
           <div class="menu-divider"></div>
             <!-- Terms -->
-            <button class="menu-item" id="termsBtn">
+            <button class="menu-item" id="termsBtn" onclick="window.location.href='{{ url_for('auth.terms_full') }}'">
               <span class="menu-text">Terms & Privacy</span>
               <img src="../../static/images/termslogo.png" class="menu-icon-right" alt="Terms Icon" />
             </button>
@@ -70,13 +70,18 @@
                       <div class="stock-ticker">{{ stock.ticker }}</div>
                     </div>
                 </div>
-                <div class="stock-confidence">
+                <!--<div class="stock-confidence">
                     <span class="confidence-dot {{ stock.confidence }}"></span>
                     <span class="confidence-text">{{ stock.confidence|title }} Confidence</span>
+                </div>-->
+                <div class="stock-confidence">
+                    <img class="confidence-logo" src="../../static/images/confidenceicon.png" alt="Logo">
+                    <span class="confidence-value">8.2/10</span>
+                    <span class="confidence-label">Confidence</span>
                 </div>
                 </div>
                 <div class="stock-right">
-                  <div class="stock-price">{{ stock.price }} USD</div>
+                  <div class="stock-price">${{ stock.price }}</div>
                   <div class="stock-change {{ 'positive' if stock.change >= 0 else 'negative' }}">
                       {% if stock.change >= 0 %}+{% endif %}{{ "%.1f"|format(stock.change) }}% 
                       <img class="arrow-icon" src="/static/images/{{ 'up' if stock.change >= 0 else 'down' }}-logo.png" 
