@@ -100,6 +100,7 @@ html, body {
   width: 100%;
   padding: 5px 0;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 /* Log Out 专用颜色 */
@@ -110,6 +111,8 @@ html, body {
 /* 其他按钮灰色 */
 .menu-text {
   color: #444;
+  font-family: 'inter', sans-serif;
+  text-decoration: none;
 }
 
 /* 图标 */
