@@ -16,9 +16,10 @@
         <img src="{{ url_for('static', filename='images/back.png') }}" alt="Back">
         <span>Back</span>
       </div>
-      <div class="confidence-badge">
-        <span id="confidence-dot" class="confidence-dot"></span>
-        <span id="confidence-text" class="confidence-text">Loading...</span>
+      <div class="stock-confidence">
+          <img class="confidence-logo" src="{{ url_for('static', filename='images/confidenceicon.png') }}" alt="Logo">
+          <span class="confidence-value">8.2/10</span>
+          <span class="confidence-label">Confidence</span>
       </div>
     </div>
 
@@ -44,7 +45,8 @@
       <div id="feature-list" class="feature-list">
         <!-- Features will be added here -->
       </div>
-      <div class="ai-note">🤖 <span>AI Analysis Based on 50+ Factors</span></div>
+      <div class="ai-note"><img src="{{ url_for('static', filename='images/confidenceicon.png') }}" alt="AI" class="ai-icon">
+         <span>AI Analysis Based on 50+ Factors</span></div>
     </div>
   </div>
 

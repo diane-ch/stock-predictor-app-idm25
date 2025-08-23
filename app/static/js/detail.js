@@ -121,17 +121,11 @@ function updateBasicInfo(stock) {
 }
 
 function updateConfidence(stock) {
-    const confidenceDot = document.getElementById('confidence-dot');
-    const confidenceText = document.getElementById('confidence-text');
+    const confidenceValue = document.querySelector('.confidence-value');
     
-    if (confidenceDot) {
-        confidenceDot.className = `confidence-dot ${stock.confidence}`;
-    }
-    
-    if (confidenceText) {
-        const confidenceLevel = stock.confidence.charAt(0).toUpperCase() + stock.confidence.slice(1);
-        const confidenceScore = stock.confidence_score || '';
-        confidenceText.textContent = `${confidenceLevel} Confidence ${confidenceScore ? `(${confidenceScore}/10)` : ''}`;
+    if (confidenceValue) {
+        const scoreValue = stock.confidence_score || '8.2';
+        confidenceValue.textContent = `${scoreValue}/10`;
     }
 }
 
@@ -161,11 +155,12 @@ function updateFeaturesWithPopups(stock) {
     
     if (featureList && stock.features) {
         if (stock.features.length === 0) {
-            featureList.innerHTML = '<div class="feature-item">• No specific features available</div>';
+            featureList.innerHTML = '<div class="feature-item"><span class="feature-text">• No specific features available</span></div>';
         } else {
             featureList.innerHTML = stock.features.map((feature, index) => 
                 `<div class="feature-item" onclick="openFeaturePopup('${escapeHtml(feature)}')" title="Click to learn more">
-                    • ${feature}
+                    <span class="feature-text">• ${feature}</span>
+                    <img src="${window.STATIC_URL}images/Frame200.png" alt="More info" class="info-icon">
                 </div>`
             ).join('');
         }
@@ -222,7 +217,6 @@ function showLoadingState() {
     const elements = [
         { id: 'stock-name', text: 'Loading...' },
         { id: 'stock-price', text: '$--' },
-        { id: 'confidence-text', text: 'Loading...' },
         { id: 'change-text', text: '--' }
     ];
     
@@ -232,6 +226,12 @@ function showLoadingState() {
             element.textContent = text;
         }
     });
+    
+    // Confidence loading state
+    const confidenceValue = document.querySelector('.confidence-value');
+    if (confidenceValue) {
+        confidenceValue.textContent = '--/10';
+    }
     
     const featureList = document.getElementById('feature-list');
     if (featureList) {
@@ -243,7 +243,7 @@ function showErrorState(errorMessage) {
     // Affiche l'état d'erreur
     const stockName = document.getElementById('stock-name');
     const stockPrice = document.getElementById('stock-price');
-    const confidenceText = document.getElementById('confidence-text');
+    const confidenceValue = document.querySelector('.confidence-value');
     const featureList = document.getElementById('feature-list');
     
     if (stockName) {
@@ -255,8 +255,8 @@ function showErrorState(errorMessage) {
         stockPrice.textContent = '$--';
     }
     
-    if (confidenceText) {
-        confidenceText.textContent = 'N/A';
+    if (confidenceValue) {
+        confidenceValue.textContent = '--/10';
     }
     
     if (featureList) {
