@@ -1,0 +1,14 @@
+{
+  "Overnight drift": "This indicates that the stock tends to have predictable price movements between market close and the next day's open. This pattern suggests potential trading opportunities based on overnight price behavior.",
+  
+  "MA(5)": "Moving Average over 5 days - This shows the stock's short-term price trend. When the current price is above the 5-day average, it suggests recent upward momentum in the stock price.",
+  
+  "MA(20)": "Moving Average over 20 days - This represents the stock's medium-term trend. A price above the 20-day average indicates positive momentum over the past month, suggesting sustained investor interest.",
+  
+  "Prev sign": "Previous Signal - This refers to a positive signal from our AI model in recent trading sessions. The algorithm identified favorable conditions that historically lead to good performance.",
+
+  "ΔVIX":"vix",
+
+  "Bollinger %B": "Bollinger"
+
+}

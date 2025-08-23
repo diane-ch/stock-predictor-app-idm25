@@ -6,6 +6,121 @@
   <title>Sign Up - Step 2</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up12.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+
+  <style>
+    .pwd-specification {
+      margin: 15px 0;
+      padding: 15px;
+      background-color: transparent;
+      border-radius: 8px;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .pwd-title {
+      margin: 0 0 10px 0;
+      font-weight: 600;
+      color: #495057;
+      font-size: 14px;
+    }
+
+    .pwd-requirements {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .pwd-requirement {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+
+    .requirement-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .requirement-icon.pending {
+      background-color: #dee2e6;
+      border: 2px solid #adb5bd;
+      color: #6c757d;
+    }
+
+    .requirement-icon.valid {
+      background-color: #28a745;
+      border: 2px solid #28a745;
+      color: white;
+    }
+
+    .requirement-icon.invalid {
+      background-color: #dc3545;
+      border: 2px solid #dc3545;
+      color: white;
+    }
+
+    .requirement-text {
+      transition: color 0.3s ease;
+    }
+
+    .pwd-requirement.pending .requirement-text {
+      color: white;
+    }
+
+    .pwd-requirement.valid .requirement-text {
+      color: #28a745;
+      font-weight: 500;
+    }
+
+    .pwd-requirement.invalid .requirement-text {
+      color: #dc3545;
+    }
+
+    /* Animation pour la validation */
+    @keyframes checkmark {
+      0% { transform: scale(0.8); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .requirement-icon.valid {
+      animation: checkmark 0.3s ease;
+    }
+
+    /* Style pour le bouton de soumission */
+    button[type="submit"] {
+      transition: all 0.3s ease;
+    }
+
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: #6c757d;
+    }
+
+    button[type="submit"].ready {
+      background-color: #28a745;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    /* Input focus state enhancement */
+    input[type="password"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+  </style>
 </head>
 <body>
   <div class="signup-screen">
@@ -64,7 +179,7 @@
       <h1 class="form-title">Some basic information</h1>
       
       <!-- Form that submits to Flask backend -->
-      <form method="POST" action="{{ url_for('auth.register_step2') }}">
+      <form method="POST" action="{{ url_for('auth.register_step2') }}" id="registrationForm">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         
         <input type="text" 
@@ -75,28 +190,140 @@
         
         <input type="password" 
                name="password" 
+               id="passwordInput"
                placeholder="Password" 
                required />
 
-      <div class="pwd-specification">
-        <p class="pwd-title">Your password should:</p>
-        <ul>
-          <li>Have at least 8 characters.</li>
-          <li>Have at least one upper case letter.</li>
-          <li>Have at least one number.</li>
-          <li>Have at least one special character (!,?,-,[,],%,&)</li>
-        </ul>
-      </div>
-      
+        <div class="pwd-specification">
+          <p class="pwd-title">Your password should:</p>
+          <ul class="pwd-requirements">
+            <li class="pwd-requirement pending" id="length-req">
+              <span class="requirement-icon pending" id="length-icon">•</span>
+              <span class="requirement-text">Have at least 8 characters.</span>
+            </li>
+            <li class="pwd-requirement pending" id="case-req">
+              <span class="requirement-icon pending" id="case-icon">•</span>
+              <span class="requirement-text">Have both lower and upper case letters.</span>
+            </li>
+            <li class="pwd-requirement pending" id="number-req">
+              <span class="requirement-icon pending" id="number-icon">•</span>
+              <span class="requirement-text">Have at least one number.</span>
+            </li>
+            <li class="pwd-requirement pending" id="special-req">
+              <span class="requirement-icon pending" id="special-icon">•</span>
+              <span class="requirement-text">Have at least one special character (!,?,-,[,],%,&)</span>
+            </li>
+          </ul>
+        </div>
         
         <!-- Submit button -->
-        <button type="submit">Next</button>
+        <button type="submit" id="submitBtn" disabled>Next</button>
       </form>
     </div>
   </div>
 
-
   <script>
+    // Password validation functions
+    const passwordInput = document.getElementById('passwordInput');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // Requirements elements
+    const requirements = {
+      length: {
+        element: document.getElementById('length-req'),
+        icon: document.getElementById('length-icon'),
+        test: (password) => password.length >= 8
+      },
+      case: {
+        element: document.getElementById('case-req'),
+        icon: document.getElementById('case-icon'),
+        test: (password) => /[A-Z]/.test(password) && /[a-z]/.test(password)
+      },
+      number: {
+        element: document.getElementById('number-req'),
+        icon: document.getElementById('number-icon'),
+        test: (password) => /[0-9]/.test(password)
+      },
+      special: {
+        element: document.getElementById('special-req'),
+        icon: document.getElementById('special-icon'),
+        test: (password) => /[!?[\]%&-]/.test(password)
+      }
+    };
+
+    function updateRequirement(req, isValid, isEmpty) {
+      const { element, icon } = req;
+      
+      // Remove all classes
+      element.classList.remove('pending', 'valid', 'invalid');
+      icon.classList.remove('pending', 'valid', 'invalid');
+      
+      if (isEmpty) {
+        // Reset to pending state
+        element.classList.add('pending');
+        icon.classList.add('pending');
+        icon.textContent = '•';
+      } else if (isValid) {
+        // Valid state
+        element.classList.add('valid');
+        icon.classList.add('valid');
+        icon.textContent = '✓';
+      } else {
+        // Invalid state (user started typing but requirement not met)
+        element.classList.add('invalid');
+        icon.classList.add('invalid');
+        icon.textContent = '✗';
+      }
+    }
+
+    function validatePassword() {
+      const password = passwordInput.value;
+      const isEmpty = password.length === 0;
+      let allValid = true;
+
+      // Check each requirement
+      Object.values(requirements).forEach(req => {
+        const isValid = req.test(password);
+        updateRequirement(req, isValid, isEmpty);
+        
+        if (!isValid) {
+          allValid = false;
+        }
+      });
+
+      // Update submit button
+      if (allValid && !isEmpty) {
+        submitBtn.disabled = false;
+        submitBtn.classList.add('ready');
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.classList.remove('ready');
+      }
+
+      return allValid && !isEmpty;
+    }
+
+    // Add event listener for real-time validation
+    passwordInput.addEventListener('input', validatePassword);
+    passwordInput.addEventListener('keyup', validatePassword);
+    passwordInput.addEventListener('paste', () => {
+      // Small delay to let paste complete
+      setTimeout(validatePassword, 10);
+    });
+
+    // Form submission validation
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+      if (!validatePassword()) {
+        e.preventDefault();
+        alert('Please ensure all password requirements are met.');
+        return false;
+      }
+    });
+
+    // Initialize validation on page load
+    validatePassword();
+
+    // Error popup functions (existing)
     function hideErrorPopup() {
       const popup = document.getElementById('error-popup');
       if (popup) {
@@ -104,14 +331,14 @@
       }
     }
 
-    // Permettre de fermer la popup avec la touche Escape
+    // Allow closing popup with Escape key
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         hideErrorPopup();
       }
     });
 
-    // Fermer la popup si on clique en dehors
+    // Close popup if clicking outside
     document.addEventListener('click', function(event) {
       const popup = document.getElementById('error-popup');
       const popupCard = document.querySelector('.error-popup-card');

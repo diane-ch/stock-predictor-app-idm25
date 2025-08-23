@@ -140,6 +140,31 @@ function initializeSearch() {
   });
 }
 
+// ===== Logo validation utility =====
+// ✅ Fonction utilitaire pour vérifier si une image existe
+async function checkImageExists(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+}
+
+// ✅ Fonction pour obtenir l'URL du logo avec fallback
+async function getValidLogoUrl(logoUrl, ticker) {
+  // Vérifier si le logo Clearbit existe
+  const clearbitExists = await checkImageExists(logoUrl);
+  
+  if (clearbitExists) {
+    console.log(`✅ Logo Clearbit disponible pour ${ticker}`);
+    return logoUrl;
+  } else {
+    console.log(`❌ Logo Clearbit 404 pour ${ticker}, utilisation du logo par défaut`);
+    return '/static/images/logos/default.png';
+  }
+}
+
 // ===== Global data storage =====
 let currentPredictionData = null;
 
@@ -413,12 +438,19 @@ async function loadPredictionData(ticker, date = null) {
   }
 }
 
-function displayPredictionData(prediction) {
+// ✅ Fonction modifiée avec validation du logo
+async function displayPredictionData(prediction) {
   // 1. Update header info
   document.getElementById("companyName").textContent = prediction.name;
   document.getElementById("tickerSymbol").textContent = prediction.ticker;
-  document.getElementById("companyLogo").src = prediction.logo_url;
-  document.getElementById("companyLogo").alt = prediction.name;
+  
+  // ✅ Vérifier et définir le logo avec fallback
+  const validLogoUrl = await getValidLogoUrl(prediction.logo_url, prediction.ticker);
+  const logoElement = document.getElementById("companyLogo");
+  logoElement.src = validLogoUrl;
+  logoElement.alt = prediction.name;
+  // ✅ Ajouter aussi le fallback HTML au cas où
+  logoElement.setAttribute('onerror', "this.src='/static/images/logos/default.png'");
   
   // Format date nicely
   const dateObj = new Date(prediction.date + 'T00:00:00');
@@ -459,7 +491,7 @@ function displayPredictionData(prediction) {
     });
   });
   
-  console.log("📈 Prediction data displayed with historical chart");
+  console.log("📈 Prediction data displayed with historical chart and validated logo");
 }
 
 function showLoadingState() {

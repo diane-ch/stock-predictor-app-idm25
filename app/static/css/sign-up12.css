@@ -41,7 +41,7 @@ html, body {
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
   z-index: 20;
 }
 
@@ -52,6 +52,7 @@ html, body {
   font-weight: 500;
   margin: 0 0 6px 0;
   opacity: 0.85;
+  font-family: 'Space Grotesk';
 }
 
 /* 主标题 */

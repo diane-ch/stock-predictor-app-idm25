@@ -5,7 +5,7 @@
       "title": "Foundations",
       "description": "Start your investing journey",
       "emoji": "🌱",
-      "icon": "foundations.png",
+      "icon": "baby_foundations.png",
       "order": 1,
       "lessons": [
         {
@@ -316,11 +316,11 @@
       ]
     },
     {
-      "id": "grow0",
-      "title": "Grow",
+      "id": "analysis",
+      "title": "Analysis",
       "description": "Start your investing journey",
-      "emoji": "🔥", 
-      "icon": "grow.png",
+      "emoji": "🔍", 
+      "icon": "baby_analysis.png",
       "order": 2,
       "lessons": [
         {
@@ -495,7 +495,7 @@
       "title": "Strategy",
       "description": "Start your investing journey", 
       "emoji": "📈",
-      "icon": "strategy.png",
+      "icon": "baby_strategy.png",
       "order": 3,
       "lessons": [
         {
@@ -670,7 +670,7 @@
       "title": "Grow",
       "description": "Start your investing journey",
       "emoji": "🔥", 
-      "icon": "grow.png",
+      "icon": "baby_grow.png",
       "order": 4,
       "lessons": [
         {

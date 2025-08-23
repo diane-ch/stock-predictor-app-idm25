@@ -1,4 +1,4 @@
-// detail.js - Page de détail des stocks
+// detail.js - Page de détail des stocks avec popups pour les features
 
 document.addEventListener('DOMContentLoaded', function() {
     const ticker = window.TICKER;
@@ -7,12 +7,45 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log(`🏷️ Chargement des données pour ${ticker}`);
     
-    // Utilise la date passée en paramètre ou la date d'aujourd'hui
-    const dateToUse = selectedDate || new Date().toISOString().split('T')[0];
-    console.log(`📅 Date utilisée: ${dateToUse}`);
-    
-    loadStockDetails(ticker, dateToUse);
+    // Charger les explications des features en premier
+    loadFeatureExplanations().then(() => {
+        // Utilise la date passée en paramètre ou la date d'aujourd'hui
+        const dateToUse = selectedDate || new Date().toISOString().split('T')[0];
+        console.log(`📅 Date utilisée: ${dateToUse}`);
+        
+        loadStockDetails(ticker, dateToUse);
+    });
 });
+
+// Variable pour stocker les explications des features
+let featureExplanations = {};
+
+// Charger les explications depuis le fichier JSON
+async function loadFeatureExplanations() {
+    try {
+        const response = await fetch('/static/json/features-explanation.json');
+        if (response.ok) {
+            featureExplanations = await response.json();
+            console.log('✅ Feature explanations loaded:', Object.keys(featureExplanations).length, 'features');
+        } else {
+            console.warn('⚠️ Could not load feature explanations, using defaults');
+            loadDefaultExplanations();
+        }
+    } catch (error) {
+        console.warn('⚠️ Error loading feature explanations:', error);
+        loadDefaultExplanations();
+    }
+}
+
+// Explications par défaut en cas d'erreur
+function loadDefaultExplanations() {
+    featureExplanations = {
+        "Overnight drift": "This indicates that the stock tends to have predictable price movements between market close and the next day's open. This pattern suggests potential trading opportunities based on overnight price behavior.",
+        "MA(5)": "Moving Average over 5 days - This shows the stock's short-term price trend. When the current price is above the 5-day average, it suggests recent upward momentum in the stock price.",
+        "MA(20)": "Moving Average over 20 days - This represents the stock's medium-term trend. A price above the 20-day average indicates positive momentum over the past month, suggesting sustained investor interest.",
+        "Prev sign": "Previous Signal - This refers to a positive signal from our AI model in recent trading sessions. The algorithm identified favorable conditions that historically lead to good performance."
+    };
+}
 
 async function loadStockDetails(ticker, date = null) {
     try {
@@ -54,8 +87,8 @@ function displayStockDetails(stock) {
     // Met à jour le prix et le changement
     updatePriceInfo(stock);
     
-    // Met à jour les features
-    updateFeatures(stock);
+    // Met à jour les features avec popups
+    updateFeaturesWithPopups(stock);
     
     // Affiche l'historique si disponible (optionnel)
     if (stock.history && stock.history.length > 0) {
@@ -109,7 +142,7 @@ function updatePriceInfo(stock) {
     const changeIcon = document.getElementById('change-icon');
     
     if (stockPrice) {
-        stockPrice.textContent = `${stock.price} USD`;
+        stockPrice.textContent = `$${stock.price}`;
     }
     
     if (changeText && changeIcon && stockChange) {
@@ -122,25 +155,73 @@ function updatePriceInfo(stock) {
     }
 }
 
-function updateFeatures(stock) {
+// Fonction pour gérer les features avec popups
+function updateFeaturesWithPopups(stock) {
     const featureList = document.getElementById('feature-list');
     
     if (featureList && stock.features) {
         if (stock.features.length === 0) {
             featureList.innerHTML = '<div class="feature-item">• No specific features available</div>';
         } else {
-            featureList.innerHTML = stock.features.map(feature => 
-                `<div class="feature-item">• ${feature}</div>`
+            featureList.innerHTML = stock.features.map((feature, index) => 
+                `<div class="feature-item" onclick="openFeaturePopup('${escapeHtml(feature)}')" title="Click to learn more">
+                    • ${feature}
+                </div>`
             ).join('');
         }
     }
+}
+
+// Fonction pour ouvrir la popup avec l'explication
+function openFeaturePopup(featureName) {
+    const overlay = document.getElementById('feature-popup-overlay');
+    const title = document.getElementById('popup-title');
+    const description = document.getElementById('popup-description');
+    
+    // DEBUG: Log pour vérifier
+    console.log('🔍 Feature cliquée:', `"${featureName}"`);
+    console.log('📚 Features disponibles:', Object.keys(featureExplanations));
+    console.log('🎯 Explication trouvée:', featureExplanations[featureName] ? 'OUI' : 'NON');
+    
+    // Cherche l'explication correspondante
+    const explanation = featureExplanations[featureName];
+    
+    if (explanation) {
+        title.textContent = featureName;
+        description.textContent = explanation;
+        console.log('✅ Explication affichée pour:', featureName);
+    } else {
+        // Fallback si la feature n'est pas trouvée
+        title.textContent = featureName;
+        description.textContent = "This is a technical indicator used by our AI model to evaluate investment opportunities. It contributes to the overall analysis of this stock's potential.";
+        console.log('⚠️ Pas d\'explication trouvée pour:', `"${featureName}"`, '- utilisation du fallback');
+    }
+    
+    // Affiche la popup
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    console.log(`ℹ️ Popup ouverte pour: ${featureName}`);
+}
+
+function closeFeaturePopup() {
+    const overlay = document.getElementById('feature-popup-overlay');
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+// Fonction utilitaire pour échapper les caractères HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function showLoadingState() {
     // Affiche l'état de chargement
     const elements = [
         { id: 'stock-name', text: 'Loading...' },
-        { id: 'stock-price', text: '-- USD' },
+        { id: 'stock-price', text: '$--' },
         { id: 'confidence-text', text: 'Loading...' },
         { id: 'change-text', text: '--' }
     ];
@@ -171,7 +252,7 @@ function showErrorState(errorMessage) {
     }
     
     if (stockPrice) {
-        stockPrice.textContent = '-- USD';
+        stockPrice.textContent = '$--';
     }
     
     if (confidenceText) {
@@ -205,3 +286,5 @@ function loadStockForDate(date) {
 // Rend les fonctions disponibles globalement
 window.goBackToDiscovery = goBackToDiscovery;
 window.loadStockForDate = loadStockForDate;
+window.openFeaturePopup = openFeaturePopup;
+window.closeFeaturePopup = closeFeaturePopup;

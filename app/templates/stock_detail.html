@@ -31,7 +31,7 @@
 
     <!-- 股价和涨跌 -->
     <div class="stock-price-block">
-      <div id="stock-price" class="stock-price">-- USD</div>
+      <div id="stock-price" class="stock-price">$--</div>
       <div id="stock-change" class="stock-change">
         <span id="change-text"></span>
         <img id="change-icon" src="" alt="">
@@ -47,6 +47,20 @@
       <div class="ai-note">🤖 <span>AI Analysis Based on 50+ Factors</span></div>
     </div>
   </div>
+
+  <!-- Popup simplifiée pour les features -->
+  <div id="feature-popup-overlay" class="feature-popup-overlay">
+    <div class="feature-popup">
+      <div class="popup-header">
+        <h3 id="popup-title" class="popup-title">Feature Details</h3>
+        <button class="popup-close" onclick="closeFeaturePopup()">&times;</button>
+      </div>
+      <div class="popup-content">
+        <p id="popup-description" class="popup-description">Loading...</p>
+      </div>
+    </div>
+  </div>
+
 
    <!-- 底部导航栏 -->
   <nav class="bottom-nav">
@@ -68,6 +82,25 @@
     window.TICKER = "{{ ticker }}";
     window.STATIC_URL = "{{ url_for('static', filename='') }}";
     window.SELECTED_DATE = "{{ request.args.get('date', '') }}";
+
+    // Close popup when clicking outside - Using the working method from your learn.js
+    document.addEventListener('DOMContentLoaded', function() {
+      const popup = document.getElementById('feature-popup-overlay');
+      if (popup) {
+        popup.addEventListener('click', function(e) {
+          if (e.target === this) {
+            closeFeaturePopup();
+          }
+        });
+      }
+
+      // Close popup with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeFeaturePopup();
+        }
+      });
+    });
   </script>
   <script src="{{ url_for('static', filename='js/detail.js') }}"></script>
 </body>

@@ -17,14 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let fullDates = getDates(); // 4 dates total
-  let selectedDate = fullDates[3]; // Default to today (last one)
+  let selectedDate = null; // ✅ On ne sélectionne plus automatiquement aujourd'hui
 
   function renderDates() {
     dateListEl.innerHTML = fullDates
       .map(date => {
         const day = date.getDate();
         const month = date.toLocaleString('en-US', { month: 'short' });
-        const isSelected = date.toDateString() === selectedDate.toDateString();
+        const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
         return `
           <span class="date-item ${isSelected ? 'selected' : ''}" data-date="${date.toISOString()}">
             ${day}<br><small>${month}</small>
@@ -88,6 +88,52 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(`⏰ Prochaine prédiction: ${next230pm.toLocaleString('en-IE')}`);
 }
 
+  // ✅ Nouvelle fonction pour trouver automatiquement la meilleure date
+  async function findValidDateAndLoad() {
+    console.log("🔍 Recherche de la meilleure date avec des données...");
+    
+    // Tester les dates dans l'ordre inverse (aujourd'hui → hier → avant-hier → etc.)
+    const datesToTest = [...fullDates].reverse(); // Commence par aujourd'hui
+    
+    for (let i = 0; i < datesToTest.length; i++) {
+      const dateToTest = datesToTest[i];
+      console.log(`📅 Test de la date: ${dateToTest.toDateString()}`);
+      
+      try {
+        const year = dateToTest.getFullYear();
+        const month = String(dateToTest.getMonth() + 1).padStart(2, '0');
+        const day = String(dateToTest.getDate()).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day}`;
+        
+        const response = await fetch(`/api/stocks?date=${dateStr}`);
+        const data = await response.json();
+        
+        if (data.success && data.stocks && data.stocks.length > 0) {
+          console.log(`✅ Date valide trouvée: ${dateStr} avec ${data.stocks.length} stocks`);
+          selectedDate = dateToTest;
+          renderDates(); // Met à jour l'affichage des dates avec la sélection
+          updateStockDisplay(data.stocks);
+          return; // On s'arrête dès qu'on trouve une date valide
+        } else {
+          console.log(`❌ Pas de données pour ${dateStr}`);
+        }
+      } catch (error) {
+        console.log(`❌ Erreur pour ${dateToTest.toDateString()}:`, error.message);
+      }
+    }
+    
+    // Si aucune date n'a de données, sélectionner la plus récente par défaut
+    console.log("⚠️ Aucune date avec des données trouvée, sélection de la date la plus récente");
+    selectedDate = fullDates[fullDates.length - 1]; // Aujourd'hui
+    renderDates();
+    
+    // Afficher l'image d'erreur
+    const container = document.getElementById('stocks-container');
+    if (container) {
+        container.innerHTML = '<div style="text-align: center; padding: 40px;"><img src="/static/images/market_asleep.png" alt="Market is still asleep!" style="max-width: 100%; height: auto;"></div>';
+    }
+  }
+
   // Function to fetch stocks for a specific date
   async function fetchStocksForDate(date) {
     const year = date.getFullYear();
@@ -117,15 +163,37 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error('❌ Error fetching stocks:', error);
         const container = document.getElementById('stocks-container');
         if (container) {
-            container.innerHTML = '<div style="text-align: center; padding: 40px; color: #ff4444;">Market is still asleep!</div>';
+            container.innerHTML = '<div style="text-align: center; padding: 40px;"><img src="/static/images/market_asleep.png" alt="Market is still asleep!" style="max-width: 100%; height: auto;"></div>';
         }
     }
   }
 
-  // Function to update stock cards display
-  // Dans votre discovery.js, remplacez la function updateStockDisplay par :
+  // ✅ Fonction utilitaire pour vérifier si une image existe
+  async function checkImageExists(url) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    });
+  }
 
-function updateStockDisplay(stocks) {
+  // ✅ Fonction pour obtenir l'URL du logo avec fallback
+  async function getLogoUrl(stock) {
+    // Vérifier si le logo Clearbit existe
+    const clearbitExists = await checkImageExists(stock.logo_url);
+    
+    if (clearbitExists) {
+      console.log(`✅ Logo Clearbit disponible pour ${stock.ticker}`);
+      return stock.logo_url;
+    } else {
+      console.log(`❌ Logo Clearbit 404 pour ${stock.ticker}, utilisation du logo par défaut`);
+      return '/static/images/logos/default.png';
+    }
+  }
+
+  // Function to update stock cards display
+  async function updateStockDisplay(stocks) {
     const container = document.getElementById('stocks-container');
     if (!container) return;
 
@@ -148,7 +216,15 @@ function updateStockDisplay(stocks) {
     console.log("📅 Date sélectionnée (objet):", selectedDate.toDateString());
     console.log("📅 Date formatée pour URL:", currentDate);
     
-    container.innerHTML = stocks.map(stock => {
+    // ✅ Vérification des logos en parallèle pour de meilleures performances
+    const stocksWithValidLogos = await Promise.all(
+      stocks.map(async (stock) => {
+        const validLogoUrl = await getLogoUrl(stock);
+        return { ...stock, validLogoUrl };
+      })
+    );
+    
+    container.innerHTML = stocksWithValidLogos.map(stock => {
         const detailUrl = `/stock-detail/${stock.ticker}?date=${currentDate}`;
         console.log(`🎯 Lien généré pour ${stock.ticker}: ${detailUrl}`);
         
@@ -157,7 +233,7 @@ function updateStockDisplay(stocks) {
             <div class="stock-card">
                 <div class="stock-left">
                     <div class="stock-top">
-                        <img class="stock-logo" src="${stock.logo_url}" alt="${stock.name} Logo" 
+                        <img class="stock-logo" src="${stock.validLogoUrl}" alt="${stock.name} Logo" 
                              onerror="this.src='/static/images/logos/default.png'">
                         <div class="stock-text">
                             <div class="stock-name">${stock.name}</div>
@@ -184,12 +260,12 @@ function updateStockDisplay(stocks) {
     }).join('');
 }
 
-  // Initialize
+  // ✅ Initialize - modifié pour utiliser la nouvelle logique
   renderDates();
   updateCountdown();
   
-  // ✅ Load stocks for today on page load
-  fetchStocksForDate(selectedDate);
+  // ✅ Au lieu de charger aujourd'hui automatiquement, trouver la meilleure date
+  findValidDateAndLoad();
 
   // 匹配 HTML 中实际存在的 ID
   const tutorialBtn = document.getElementById("tutorialBtn");
@@ -201,7 +277,7 @@ function updateStockDisplay(stocks) {
 
   // 打开：显示为 flex 才能触发弹窗的居中布局
   tutorialBtn.addEventListener("click", function (e) {
-    e.stopPropagation();                // 防止冒泡到“点击空白关闭菜单”的监听
+    e.stopPropagation();                // 防止冒泡到"点击空白关闭菜单"的监听
     tutorialModal.style.display = "flex";
     if (logoutMenu) logoutMenu.style.display = "none"; // 顺手把右上角菜单收起
   });
