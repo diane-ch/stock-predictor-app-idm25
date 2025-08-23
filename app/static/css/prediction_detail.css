@@ -130,7 +130,7 @@ html, body {
 
 /* 时间范围 tabs */
 .range-tabs {
-  display: flex; gap: 12px; padding: 0 24px 12px; align-items: center;
+  display: flex; gap: 12px; padding: 0 24px 12px; align-items: center; justify-content: center;
 }
 .range-btn {
   border: none; padding: 10px 14px; border-radius: 999px; background: #e9f2ef; color: #05564b;
@@ -194,13 +194,14 @@ html, body {
   position: relative;
   border-radius: 999px;
   padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  font-family: 'Inter', sans-serif !important;
 }
 
 /* Difference：白底黑描边 */

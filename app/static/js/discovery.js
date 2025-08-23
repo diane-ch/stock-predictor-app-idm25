@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error('❌ Error fetching stocks:', error);
         const container = document.getElementById('stocks-container');
         if (container) {
-            container.innerHTML = '<div style="text-align: center; padding: 40px; color: #ff4444;">Error loading stocks. Please try again.</div>';
+            container.innerHTML = '<div style="text-align: center; padding: 40px; color: #ff4444;">Market is still asleep!</div>';
         }
     }
   }

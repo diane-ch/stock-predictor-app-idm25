@@ -601,6 +601,90 @@ def api_get_historical_prices(ticker):
             "error": f"Internal server error: {str(e)}"
         }), 500
 
+@main_bp.route('/api/predicted-prices/<ticker>')
+@login_required
+def api_get_predicted_prices(ticker):
+    """API : Retourne les prix prédits d'un ticker depuis le CSV"""
+    ticker = ticker.upper()
+    period = request.args.get('period', '1W')  # Seulement 1W supporté pour l'instant
+    
+    try:
+        import pandas as pd
+        from datetime import datetime, timedelta
+        
+        # Charge le CSV des prix prédits
+        csv_path = 'ml_pipeline/data/predicted_prices_5days.csv'
+        
+        if not os.path.exists(csv_path):
+            return jsonify({
+                "success": False,
+                "error": "Predicted prices CSV not found"
+            }), 404
+        
+        # Lit le CSV
+        df = pd.read_csv(csv_path)
+        
+        # Vérifie que le ticker existe
+        if ticker not in df.columns:
+            available_tickers = [col for col in df.columns if col != 'Date']
+            return jsonify({
+                "success": False,
+                "error": f"Ticker {ticker} not found in predicted data",
+                "available_tickers": available_tickers[:20]
+            }), 404
+        
+        # Parse les dates
+        df['Date'] = pd.to_datetime(df['Date'])
+        df = df.sort_values('Date')
+        
+        # Pour l'instant, on ne supporte que 1W (les 5 derniers jours)
+        if period != '1W':
+            return jsonify({
+                "success": False,
+                "error": "Only 1W period is supported for predicted prices"
+            }), 400
+        
+        # Prend tous les jours disponibles (5 jours)
+        filtered_df = df[['Date', ticker]].copy()
+        
+        # Supprime les valeurs NaN
+        filtered_df = filtered_df.dropna()
+        
+        if filtered_df.empty:
+            return jsonify({
+                "success": False,
+                "error": f"No predicted data found for {ticker}"
+            }), 404
+        
+        # Convertit en format JSON
+        dates = filtered_df['Date'].dt.strftime('%Y-%m-%d').tolist()
+        prices = filtered_df[ticker].round(2).tolist()
+        
+        # Calcule les labels de dates pour l'affichage (format 1W)
+        date_labels = filtered_df['Date'].dt.strftime('%b %d').tolist()
+        
+        return jsonify({
+            "success": True,
+            "ticker": ticker,
+            "period": period,
+            "data": {
+                "dates": dates,
+                "prices": prices,
+                "date_labels": date_labels,
+                "start_date": dates[0] if dates else None,
+                "end_date": dates[-1] if dates else None,
+                "total_points": len(dates)
+            }
+        })
+        
+    except Exception as e:
+        print(f"💥 Erreur dans api_get_predicted_prices : {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            "success": False,
+            "error": f"Internal server error: {str(e)}"
+        }), 500
 
 
 ### ONBOARDING

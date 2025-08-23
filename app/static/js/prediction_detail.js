@@ -180,7 +180,7 @@ function drawRealHistoricalChart(svgEl, data) {
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", d);
   path.setAttribute("fill", "none");
-  path.setAttribute("stroke", "#2196F3"); // Bleu pour prix réel
+  path.setAttribute("stroke", "#999999"); // Bleu pour prix réel
   path.setAttribute("stroke-width", "2");
   svgEl.appendChild(path);
 
@@ -190,7 +190,7 @@ function drawRealHistoricalChart(svgEl, data) {
     circle.setAttribute("cx", point[0]);
     circle.setAttribute("cy", point[1]);
     circle.setAttribute("r", "3");
-    circle.setAttribute("fill", "#2196F3");
+    circle.setAttribute("fill", "#999999");
     svgEl.appendChild(circle);
   });
 }
@@ -216,7 +216,122 @@ async function loadHistoricalData(ticker, period) {
   }
 }
 
-function setRangeWithHistoricalData(period, ticker) {
+// ===== Chart functionality avec vraies données historiques ET prédictions =====
+function drawComparisonChart(svgEl, realData, predictedData) {
+  const w = 300, h = 120, pad = 10;
+  svgEl.setAttribute("viewBox", `0 0 ${w} ${h}`);
+  svgEl.innerHTML = "";
+
+  if (!realData || !realData.prices || realData.prices.length === 0) {
+    // Affiche un message si pas de données
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", w/2);
+    text.setAttribute("y", h/2);
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("fill", "#999");
+    text.setAttribute("font-size", "12");
+    text.textContent = "No historical data available";
+    svgEl.appendChild(text);
+    return;
+  }
+
+  const realPrices = realData.prices;
+  const predictedPrices = predictedData ? predictedData.prices : null;
+  
+  // Calcule les min/max globaux pour les deux courbes
+  let allPrices = [...realPrices];
+  if (predictedPrices) {
+    allPrices = [...allPrices, ...predictedPrices];
+  }
+  
+  const min = Math.min(...allPrices);
+  const max = Math.max(...allPrices);
+  const range = max - min || 1;
+  const stepX = (w - pad * 2) / (realPrices.length - 1);
+
+  // Fonction pour créer les points
+  const createPoints = (prices) => {
+    return prices.map((price, i) => {
+      const x = pad + i * stepX;
+      const y = h - pad - ((price - min) / range) * (h - pad * 2);
+      return [x, y];
+    });
+  };
+
+  // Crée les points pour les données réelles
+  const realPoints = createPoints(realPrices);
+
+  // Dessine la ligne des données réelles
+  const realPath = realPoints.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
+  const realLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  realLine.setAttribute("d", realPath);
+  realLine.setAttribute("fill", "none");
+  realLine.setAttribute("stroke", "#999999"); // Gris pour prix réel
+  realLine.setAttribute("stroke-width", "2");
+  svgEl.appendChild(realLine);
+
+  // Si on a des données prédites, les dessiner aussi
+  if (predictedPrices && predictedPrices.length === realPrices.length) {
+    const predictedPoints = createPoints(predictedPrices);
+    
+    // Dessine la ligne des prédictions
+    const predPath = predictedPoints.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
+    const predLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    predLine.setAttribute("d", predPath);
+    predLine.setAttribute("fill", "none");
+    predLine.setAttribute("stroke", "#16CCA0"); // Vert pour prédictions
+    predLine.setAttribute("stroke-width", "2");
+    predLine.setAttribute("stroke-dasharray", "5,5"); // Ligne pointillée
+    svgEl.appendChild(predLine);
+
+    // Ajoute des points aux extrémités pour les prédictions
+    [predictedPoints[0], predictedPoints[predictedPoints.length - 1]].forEach(point => {
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", point[0]);
+      circle.setAttribute("cy", point[1]);
+      circle.setAttribute("r", "3");
+      circle.setAttribute("fill", "#16CCA0");
+      svgEl.appendChild(circle);
+    });
+  }
+
+  // Ajoute des points aux extrémités pour les données réelles
+  [realPoints[0], realPoints[realPoints.length - 1]].forEach(point => {
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", point[0]);
+    circle.setAttribute("cy", point[1]);
+    circle.setAttribute("r", "3");
+    circle.setAttribute("fill", "#999999");
+    svgEl.appendChild(circle);
+  });
+
+  // Note: Légende supprimée selon demande
+}
+
+// Fonction addChartLegend supprimée - plus utilisée
+
+async function loadPredictedData(ticker, period) {
+  try {
+    console.log(`🔮 Loading predicted data for ${ticker}, period: ${period}`);
+    
+    const response = await fetch(`/api/predicted-prices/${ticker}?period=${period}`);
+    const data = await response.json();
+    
+    if (data.success) {
+      console.log(`✅ Predicted data loaded: ${data.data.total_points} points`);
+      return data.data;
+    } else {
+      console.error(`❌ API Error: ${data.error}`);
+      return null;
+    }
+    
+  } catch (error) {
+    console.error('❌ Network error loading predicted data:', error);
+    return null;
+  }
+}
+
+function setRangeWithComparisonData(period, ticker) {
   if (!ticker) {
     console.error('No ticker provided for historical data');
     return;
@@ -230,20 +345,27 @@ function setRangeWithHistoricalData(period, ticker) {
     </text>
   `;
   
-  // Load and display historical data
-  loadHistoricalData(ticker, period).then(data => {
-    if (data) {
+  // Charge les données réelles et prédites en parallèle
+  Promise.all([
+    loadHistoricalData(ticker, period),
+    period === '1W' ? loadPredictedData(ticker, period) : Promise.resolve(null)
+  ]).then(([realData, predictedData]) => {
+    if (realData) {
       // Update date labels
-      if (data.date_labels && data.date_labels.length >= 2) {
-        document.getElementById("startLabel").textContent = data.date_labels[0];
-        document.getElementById("endLabel").textContent = data.date_labels[data.date_labels.length - 1];
-      } else if (data.start_date && data.end_date) {
-        document.getElementById("startLabel").textContent = data.start_date;
-        document.getElementById("endLabel").textContent = data.end_date;
+      if (realData.date_labels && realData.date_labels.length >= 2) {
+        document.getElementById("startLabel").textContent = realData.date_labels[0];
+        document.getElementById("endLabel").textContent = realData.date_labels[realData.date_labels.length - 1];
+      } else if (realData.start_date && realData.end_date) {
+        document.getElementById("startLabel").textContent = realData.start_date;
+        document.getElementById("endLabel").textContent = realData.end_date;
       }
       
-      // Draw the chart
-      drawRealHistoricalChart(svgEl, data);
+      // Draw the chart with comparison for 1W, simple chart for others
+      if (period === '1W' && predictedData) {
+        drawComparisonChart(svgEl, realData, predictedData);
+      } else {
+        drawRealHistoricalChart(svgEl, realData);
+      }
     } else {
       // Error state
       svgEl.innerHTML = `
@@ -253,6 +375,11 @@ function setRangeWithHistoricalData(period, ticker) {
       `;
     }
   });
+}
+
+// Remplace la fonction setRangeWithHistoricalData existante
+function setRangeWithHistoricalData(period, ticker) {
+  setRangeWithComparisonData(period, ticker);
 }
 
 // ===== Load prediction data from API =====
