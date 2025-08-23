@@ -216,6 +216,7 @@ html, body {
 .pill.down {
   padding-right: 36px; /* 预留右侧图标位置 */
   border: none;
+  background-color: #6B6A6A;
 }
 
 /* 涨：接近右图薄荷绿 */
