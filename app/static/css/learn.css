@@ -149,9 +149,9 @@ html, body {
   background-color: #fff;
   border-top: 1px solid #eaeaea;
   display: flex;
-  justify-content: space-around;   
+  justify-content: center;   
   align-items: center;
-  padding-left: 0px;            /* ✅ 整体向左缩进起始 */
+  padding: 0px;            /* ✅ 整体向左缩进起始 */
   gap: 0px;                     /* ✅ 控制导航项之间的间距 */
   max-width: 480px;
   margin: 0 auto;
@@ -166,6 +166,8 @@ html, body {
   font-size: 11px;
   color: #777;
   text-decoration: none;
+  flex: 1;
+  text-align: center;
 }
 
 .nav-item img {
