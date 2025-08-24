@@ -81,8 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         timeDisplay = `${minutesLeft} minutes`;
     }
     
-    countdownEl.innerHTML = `<strong>${timeDisplay}</strong> until next prediction`;
-    
+    countdownEl.innerHTML = `<strong>${timeDisplay}</strong> until next<br>prediction`;    
     // Debug (vous pouvez retirer ces logs après test)
     console.log(`🕐 Maintenant (Dublin): ${nowIrishDate.toLocaleString('en-IE')}`);
     console.log(`⏰ Prochaine prédiction: ${next230pm.toLocaleString('en-IE')}`);
