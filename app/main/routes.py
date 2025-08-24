@@ -776,7 +776,7 @@ def run_ml_predictions():
         
         if result.returncode == 0:
             # ML réussi, maintenant convertit pour l'app
-            from scripts.ml_to_app_converter import convert_ml_predictions_to_app_format
+            from scripts.ml_to_app_converter_og import convert_ml_predictions_to_app_format
             
             conversion_success = convert_ml_predictions_to_app_format()
             
@@ -869,7 +869,7 @@ def ml_status():
 def setup_ml():
     """Configure la structure ML"""
     try:
-        from scripts.ml_to_app_converter import setup_ml_pipeline
+        from scripts.ml_to_app_converter_og import setup_ml_pipeline
         setup_ml_pipeline()
         
         return jsonify({

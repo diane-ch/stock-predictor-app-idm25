@@ -154,6 +154,75 @@ let weeklyPredictionData = null;
 let weeklyHistoricalData = null;
 let currentDayIndex = 0;
 
+// ===== UI HELPER FUNCTIONS =====
+function createExplanationBlock() {
+  const explanationDiv = document.createElement('div');
+  explanationDiv.id = 'explanationBlock';
+  explanationDiv.className = 'explanation-block';
+  explanationDiv.style.cssText = `
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+  `;
+  explanationDiv.innerHTML = `
+    <div style="font-weight: 600; margin-bottom: 8px;">📈 Historical Price Data</div>
+    <div>This view shows historical price movements over the selected period.<br><br>In future developments and as time passes, the prediction curve will also be available in the 1M and 1Y views.</div>
+  `;
+  return explanationDiv;
+}
+
+function hideMetricsAndDate() {
+  const metricsDiv = document.querySelector('.metrics');
+  const dateChip = document.getElementById('dateChip');
+  
+  if (metricsDiv) {
+    metricsDiv.style.display = 'none';
+  }
+  if (dateChip) {
+    dateChip.style.display = 'none';
+  }
+}
+
+function showMetricsAndDate() {
+  const metricsDiv = document.querySelector('.metrics');
+  const dateChip = document.getElementById('dateChip');
+  
+  if (metricsDiv) {
+    metricsDiv.style.display = 'block';
+  }
+  if (dateChip) {
+    dateChip.style.display = 'block';
+  }
+}
+
+function showExplanationBlock() {
+  // Remove existing explanation block if any
+  const existingBlock = document.getElementById('explanationBlock');
+  if (existingBlock) {
+    existingBlock.remove();
+  }
+  
+  // Create and insert new explanation block
+  const explanationBlock = createExplanationBlock();
+  const chartWrap = document.querySelector('.chart-wrap');
+  if (chartWrap) {
+    chartWrap.parentNode.insertBefore(explanationBlock, chartWrap);
+  }
+}
+
+function hideExplanationBlock() {
+  const explanationBlock = document.getElementById('explanationBlock');
+  if (explanationBlock) {
+    explanationBlock.remove();
+  }
+}
+
 // ===== 1W SPECIFIC FUNCTIONS =====
 async function loadWeeklyPredictionData(ticker) {
   try {
@@ -221,9 +290,21 @@ function calculateDynamicValues(dayIndex, ticker) {
   let real_change = 0;
   
   if (dayIndex > 0) {
+    // Pour les jours 1-4, utiliser le prix réel du jour précédent
     const prevRealPrice = histData.prices[dayIndex - 1];
     predicted_change = ((predicted_price - prevRealPrice) / prevRealPrice) * 100;
     real_change = ((real_price - prevRealPrice) / prevRealPrice) * 100;
+  } else {
+    // Pour le premier jour (index 0), utiliser le prix du jour précédent fourni par l'API
+    if (histData.previous_day_price && histData.previous_day_price > 0) {
+      const prevDayPrice = histData.previous_day_price;
+      predicted_change = ((predicted_price - prevDayPrice) / prevDayPrice) * 100;
+      real_change = ((real_price - prevDayPrice) / prevDayPrice) * 100;
+    } else {
+      // Fallback si pas de prix précédent disponible
+      predicted_change = 0;
+      real_change = 0;
+    }
   }
   
   const difference = predicted_price - real_price;
@@ -248,14 +329,28 @@ function updateDisplayValues(dayIndex, ticker) {
     return;
   }
 
+  // Check if we're on the last day (most recent) where real price might not be available
+  const isLastDay = dayIndex === (weeklyPredictionData.dates.length - 1);
+  const hasValidRealPrice = values.real_price && values.real_price > 0;
+
   document.getElementById("diffVal").textContent = `$${values.difference.toFixed(1)}`;
   document.getElementById("diffChange").textContent = `${values.difference_pct >= 0 ? '+' : ''}${values.difference_pct.toFixed(1)}%`;
 
   document.getElementById("predVal").textContent = `$${values.predicted_price.toFixed(2)}`;
   document.getElementById("predChange").textContent = `${values.predicted_change >= 0 ? "+" : ""}${values.predicted_change.toFixed(1)}%`;
 
-  document.getElementById("realVal").textContent = `$${values.real_price.toFixed(2)}`;
-  document.getElementById("realPriceChange").textContent = `${values.real_change >= 0 ? "+" : ""}${values.real_change.toFixed(1)}%`;
+  // Handle real price display based on availability
+  if (isLastDay && !hasValidRealPrice) {
+    document.getElementById("realVal").textContent = `Unknown`;
+    document.getElementById("realPriceChange").textContent = `--`;
+    
+    // Also update difference to show it's unknown
+    document.getElementById("diffVal").textContent = `Unknown`;
+    document.getElementById("diffChange").textContent = `--`;
+  } else {
+    document.getElementById("realVal").textContent = `$${values.real_price.toFixed(2)}`;
+    document.getElementById("realPriceChange").textContent = `${values.real_change >= 0 ? "+" : ""}${values.real_change.toFixed(1)}%`;
+  }
 
   const dateObj = new Date(values.date + 'T00:00:00');
   const formattedDate = dateObj.toLocaleDateString('en-US', { 
@@ -545,7 +640,9 @@ function setRangeWithData(period, ticker) {
   `;
   
   if (period === '1W') {
-    // Show slider for 1W
+    // Show UI elements for 1W
+    showMetricsAndDate();
+    hideExplanationBlock();
     if (slider) slider.style.display = 'block';
     if (vGuide) vGuide.style.display = 'block';
     
@@ -576,7 +673,9 @@ function setRangeWithData(period, ticker) {
     });
     
   } else {
-    // Hide slider for 1M/1Y
+    // Hide UI elements for 1M/1Y and show explanation
+    hideMetricsAndDate();
+    showExplanationBlock();
     if (slider) slider.style.display = 'none';
     if (vGuide) vGuide.style.display = 'none';
     

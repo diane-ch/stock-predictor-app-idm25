@@ -4,9 +4,9 @@ from datetime import datetime
 from flask import jsonify
 
 # Configuration des chemins des fichiers CSV
-CSV_BASE_PATH = "ml_pipeline/data/"
-PREDICTED_CSV = os.path.join(CSV_BASE_PATH, "predicted_prices_5days.csv")
-HISTORICAL_CSV = os.path.join(CSV_BASE_PATH, "historical_closing_prices.csv")
+CSV_BASE_PATH = "ml_pipeline/"
+PREDICTED_CSV = os.path.join(CSV_BASE_PATH, "output/predictions_price_matrix.csv")
+HISTORICAL_CSV = os.path.join(CSV_BASE_PATH, "data/historical_closing_prices.csv")
 
 def load_csv_safely(file_path):
     """
@@ -114,7 +114,8 @@ def get_weekly_predictions(ticker):
 
 def get_weekly_historical(ticker):
     """
-    Endpoint pour obtenir les données historiques des 5 derniers jours
+    Endpoint pour obtenir les données historiques des 5 derniers jours + le jour précédent
+    On récupère 6 lignes pour pouvoir calculer le changement du premier jour
     """
     try:
         # Charger le CSV historique
@@ -135,21 +136,26 @@ def get_weekly_historical(ticker):
                 'error': f'Ticker {ticker} not found. Available tickers include: {", ".join(available_tickers)}...'
             }), 404
         
-        # Prendre les 5 dernières lignes
-        last_5_rows = df.tail(5).copy()
+        # Prendre les 6 dernières lignes (pour avoir le jour précédent au calcul des changements)
+        last_6_rows = df.tail(6).copy()
         
-        if len(last_5_rows) == 0:
+        if len(last_6_rows) < 2:
             return jsonify({
                 'success': False,
-                'error': 'No historical data available'
+                'error': 'Not enough historical data available (need at least 2 days)'
             }), 404
         
-        # Extraire les dates et les prix pour le ticker demandé
-        dates = last_5_rows['Date'].tolist()
-        prices = last_5_rows[ticker].tolist()
+        # Extraire toutes les données (6 lignes)
+        all_dates = last_6_rows['Date'].tolist()
+        all_prices = last_6_rows[ticker].tolist()
         
         # Vérifier qu'on a bien des valeurs numériques
-        prices = [float(price) if pd.notna(price) else 0.0 for price in prices]
+        all_prices = [float(price) if pd.notna(price) else 0.0 for price in all_prices]
+        
+        # Séparer les 5 derniers jours (pour l'affichage) du jour précédent (pour les calculs)
+        previous_day_price = all_prices[0]  # Le prix du jour précédent (J-6)
+        dates = all_dates[1:]  # Les 5 derniers jours
+        prices = all_prices[1:]  # Les 5 derniers prix
         
         # Formater les dates pour l'affichage
         formatted_dates = [format_date_for_display(date) for date in dates]
@@ -158,9 +164,10 @@ def get_weekly_historical(ticker):
             'success': True,
             'data': {
                 'ticker': ticker,
-                'dates': dates,  # Dates originales pour calculs
+                'dates': dates,  # Dates des 5 derniers jours
                 'formatted_dates': formatted_dates,  # Dates formatées pour affichage
-                'prices': prices,
+                'prices': prices,  # Prix des 5 derniers jours
+                'previous_day_price': previous_day_price,  # Prix du jour précédent pour calculs
                 'total_days': len(prices),
                 'date_range': {
                     'start': dates[0] if dates else None,
@@ -169,7 +176,9 @@ def get_weekly_historical(ticker):
             }
         }
         
-        print(f"📊 Weekly historical data loaded for {ticker}: {len(prices)} days")
+        print(f"📊 Weekly historical data loaded for {ticker}: {len(prices)} days + 1 previous day")
+        print(f"    Previous day price: ${previous_day_price:.2f}")
+        print(f"    First day price: ${prices[0]:.2f}")
         return jsonify(response_data)
     
     except Exception as e:
@@ -221,23 +230,6 @@ def get_csv_info():
             'success': False,
             'error': str(e)
         })
-
-# Exemple d'intégration avec Flask
-"""
-# Dans votre fichier app.py ou routes.py :
-
-@app.route('/api/weekly-predictions/<ticker>')
-def weekly_predictions_endpoint(ticker):
-    return get_weekly_predictions(ticker)
-
-@app.route('/api/weekly-historical/<ticker>')
-def weekly_historical_endpoint(ticker):
-    return get_weekly_historical(ticker)
-
-@app.route('/api/csv-info')
-def csv_info_endpoint():
-    return get_csv_info()
-"""
 
 # Test functions (optionnel, pour debug)
 def test_functions():

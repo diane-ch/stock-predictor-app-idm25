@@ -1,0 +1,517 @@
+date,ticker,name,price,change,confidence,feature1,feature2,feature3,feature4
+2025-08-19,AAPL,AAPL,230.8,0.3,0.9,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-19,ABBV,ABBV,210.76,2.0,1.3,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-19,ACN,ACN,258.6,3.6,1.5,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-19,ADBE,ADBE,357.36,0.0,0.5,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-19,ADI,ADI,231.72,0.1,0.3,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-19,ADSK,ADSK,290.51,0.0,2.2,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-19,AEP,AEP,108.04,-2.5,2.4,MA(5),Overnight drift,Ret(1d),GARCH vol
+2025-08-19,AMD,AMD,173.92,0.2,1.8,Overnight drift,Prev intraday ret,Ret(1d),MA(20)
+2025-08-19,AMGN,AMGN,292.84,0.0,0.0,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-19,AMP,AMP,506.92,0.3,0.5,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-19,AMZN,AMZN,230.93,0.2,0.7,Overnight drift,MA(5),Prev intraday ret,Ret(1d)
+2025-08-19,AON,AON,367.06,-0.2,0.1,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-19,AOS,AOS,72.37,0.4,2.1,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-19,AVGO,AVGO,302.21,-0.1,1.2,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-19,AXP,AXP,307.13,0.3,1.5,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-19,BAC,BAC,48.08,0.5,0.3,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-19,BIIB,BIIB,136.42,0.0,1.4,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-19,BKNG,BKNG,5539.3,0.0,3.0,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-19,BLK,BLK,1131.26,0.1,1.3,Ret(1d),MA(20),Overnight drift,MA(5)
+2025-08-19,BMY,BMY,48.11,-0.1,1.1,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-19,C,C,94.43,0.4,0.9,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-19,CAT,CAT,419.93,-0.1,4.6,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-19,CB,CB,274.52,0.2,0.6,Overnight drift,MA(20),Vol(5),Ret(1d)
+2025-08-19,CDNS,CDNS,355.25,0.3,0.8,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-19,CHD,CHD,92.66,0.2,0.9,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-19,CI,CI,298.18,-0.0,1.1,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-19,CL,CL,84.81,0.6,2.5,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-19,COP,COP,94.55,1.1,1.8,Ret(1d),Overnight drift,GARCH vol,MA(5)
+2025-08-19,COST,COST,980.84,0.2,0.1,Overnight drift,Ret(1d),GARCH vol,MA(5)
+2025-08-19,CRM,CRM,245.75,0.1,0.6,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-19,CSCO,CSCO,66.89,0.1,0.2,Ret(1d),GARCH vol,Overnight drift,MA(5)
+2025-08-19,CVX,CVX,153.93,0.3,1.8,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-19,D,D,60.26,-0.2,1.5,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-19,DE,DE,492.37,0.2,0.3,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-19,DG,DG,113.84,1.0,4.2,Overnight drift,Ret(1d),MA(20),Vol(5)
+2025-08-19,DHR,DHR,209.47,0.0,0.7,Overnight drift,GARCH vol,MA(20),Ret(1d)
+2025-08-19,DLTR,DLTR,111.96,0.1,0.9,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-19,DUK,DUK,122.65,0.7,2.7,Overnight drift,GARCH vol,Ret(1d),Vol(5)
+2025-08-19,ED,ED,103.79,4.1,0.3,Overnight drift,MA(20),GARCH vol,Ret(1d)
+2025-08-19,EIX,EIX,55.93,0.3,0.4,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-19,ELV,ELV,311.16,0.4,0.5,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-19,EMR,EMR,133.97,1.9,1.7,MA(5),Overnight drift,Ret(1d),MA(20)
+2025-08-19,EOG,EOG,117.57,0.4,0.2,Overnight drift,GARCH vol,Ret(1d),MA(5)
+2025-08-19,ETN,ETN,353.19,0.4,0.5,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-19,EXC,EXC,44.1,0.1,1.6,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-19,FANG,FANG,138.91,-0.0,2.3,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-19,FAST,FAST,49.28,-0.1,3.2,GARCH vol,Vol(5),Ret(1d),Overnight drift
+2025-08-19,FTNT,FTNT,81.07,-0.2,2.5,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-19,GE,GE,269.56,0.5,2.2,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-19,GILD,GILD,118.55,-0.0,2.1,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-19,GOOGL,GOOGL,202.87,0.1,2.2,Overnight drift,GARCH vol,Vol(5),MA(5)
+2025-08-19,GS,GS,732.14,0.3,0.9,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-19,HAL,HAL,21.17,0.1,4.7,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-19,HCA,HCA,394.49,0.2,2.0,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-19,HD,HD,402.04,-0.3,2.0,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-19,HON,HON,216.07,0.1,0.1,Ret(1d),Overnight drift,GARCH vol,MA(20)
+2025-08-19,IBM,IBM,240.53,0.3,0.1,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-19,ICE,ICE,178.26,-0.0,1.5,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-19,IDXX,IDXX,638.75,0.2,3.5,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-19,INTC,INTC,24.59,-1.6,4.2,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-19,INTU,INTU,715.49,0.2,0.6,Overnight drift,Prev intraday ret,GARCH vol,MA(20)
+2025-08-19,ISRG,ISRG,481.51,0.0,1.1,Overnight drift,GARCH vol,Prev intraday ret,Ret(1d)
+2025-08-19,ITW,ITW,259.85,-0.1,3.8,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-19,JNJ,JNJ,175.94,-0.2,0.8,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-19,JPM,JPM,291.23,0.2,0.0,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-19,KHC,KHC,27.36,0.1,0.5,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-19,KMI,KMI,25.57,-2.4,2.2,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-19,KO,KO,69.65,0.5,0.8,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-19,KR,KR,70.23,0.3,2.3,Ret(1d),Overnight drift,GARCH vol,Prev intraday ret
+2025-08-19,LIN,LIN,478.32,-0.0,1.8,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-19,LLY,LLY,708.41,-0.0,1.6,Overnight drift,MA(5),MA(20),Vol(5)
+2025-08-19,LMT,LMT,447.84,1.6,0.4,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-19,LOW,LOW,255.1,-0.3,1.7,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-19,MA,MA,585.08,-0.1,1.9,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-19,MCD,MCD,309.84,0.2,0.2,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-19,MDT,MDT,89.57,0.5,3.6,Ret(1d),Overnight drift,Vol(5),GARCH vol
+2025-08-19,META,META,765.34,0.1,0.5,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-19,MMC,MMC,211.25,1.7,3.0,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-19,MNST,MNST,64.2,-0.0,0.1,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-19,MPC,MPC,163.94,1.0,0.3,Overnight drift,MA(5),Ret(1d),MA(20)
+2025-08-19,MRK,MRK,86.0,1.7,0.4,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-19,MS,MS,145.68,0.6,1.4,MA(20),Overnight drift,Ret(1d),Prev intraday ret
+2025-08-19,MSFT,MSFT,515.73,-0.2,1.5,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-19,MU,MU,123.76,0.5,0.8,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-19,NEE,NEE,75.82,0.3,1.1,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-19,NFLX,NFLX,1242.65,0.1,0.7,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-19,NOW,NOW,888.95,0.3,0.8,Overnight drift,MA(20),Prev intraday ret,Ret(1d)
+2025-08-19,NVDA,NVDA,181.54,-0.3,2.1,GARCH vol,Overnight drift,Vol(5),MA(5)
+2025-08-19,OKE,OKE,73.58,0.8,1.1,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-19,ORCL,ORCL,247.51,-0.4,0.2,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-19,PANW,PANW,188.49,0.3,7.7,Overnight drift,GARCH vol,Vol(5),Prev intraday ret
+2025-08-19,PCAR,PCAR,98.45,0.2,1.2,Ret(1d),Overnight drift,Vol(5),Prev intraday ret
+2025-08-19,PEG,PEG,84.18,-0.5,0.8,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-19,PEP,PEP,149.63,0.2,1.1,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-19,PFE,PFE,25.47,1.4,1.0,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-19,PG,PG,157.17,0.7,0.8,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-19,PH,PH,735.91,-0.2,2.4,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-19,PM,PM,167.36,0.4,1.5,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-19,PSX,PSX,123.27,1.0,1.0,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-19,QCOM,QCOM,158.58,0.4,1.4,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-19,REGN,REGN,576.26,0.2,1.4,Overnight drift,MA(5),Prev intraday ret,GARCH vol
+2025-08-19,ROK,ROK,345.63,0.8,0.3,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-19,ROP,ROP,534.16,0.3,0.8,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-19,ROST,ROST,146.02,0.1,2.1,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-19,RTX,RTX,156.82,1.2,1.6,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-19,SBUX,SBUX,93.25,0.6,2.9,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-19,SCHW,SCHW,97.39,1.3,2.1,Overnight drift,GARCH vol,Ret(1d),MA(20)
+2025-08-19,SLB,SLB,33.32,0.3,2.5,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-19,SNPS,SNPS,610.97,-1.7,0.2,Overnight drift,Vol(5),GARCH vol,Ret(1d)
+2025-08-19,SO,SO,98.21,5.7,2.0,Overnight drift,Vol(5),MA(20),MA(5)
+2025-08-19,SPGI,SPGI,554.03,0.0,2.3,Overnight drift,MA(5),Vol(5),MA(20)
+2025-08-19,SYY,SYY,80.18,0.8,1.0,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-19,TFC,TFC,44.6,0.6,0.1,Ret(1d),GARCH vol,Overnight drift,Vol(5)
+2025-08-19,TGT,TGT,106.26,0.8,1.0,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-19,TMO,TMO,490.53,0.0,2.1,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-19,TSLA,TSLA,335.8,0.1,0.4,Overnight drift,Prev intraday ret,Ret(1d),MA(5)
+2025-08-19,TXN,TXN,194.39,0.0,0.5,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-19,UNH,UNH,310.09,-0.1,6.8,Overnight drift,Ret(1d),Vol(5),Prev intraday ret
+2025-08-19,UNP,UNP,221.28,-0.0,2.4,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-19,V,V,343.44,0.2,0.6,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-19,VRTX,VRTX,389.93,-0.0,2.9,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-19,WEC,WEC,107.25,0.4,1.9,Overnight drift,MA(20),GARCH vol,MA(5)
+2025-08-19,WMB,WMB,56.86,-0.1,2.3,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-19,WMT,WMT,101.09,0.1,1.4,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-19,XEL,XEL,72.05,-0.3,2.0,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-19,XOM,XOM,107.33,0.7,1.9,Ret(1d),Overnight drift,MA(5),GARCH vol
+2025-08-19,XYL,XYL,141.32,0.1,0.2,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-19,ZBH,ZBH,102.43,0.6,0.8,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-19,ZM,ZM,73.96,-0.2,1.7,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-20,AAPL,AAPL,230.29,0.4,0.7,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-20,ABBV,ABBV,207.11,0.1,2.4,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-20,ACN,ACN,262.96,3.5,0.2,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-20,ADBE,ADBE,359.08,-0.3,1.9,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-20,ADI,ADI,235.51,-1.2,5.4,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-20,ADSK,ADSK,290.0,0.0,1.3,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-20,AEP,AEP,110.29,-2.5,1.2,MA(5),Overnight drift,Ret(1d),GARCH vol
+2025-08-20,AMD,AMD,164.85,0.1,3.8,Overnight drift,Prev intraday ret,Ret(1d),MA(20)
+2025-08-20,AMGN,AMGN,295.65,0.0,0.1,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-20,AMP,AMP,506.25,0.3,0.7,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-20,AMZN,AMZN,226.86,0.1,1.5,Overnight drift,MA(5),Prev intraday ret,Ret(1d)
+2025-08-20,AON,AON,373.74,-0.1,0.7,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-20,AOS,AOS,73.05,0.6,0.9,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-20,AVGO,AVGO,295.45,0.3,2.1,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-20,AXP,AXP,307.37,0.4,2.6,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-20,BAC,BAC,48.23,0.2,0.3,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-20,BIIB,BIIB,139.5,0.0,1.4,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-20,BKNG,BKNG,5592.37,0.1,2.9,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-20,BLK,BLK,1127.59,0.2,1.4,Ret(1d),MA(20),Overnight drift,MA(5)
+2025-08-20,BMY,BMY,48.81,0.8,2.7,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-20,C,C,94.2,0.4,1.1,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-20,CAT,CAT,416.8,-0.2,3.9,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-20,CB,CB,275.42,0.2,1.0,Overnight drift,MA(20),Vol(5),Ret(1d)
+2025-08-20,CDNS,CDNS,345.97,0.2,1.2,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-20,CHD,CHD,94.53,-0.0,0.3,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-20,CI,CI,302.79,-0.2,0.9,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-20,CL,CL,86.45,0.5,2.5,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-20,COP,COP,94.24,-0.0,0.5,Ret(1d),Overnight drift,GARCH vol,MA(5)
+2025-08-20,COST,COST,977.74,0.2,0.4,Overnight drift,Ret(1d),GARCH vol,MA(5)
+2025-08-20,CRM,CRM,246.54,0.3,2.7,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-20,CSCO,CSCO,66.79,-0.0,1.2,Ret(1d),GARCH vol,Overnight drift,MA(5)
+2025-08-20,CVX,CVX,152.28,-0.1,0.9,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-20,D,D,61.5,0.0,0.6,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-20,DE,DE,490.62,0.3,0.4,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-20,DG,DG,114.81,3.1,5.7,Overnight drift,Ret(1d),MA(20),Vol(5)
+2025-08-20,DHR,DHR,212.97,-0.1,0.4,Overnight drift,GARCH vol,MA(20),Ret(1d)
+2025-08-20,DLTR,DLTR,111.77,0.5,3.4,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-20,DUK,DUK,124.91,0.3,2.1,Overnight drift,GARCH vol,Ret(1d),Vol(5)
+2025-08-20,ED,ED,102.11,0.1,0.2,Overnight drift,MA(20),GARCH vol,Ret(1d)
+2025-08-20,EIX,EIX,56.67,0.3,1.0,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-20,ELV,ELV,313.22,0.2,1.6,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-20,EMR,EMR,133.75,1.9,1.4,MA(5),Overnight drift,Ret(1d),MA(20)
+2025-08-20,EOG,EOG,117.38,0.2,0.2,Overnight drift,GARCH vol,Ret(1d),MA(5)
+2025-08-20,ETN,ETN,348.68,0.3,0.9,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-20,EXC,EXC,44.94,0.2,0.9,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-20,FANG,FANG,139.21,-0.1,1.7,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-20,FAST,FAST,50.04,0.1,1.5,GARCH vol,Vol(5),Ret(1d),Overnight drift
+2025-08-20,FTNT,FTNT,78.22,0.1,0.1,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-20,GE,GE,266.63,0.4,1.0,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-20,GILD,GILD,118.4,0.1,2.1,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-20,GOOGL,GOOGL,200.43,0.0,2.7,Overnight drift,GARCH vol,Vol(5),MA(5)
+2025-08-20,GS,GS,724.03,0.4,2.0,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-20,HAL,HAL,21.16,-0.1,3.0,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-20,HCA,HCA,403.73,0.1,3.0,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-20,HD,HD,409.67,0.2,1.0,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-20,HON,HON,217.02,-0.2,0.6,Ret(1d),Overnight drift,GARCH vol,MA(20)
+2025-08-20,IBM,IBM,241.1,-0.0,1.5,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-20,ICE,ICE,178.4,-0.0,3.1,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-20,IDXX,IDXX,638.41,0.1,3.8,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-20,INTC,INTC,25.21,0.7,1.0,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-20,INTU,INTU,702.98,-0.0,1.7,Overnight drift,Prev intraday ret,GARCH vol,MA(20)
+2025-08-20,ISRG,ISRG,479.62,0.1,0.9,Overnight drift,GARCH vol,Prev intraday ret,Ret(1d)
+2025-08-20,ITW,ITW,264.37,0.2,1.4,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-20,JNJ,JNJ,178.24,-0.2,1.0,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-20,JPM,JPM,291.33,0.1,0.0,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-20,KHC,KHC,27.71,0.1,1.9,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-20,KMI,KMI,25.74,-2.3,2.3,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-20,KO,KO,70.57,0.4,0.1,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-20,KR,KR,71.23,1.8,1.0,Ret(1d),Overnight drift,GARCH vol,Prev intraday ret
+2025-08-20,LIN,LIN,481.59,-0.0,2.3,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-20,LLY,LLY,709.27,0.5,1.4,Overnight drift,MA(5),MA(20),Vol(5)
+2025-08-20,LMT,LMT,443.06,0.7,0.5,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-20,LOW,LOW,264.5,0.0,0.4,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-20,MA,MA,583.71,-0.4,2.2,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-20,MCD,MCD,311.74,-0.1,2.4,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-20,MDT,MDT,90.23,0.2,2.4,Ret(1d),Overnight drift,Vol(5),GARCH vol
+2025-08-20,META,META,749.67,0.2,0.8,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-20,MMC,MMC,212.39,0.1,2.0,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-20,MNST,MNST,64.11,-0.0,0.4,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-20,MPC,MPC,165.84,1.2,0.2,Overnight drift,MA(5),Ret(1d),MA(20)
+2025-08-20,MRK,MRK,85.86,0.8,0.0,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-20,MS,MS,143.9,0.5,1.7,MA(20),Overnight drift,Ret(1d),Prev intraday ret
+2025-08-20,MSFT,MSFT,509.54,-0.2,1.5,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-20,MU,MU,119.93,0.8,4.7,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-20,NEE,NEE,76.82,0.1,0.2,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-20,NFLX,NFLX,1215.5,0.3,2.5,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-20,NOW,NOW,885.88,0.1,0.0,Overnight drift,MA(20),Prev intraday ret,Ret(1d)
+2025-08-20,NVDA,NVDA,175.95,-0.0,1.5,GARCH vol,Overnight drift,Vol(5),MA(5)
+2025-08-20,OKE,OKE,74.55,0.9,0.2,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-20,ORCL,ORCL,231.16,-0.9,1.1,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-20,PANW,PANW,181.74,-0.0,0.2,Overnight drift,GARCH vol,Vol(5),Prev intraday ret
+2025-08-20,PCAR,PCAR,99.69,0.2,0.4,Ret(1d),Overnight drift,Vol(5),Prev intraday ret
+2025-08-20,PEG,PEG,84.82,0.2,0.5,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-20,PEP,PEP,152.94,0.2,1.6,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-20,PFE,PFE,25.57,0.8,1.9,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-20,PG,PG,160.12,0.7,1.9,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-20,PH,PH,742.38,0.1,2.0,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-20,PM,PM,169.53,0.1,2.3,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-20,PSX,PSX,123.4,0.4,0.6,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-20,QCOM,QCOM,157.54,0.7,0.6,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-20,REGN,REGN,576.15,0.2,1.7,Overnight drift,MA(5),Prev intraday ret,GARCH vol
+2025-08-20,ROK,ROK,346.6,1.4,1.0,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-20,ROP,ROP,536.26,-0.0,1.5,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-20,ROST,ROST,150.15,-0.1,1.6,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-20,RTX,RTX,155.28,1.0,3.2,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-20,SBUX,SBUX,91.39,0.4,2.1,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-20,SCHW,SCHW,96.94,1.5,2.2,Overnight drift,GARCH vol,Ret(1d),MA(20)
+2025-08-20,SLB,SLB,33.48,0.1,2.3,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-20,SNPS,SNPS,601.65,-1.5,1.6,Overnight drift,Vol(5),GARCH vol,Ret(1d)
+2025-08-20,SO,SO,94.19,-0.6,1.4,Overnight drift,Vol(5),MA(20),MA(5)
+2025-08-20,SPGI,SPGI,556.45,0.2,0.5,Overnight drift,MA(5),Vol(5),MA(20)
+2025-08-20,SYY,SYY,80.32,0.6,3.1,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-20,TFC,TFC,44.65,0.7,0.6,Ret(1d),GARCH vol,Overnight drift,Vol(5)
+2025-08-20,TGT,TGT,99.45,5.6,6.4,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-20,TMO,TMO,498.33,0.1,2.0,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-20,TSLA,TSLA,328.46,0.1,0.4,Overnight drift,Prev intraday ret,Ret(1d),MA(5)
+2025-08-20,TXN,TXN,197.26,0.1,2.4,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-20,UNH,UNH,303.38,-0.0,7.4,Overnight drift,Ret(1d),Vol(5),Prev intraday ret
+2025-08-20,UNP,UNP,225.03,0.0,0.9,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-20,V,V,343.05,0.0,1.4,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-20,VRTX,VRTX,392.14,-0.1,4.0,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-20,WEC,WEC,110.32,1.1,0.7,Overnight drift,MA(20),GARCH vol,MA(5)
+2025-08-20,WMB,WMB,56.76,0.1,2.9,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-20,WMT,WMT,101.44,0.7,1.5,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-20,XEL,XEL,73.14,-0.4,1.4,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-20,XOM,XOM,108.35,0.7,1.4,Ret(1d),Overnight drift,MA(5),GARCH vol
+2025-08-20,XYL,XYL,141.83,0.5,1.7,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-20,ZBH,ZBH,104.22,-0.3,1.1,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-20,ZM,ZM,72.26,0.1,0.1,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-21,AAPL,AAPL,226.24,0.3,1.0,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-21,ABBV,ABBV,209.53,0.1,1.9,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-21,ACN,ACN,263.55,3.5,1.0,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-21,ADBE,ADBE,351.95,0.3,2.6,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-21,ADI,ADI,244.34,0.1,0.2,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-21,ADSK,ADSK,287.16,0.1,0.5,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-21,AEP,AEP,110.56,-2.4,0.2,MA(5),Overnight drift,Ret(1d),GARCH vol
+2025-08-21,AMD,AMD,164.48,-0.2,1.7,Overnight drift,Prev intraday ret,Ret(1d),MA(20)
+2025-08-21,AMGN,AMGN,297.06,0.2,0.2,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-21,AMP,AMP,505.1,0.3,0.2,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-21,AMZN,AMZN,223.18,0.3,1.8,Overnight drift,MA(5),Prev intraday ret,Ret(1d)
+2025-08-21,AON,AON,373.47,0.3,2.3,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-21,AOS,AOS,71.74,0.4,2.3,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-21,AVGO,AVGO,290.24,0.3,1.6,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-21,AXP,AXP,308.2,0.5,0.3,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-21,BAC,BAC,48.45,0.6,0.7,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-21,BIIB,BIIB,138.23,0.2,0.8,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-21,BKNG,BKNG,5645.01,-0.1,3.4,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-21,BLK,BLK,1126.31,0.1,1.5,Ret(1d),MA(20),Overnight drift,MA(5)
+2025-08-21,BMY,BMY,48.64,0.6,2.4,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-21,C,C,93.13,0.4,1.3,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-21,CAT,CAT,420.13,0.0,1.6,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-21,CB,CB,276.94,-1.1,1.2,Overnight drift,MA(20),Vol(5),Ret(1d)
+2025-08-21,CDNS,CDNS,344.1,0.2,1.6,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-21,CHD,CHD,94.68,0.2,1.4,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-21,CI,CI,304.97,0.2,2.5,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-21,CL,CL,86.4,1.0,0.7,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-21,COP,COP,95.01,0.8,1.2,Ret(1d),Overnight drift,GARCH vol,MA(5)
+2025-08-21,COST,COST,988.72,0.2,0.2,Overnight drift,Ret(1d),GARCH vol,MA(5)
+2025-08-21,CRM,CRM,246.85,0.5,3.4,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-21,CSCO,CSCO,67.09,0.1,0.7,Ret(1d),GARCH vol,Overnight drift,MA(5)
+2025-08-21,CVX,CVX,153.27,0.3,1.6,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-21,D,D,61.48,-0.1,0.0,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-21,DE,DE,492.45,0.3,0.0,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-21,DG,DG,118.08,2.8,4.4,Overnight drift,Ret(1d),MA(20),Vol(5)
+2025-08-21,DHR,DHR,215.68,2.5,2.6,Overnight drift,GARCH vol,MA(20),Ret(1d)
+2025-08-21,DLTR,DLTR,113.2,0.5,1.8,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-21,DUK,DUK,125.44,0.3,1.4,Overnight drift,GARCH vol,Ret(1d),Vol(5)
+2025-08-21,ED,ED,105.12,3.5,1.1,Overnight drift,MA(20),GARCH vol,Ret(1d)
+2025-08-21,EIX,EIX,56.4,0.6,2.5,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-21,ELV,ELV,311.58,0.8,1.3,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-21,EMR,EMR,132.2,1.7,0.5,MA(5),Overnight drift,Ret(1d),MA(20)
+2025-08-21,EOG,EOG,119.43,0.3,0.7,Overnight drift,GARCH vol,Ret(1d),MA(5)
+2025-08-21,ETN,ETN,347.35,0.6,0.3,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-21,EXC,EXC,45.1,0.3,0.3,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-21,FANG,FANG,138.04,0.1,1.7,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-21,FAST,FAST,49.51,0.3,1.6,GARCH vol,Vol(5),Ret(1d),Overnight drift
+2025-08-21,FTNT,FTNT,79.08,0.1,1.3,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-21,GE,GE,267.73,0.2,3.2,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-21,GILD,GILD,116.68,1.1,0.1,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-21,GOOGL,GOOGL,199.13,0.4,2.6,Overnight drift,GARCH vol,Vol(5),MA(5)
+2025-08-21,GS,GS,723.54,0.4,2.1,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-21,HAL,HAL,21.11,0.4,3.5,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-21,HCA,HCA,412.1,0.0,1.3,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-21,HD,HD,403.5,0.9,2.5,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-21,HON,HON,217.01,0.2,0.3,Ret(1d),Overnight drift,GARCH vol,MA(20)
+2025-08-21,IBM,IBM,243.33,0.7,1.2,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-21,ICE,ICE,181.72,-0.1,0.9,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-21,IDXX,IDXX,637.53,0.1,1.7,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-21,INTC,INTC,23.67,1.2,4.3,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-21,INTU,INTU,698.15,0.2,0.4,Overnight drift,Prev intraday ret,GARCH vol,MA(20)
+2025-08-21,ISRG,ISRG,478.69,0.1,0.1,Overnight drift,GARCH vol,Prev intraday ret,Ret(1d)
+2025-08-21,ITW,ITW,258.19,-1.1,1.6,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-21,JNJ,JNJ,178.15,0.1,0.1,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-21,JPM,JPM,291.34,0.3,0.2,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-21,KHC,KHC,27.55,0.7,1.2,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-21,KMI,KMI,25.92,-2.3,2.4,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-21,KO,KO,71.2,0.8,1.0,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-21,KR,KR,72.25,1.5,0.2,Ret(1d),Overnight drift,GARCH vol,Prev intraday ret
+2025-08-21,LIN,LIN,480.9,-0.1,0.9,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-21,LLY,LLY,703.85,0.8,4.6,Overnight drift,MA(5),MA(20),Vol(5)
+2025-08-21,LMT,LMT,450.05,1.2,0.1,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-21,LOW,LOW,257.72,0.6,4.3,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-21,MA,MA,589.48,0.1,0.3,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-21,MCD,MCD,312.11,0.1,0.8,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-21,MDT,MDT,93.11,0.1,3.3,Ret(1d),Overnight drift,Vol(5),GARCH vol
+2025-08-21,META,META,745.46,0.5,2.2,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-21,MMC,MMC,213.71,1.5,3.9,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-21,MNST,MNST,64.45,0.0,0.2,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-21,MPC,MPC,167.52,1.0,1.3,Overnight drift,MA(5),Ret(1d),MA(20)
+2025-08-21,MRK,MRK,86.75,2.5,1.1,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-21,MS,MS,144.02,0.4,1.6,MA(20),Overnight drift,Ret(1d),Prev intraday ret
+2025-08-21,MSFT,MSFT,502.94,-0.2,1.1,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-21,MU,MU,116.89,0.6,3.5,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-21,NEE,NEE,76.34,0.2,0.7,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-21,NFLX,NFLX,1215.36,0.1,0.0,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-21,NOW,NOW,886.47,0.1,0.1,Overnight drift,MA(20),Prev intraday ret,Ret(1d)
+2025-08-21,NVDA,NVDA,173.86,-0.3,0.2,GARCH vol,Overnight drift,Vol(5),MA(5)
+2025-08-21,OKE,OKE,74.46,0.8,1.1,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-21,ORCL,ORCL,233.7,-0.1,1.7,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-21,PANW,PANW,184.09,0.3,1.2,Overnight drift,GARCH vol,Vol(5),Prev intraday ret
+2025-08-21,PCAR,PCAR,98.1,0.2,0.2,Ret(1d),Overnight drift,Vol(5),Prev intraday ret
+2025-08-21,PEG,PEG,86.02,1.1,1.0,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-21,PEP,PEP,150.68,0.3,3.8,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-21,PFE,PFE,25.67,1.1,1.3,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-21,PG,PG,161.22,1.5,3.2,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-21,PH,PH,740.45,0.1,0.9,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-21,PM,PM,172.93,0.3,1.4,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-21,PSX,PSX,124.16,1.0,0.5,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-21,QCOM,QCOM,154.74,0.3,1.5,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-21,REGN,REGN,586.16,-0.1,1.4,Overnight drift,MA(5),Prev intraday ret,GARCH vol
+2025-08-21,ROK,ROK,342.06,0.6,0.0,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-21,ROP,ROP,539.42,0.4,2.8,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-21,ROST,ROST,147.24,1.1,1.3,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-21,RTX,RTX,158.41,1.1,2.5,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-21,SBUX,SBUX,89.59,0.4,1.8,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-21,SCHW,SCHW,96.22,1.7,2.3,Overnight drift,GARCH vol,Ret(1d),MA(20)
+2025-08-21,SLB,SLB,33.36,0.3,1.7,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-21,SNPS,SNPS,598.4,0.2,0.5,Overnight drift,Vol(5),GARCH vol,Ret(1d)
+2025-08-21,SO,SO,100.42,5.8,0.6,Overnight drift,Vol(5),MA(20),MA(5)
+2025-08-21,SPGI,SPGI,554.58,0.2,0.2,Overnight drift,MA(5),Vol(5),MA(20)
+2025-08-21,SYY,SYY,83.76,3.5,1.4,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-21,TFC,TFC,44.2,0.8,0.7,Ret(1d),GARCH vol,Overnight drift,Vol(5)
+2025-08-21,TGT,TGT,100.26,2.3,2.1,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-21,TMO,TMO,495.15,0.1,0.3,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-21,TSLA,TSLA,322.96,0.5,3.0,Overnight drift,Prev intraday ret,Ret(1d),MA(5)
+2025-08-21,TXN,TXN,199.61,0.3,0.7,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-21,UNH,UNH,301.34,0.6,6.9,Overnight drift,Ret(1d),Vol(5),Prev intraday ret
+2025-08-21,UNP,UNP,226.83,0.6,0.2,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-21,V,V,343.5,0.2,0.2,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-21,VRTX,VRTX,393.95,0.2,1.5,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-21,WEC,WEC,122.24,12.2,0.1,Overnight drift,MA(20),GARCH vol,MA(5)
+2025-08-21,WMB,WMB,57.29,0.3,2.2,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-21,WMT,WMT,101.76,2.0,6.0,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-21,XEL,XEL,72.86,0.0,1.5,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-21,XOM,XOM,108.91,0.4,1.3,Ret(1d),Overnight drift,MA(5),GARCH vol
+2025-08-21,XYL,XYL,142.18,0.8,1.7,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-21,ZBH,ZBH,105.41,0.3,0.1,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-21,ZM,ZM,71.91,0.3,1.8,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-22,AAPL,AAPL,225.77,-0.1,0.7,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-22,ABBV,ABBV,210.3,0.1,2.4,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-22,ACN,ACN,263.61,3.4,1.0,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-22,ADBE,ADBE,354.51,-0.1,2.3,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-22,ADI,ADI,248.37,0.1,2.2,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-22,ADSK,ADSK,286.35,-0.1,2.0,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-22,AEP,AEP,110.75,-2.5,1.9,MA(5),Overnight drift,Ret(1d),GARCH vol
+2025-08-22,AMD,AMD,163.53,1.2,3.2,Overnight drift,Prev intraday ret,Ret(1d),MA(20)
+2025-08-22,AMGN,AMGN,295.81,0.7,0.5,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-22,AMP,AMP,509.77,0.2,1.5,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-22,AMZN,AMZN,222.42,-0.2,0.5,Overnight drift,MA(5),Prev intraday ret,Ret(1d)
+2025-08-22,AON,AON,377.35,-0.0,0.1,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-22,AOS,AOS,72.12,-0.0,2.1,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-22,AVGO,AVGO,290.73,-0.4,3.5,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-22,AXP,AXP,309.18,-0.2,4.3,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-22,BAC,BAC,48.31,-0.3,2.9,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-22,BIIB,BIIB,139.56,-0.0,2.1,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-22,BKNG,BKNG,5725.74,0.0,3.7,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-22,BLK,BLK,1121.06,-0.7,3.0,Ret(1d),MA(20),Overnight drift,MA(5)
+2025-08-22,BMY,BMY,48.86,0.2,2.3,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-22,C,C,93.16,0.2,2.0,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-22,CAT,CAT,418.47,-0.3,6.3,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-22,CB,CB,281.01,0.1,0.7,Overnight drift,MA(20),Vol(5),Ret(1d)
+2025-08-22,CDNS,CDNS,348.64,0.0,1.5,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-22,CHD,CHD,95.45,0.1,0.8,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-22,CI,CI,302.52,-0.0,0.8,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-22,CL,CL,87.0,0.3,0.8,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-22,COP,COP,95.64,0.7,0.7,Ret(1d),Overnight drift,GARCH vol,MA(5)
+2025-08-22,COST,COST,970.32,0.1,1.3,Overnight drift,Ret(1d),GARCH vol,MA(5)
+2025-08-22,CRM,CRM,246.05,0.4,3.6,Overnight drift,MA(5),Prev intraday ret,MA(20)
+2025-08-22,CSCO,CSCO,67.29,0.1,1.6,Ret(1d),GARCH vol,Overnight drift,MA(5)
+2025-08-22,CVX,CVX,155.88,0.6,1.9,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-22,D,D,61.47,-0.0,1.1,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-22,DE,DE,489.7,-0.1,3.0,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-22,DG,DG,115.33,2.9,5.5,Overnight drift,Ret(1d),MA(20),Vol(5)
+2025-08-22,DHR,DHR,205.81,-0.5,2.7,Overnight drift,GARCH vol,MA(20),Ret(1d)
+2025-08-22,DLTR,DLTR,112.88,-0.0,3.1,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-22,DUK,DUK,125.22,0.3,1.4,Overnight drift,GARCH vol,Ret(1d),Vol(5)
+2025-08-22,ED,ED,102.57,0.2,0.3,Overnight drift,MA(20),GARCH vol,Ret(1d)
+2025-08-22,EIX,EIX,54.27,0.4,1.8,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-22,ELV,ELV,312.87,0.1,1.1,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-22,EMR,EMR,132.1,0.9,3.8,MA(5),Overnight drift,Ret(1d),MA(20)
+2025-08-22,EOG,EOG,119.01,-0.0,1.5,Overnight drift,GARCH vol,Ret(1d),MA(5)
+2025-08-22,ETN,ETN,346.68,0.4,1.5,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-22,EXC,EXC,44.95,0.3,0.7,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-22,FANG,FANG,138.52,-0.3,0.9,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-22,FAST,FAST,49.45,-0.0,3.9,GARCH vol,Vol(5),Ret(1d),Overnight drift
+2025-08-22,FTNT,FTNT,77.85,-0.3,1.6,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-22,GE,GE,270.4,0.1,4.2,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-22,GILD,GILD,116.25,-0.2,0.6,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-22,GOOGL,GOOGL,201.25,-0.7,3.0,Overnight drift,GARCH vol,Vol(5),MA(5)
+2025-08-22,GS,GS,718.92,-0.1,4.2,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-22,HAL,HAL,21.39,0.2,2.4,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-22,HCA,HCA,404.7,0.2,2.2,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-22,HD,HD,398.35,0.2,3.2,Ret(1d),Overnight drift,MA(20),Prev intraday ret
+2025-08-22,HON,HON,213.93,-2.0,1.8,Ret(1d),Overnight drift,GARCH vol,MA(20)
+2025-08-22,IBM,IBM,240.67,0.3,0.4,Ret(1d),Overnight drift,Prev intraday ret,MA(5)
+2025-08-22,ICE,ICE,179.84,0.0,2.3,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-22,IDXX,IDXX,636.2,0.1,4.5,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-22,INTC,INTC,23.51,0.1,2.1,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-22,INTU,INTU,653.61,0.7,7.4,Overnight drift,Prev intraday ret,GARCH vol,MA(20)
+2025-08-22,ISRG,ISRG,472.49,-0.1,2.1,Overnight drift,GARCH vol,Prev intraday ret,Ret(1d)
+2025-08-22,ITW,ITW,261.47,-0.2,4.4,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-22,JNJ,JNJ,179.4,-0.2,0.2,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-22,JPM,JPM,292.93,0.1,1.1,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-22,KHC,KHC,27.62,0.0,0.0,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-22,KMI,KMI,26.2,-2.3,0.8,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-22,KO,KO,71.15,0.5,3.3,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-22,KR,KR,72.53,1.6,0.3,Ret(1d),Overnight drift,GARCH vol,Prev intraday ret
+2025-08-22,LIN,LIN,484.31,0.1,2.4,Overnight drift,Ret(1d),MA(5),Prev intraday ret
+2025-08-22,LLY,LLY,716.65,0.7,0.9,Overnight drift,MA(5),MA(20),Vol(5)
+2025-08-22,LMT,LMT,448.32,0.1,0.6,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-22,LOW,LOW,256.91,-0.2,1.1,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-22,MA,MA,594.59,-0.1,2.9,Overnight drift,MA(20),Prev intraday ret,MA(5)
+2025-08-22,MCD,MCD,314.58,0.2,0.7,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-22,MDT,MDT,91.44,0.3,1.1,Ret(1d),Overnight drift,Vol(5),GARCH vol
+2025-08-22,META,META,740.78,0.1,0.7,Overnight drift,Ret(1d),MA(20),Prev intraday ret
+2025-08-22,MMC,MMC,212.25,0.1,2.4,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-22,MNST,MNST,64.64,-0.1,2.3,Overnight drift,GARCH vol,Ret(1d),Prev intraday ret
+2025-08-22,MPC,MPC,165.95,0.5,0.1,Overnight drift,MA(5),Ret(1d),MA(20)
+2025-08-22,MRK,MRK,86.65,0.2,1.0,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-22,MS,MS,144.89,-0.0,4.1,MA(20),Overnight drift,Ret(1d),Prev intraday ret
+2025-08-22,MSFT,MSFT,503.76,-0.2,2.7,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-22,MU,MU,117.26,-0.1,2.2,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-22,NEE,NEE,76.81,0.5,1.0,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-22,NFLX,NFLX,1207.17,-0.2,2.3,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-22,NOW,NOW,878.48,0.0,1.2,Overnight drift,MA(20),Prev intraday ret,Ret(1d)
+2025-08-22,NVDA,NVDA,173.13,0.4,2.1,GARCH vol,Overnight drift,Vol(5),MA(5)
+2025-08-22,OKE,OKE,74.88,0.8,0.6,Overnight drift,Ret(1d),GARCH vol,MA(20)
+2025-08-22,ORCL,ORCL,233.06,-0.3,2.7,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-22,PANW,PANW,183.07,-0.0,0.3,Overnight drift,GARCH vol,Vol(5),Prev intraday ret
+2025-08-22,PCAR,PCAR,98.03,-0.2,3.6,Ret(1d),Overnight drift,Vol(5),Prev intraday ret
+2025-08-22,PEG,PEG,83.79,0.1,0.4,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-22,PEP,PEP,149.72,0.2,1.6,Overnight drift,Ret(1d),Vol(5),MA(20)
+2025-08-22,PFE,PFE,26.1,1.1,1.3,Ret(1d),Overnight drift,GARCH vol,Vol(5)
+2025-08-22,PG,PG,160.23,0.8,2.4,Overnight drift,MA(20),Ret(1d),GARCH vol
+2025-08-22,PH,PH,736.38,-0.2,1.1,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-22,PM,PM,175.83,0.6,0.3,Ret(1d),Overnight drift,Vol(5),MA(20)
+2025-08-22,PSX,PSX,125.25,0.2,1.9,Overnight drift,Ret(1d),Prev intraday ret,MA(20)
+2025-08-22,QCOM,QCOM,154.1,-0.2,0.7,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-22,REGN,REGN,607.92,-0.3,5.2,Overnight drift,MA(5),Prev intraday ret,GARCH vol
+2025-08-22,ROK,ROK,344.64,0.6,1.9,Overnight drift,Ret(1d),MA(5),MA(20)
+2025-08-22,ROP,ROP,530.21,0.1,2.0,Overnight drift,Ret(1d),MA(20),MA(5)
+2025-08-22,ROST,ROST,148.25,-1.4,3.6,Overnight drift,Ret(1d),MA(20),GARCH vol
+2025-08-22,RTX,RTX,157.9,0.6,2.5,Overnight drift,Ret(1d),Prev intraday ret,MA(5)
+2025-08-22,SBUX,SBUX,89.27,0.0,1.4,Overnight drift,Ret(1d),GARCH vol,Prev intraday ret
+2025-08-22,SCHW,SCHW,97.38,1.3,1.6,Overnight drift,GARCH vol,Ret(1d),MA(20)
+2025-08-22,SLB,SLB,33.97,0.3,1.1,Overnight drift,MA(5),MA(20),Ret(1d)
+2025-08-22,SNPS,SNPS,599.95,-0.1,1.9,Overnight drift,Vol(5),GARCH vol,Ret(1d)
+2025-08-22,SO,SO,94.89,-0.2,1.2,Overnight drift,Vol(5),MA(20),MA(5)
+2025-08-22,SPGI,SPGI,555.49,0.1,1.2,Overnight drift,MA(5),Vol(5),MA(20)
+2025-08-22,SYY,SYY,80.41,0.7,1.5,Overnight drift,MA(20),MA(5),Ret(1d)
+2025-08-22,TFC,TFC,43.93,-0.4,3.2,Ret(1d),GARCH vol,Overnight drift,Vol(5)
+2025-08-22,TGT,TGT,97.8,0.5,0.5,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-22,TMO,TMO,488.22,0.1,3.2,Overnight drift,Ret(1d),Prev intraday ret,GARCH vol
+2025-08-22,TSLA,TSLA,321.11,0.1,0.8,Overnight drift,Prev intraday ret,Ret(1d),MA(5)
+2025-08-22,TXN,TXN,202.04,0.0,1.5,Overnight drift,Ret(1d),Vol(5),GARCH vol
+2025-08-22,UNH,UNH,306.33,-0.1,4.4,Overnight drift,Ret(1d),Vol(5),Prev intraday ret
+2025-08-22,UNP,UNP,226.75,0.0,2.0,Ret(1d),Overnight drift,MA(20),MA(5)
+2025-08-22,V,V,345.02,0.0,1.9,Overnight drift,MA(20),MA(5),Prev intraday ret
+2025-08-22,VRTX,VRTX,400.01,0.0,4.5,Ret(1d),Overnight drift,MA(20),Vol(5)
+2025-08-22,WEC,WEC,109.0,0.3,1.3,Overnight drift,MA(20),GARCH vol,MA(5)
+2025-08-22,WMB,WMB,58.08,0.4,0.0,Ret(1d),Overnight drift,MA(5),MA(20)
+2025-08-22,WMT,WMT,98.38,0.7,4.0,Ret(1d),Overnight drift,MA(5),Vol(5)
+2025-08-22,XEL,XEL,73.28,-0.5,2.6,Ret(1d),Overnight drift,Prev intraday ret,MA(20)
+2025-08-22,XOM,XOM,110.21,0.7,0.6,Ret(1d),Overnight drift,MA(5),GARCH vol
+2025-08-22,XYL,XYL,141.1,0.0,0.5,Overnight drift,MA(20),Ret(1d),Prev intraday ret
+2025-08-22,ZBH,ZBH,105.16,-0.1,2.4,Overnight drift,MA(20),Ret(1d),MA(5)
+2025-08-22,ZM,ZM,75.17,-1.2,7.3,Overnight drift,Ret(1d),Prev intraday ret,MA(20)

@@ -7,6 +7,7 @@ import glob
 def convert_ml_predictions_to_app_format():
     """
     Convertit les prédictions ML (CSV) en format JSON pour l'application Flask
+    MODIFIÉ: Traite TOUS les fichiers CSV, pas seulement le plus récent
     """
     try:
         # Chemins des fichiers
@@ -16,43 +17,91 @@ def convert_ml_predictions_to_app_format():
         # Créer le dossier de destination s'il n'existe pas
         os.makedirs(app_data_dir, exist_ok=True)
         
-        # Trouve le fichier de prédictions le plus récent
+        # Trouve TOUS les fichiers de prédictions
         prediction_files = glob.glob(os.path.join(ml_output_dir, 'predictions_newswire_*.csv'))
         
         if not prediction_files:
             print("❌ Aucun fichier de prédictions trouvé dans ml_pipeline/output/")
             return False
         
-        # Prend le plus récent
-        latest_file = max(prediction_files, key=os.path.getctime)
-        print(f"📊 Conversion du fichier : {latest_file}")
+        print(f"📊 Trouvé {len(prediction_files)} fichiers de prédictions:")
+        for f in prediction_files:
+            print(f"   - {os.path.basename(f)}")
         
-        # Charge les prédictions ML
-        df = pd.read_csv(latest_file)
+        # Structure finale pour combiner tous les fichiers
+        combined_data = {
+            "daily_picks": {},
+            "all_predictions": {},
+            "stock_history": {},
+            "metadata": {
+                "last_updated": datetime.now().isoformat(),
+                "total_dates": 0,
+                "total_stocks": 0,
+                "total_predictions": 0
+            }
+        }
         
-        # Validation des colonnes requises
-        required_cols = ['date', 'ticker', 'name', 'price', 'change', 'confidence']
-        missing_cols = [col for col in required_cols if col not in df.columns]
+        # Traite chaque fichier CSV
+        for csv_file in prediction_files:
+            print(f"\n🔄 Traitement de {os.path.basename(csv_file)}")
+            
+            # Charge le CSV
+            df = pd.read_csv(csv_file)
+            
+            if df.empty:
+                print(f"⚠️ Fichier vide, ignoré")
+                continue
+            
+            # Validation des colonnes requises
+            required_cols = ['date', 'ticker', 'name', 'price', 'change', 'confidence']
+            missing_cols = [col for col in required_cols if col not in df.columns]
+            
+            if missing_cols:
+                print(f"❌ Colonnes manquantes dans {os.path.basename(csv_file)} : {missing_cols}")
+                continue
+            
+            # Convertit ce CSV et l'ajoute aux données combinées
+            file_data = convert_dataframe_to_app_format(df)
+            
+            # Fusionne avec les données combinées
+            for date, stocks in file_data["daily_picks"].items():
+                combined_data["daily_picks"][date] = stocks
+                
+            for date, stocks in file_data["all_predictions"].items():
+                combined_data["all_predictions"][date] = stocks
+                
+            for ticker, history in file_data["stock_history"].items():
+                if ticker not in combined_data["stock_history"]:
+                    combined_data["stock_history"][ticker] = history
+                else:
+                    # Combine l'historique en évitant les doublons
+                    existing_dates = {h["date"] for h in combined_data["stock_history"][ticker]}
+                    for entry in history:
+                        if entry["date"] not in existing_dates:
+                            combined_data["stock_history"][ticker].append(entry)
+            
+            print(f"✅ {os.path.basename(csv_file)} traité avec succès")
         
-        if missing_cols:
-            print(f"❌ Colonnes manquantes dans le CSV : {missing_cols}")
-            return False
+        # Met à jour les métadonnées finales
+        combined_data["metadata"]["total_dates"] = len(combined_data["daily_picks"])
+        combined_data["metadata"]["total_stocks"] = sum(len(stocks) for stocks in combined_data["daily_picks"].values())
+        combined_data["metadata"]["total_predictions"] = sum(len(stocks) for stocks in combined_data["all_predictions"].values())
         
-        # Convertit en format app
-        app_data = convert_dataframe_to_app_format(df)
-        
-        # Sauvegarde le JSON
+        # Sauvegarde le JSON combiné
         output_file = os.path.join(app_data_dir, 'stocks.json')
         with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(app_data, f, indent=2, ensure_ascii=False)
+            json.dump(combined_data, f, indent=2, ensure_ascii=False)
         
-        print(f"✅ Conversion réussie ! Fichier créé : {output_file}")
-        print(f"📈 {app_data['metadata']['total_stocks']} stocks sur {app_data['metadata']['total_dates']} dates")
+        print(f"\n🎉 Conversion réussie ! Fichier créé : {output_file}")
+        print(f"📈 {combined_data['metadata']['total_predictions']} prédictions totales sur {combined_data['metadata']['total_dates']} dates")
+        print(f"📅 Dates disponibles : {sorted(combined_data['daily_picks'].keys())}")
         
         return True
         
     except Exception as e:
         print(f"❌ Erreur lors de la conversion : {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 def convert_dataframe_to_app_format(df):
@@ -75,14 +124,13 @@ def convert_dataframe_to_app_format(df):
                 if ticker and logo_url:
                     logo_mapping[ticker] = logo_url
             
-            print(f"📸 {len(logo_mapping)} logos chargés depuis stocks_list.json")
             return logo_mapping
             
         except FileNotFoundError:
-            print("⚠️  Fichier content/stocks_list.json non trouvé, utilisation du fallback")
+            print("⚠️ Fichier content/stocks_list.json non trouvé, utilisation du fallback")
             return {}
         except Exception as e:
-            print(f"⚠️  Erreur lors du chargement des logos : {e}")
+            print(f"⚠️ Erreur lors du chargement des logos : {e}")
             return {}
     
     # Charge les logos une seule fois
@@ -119,12 +167,9 @@ def convert_dataframe_to_app_format(df):
         }
     }
     
-    print("🔄 CONVERTISSEUR - Début de conversion...")
-    
     # Groupe par date
     for date, group in df.groupby('date'):
         date_str = str(date)
-        print(f"📅 Traitement de la date {date_str} avec {len(group)} stocks")
         
         # === 1. TOP 5 pour Discovery (trié par confiance) ===
         group_top5 = group.sort_values('confidence', ascending=False).head(5)
@@ -175,7 +220,6 @@ def convert_dataframe_to_app_format(df):
             all_stocks.append(stock_data)
         
         app_data["all_predictions"][date_str] = all_stocks
-        print(f"   ✅ {len(daily_stocks)} pour daily_picks, {len(all_stocks)} pour all_predictions")
     
     # Crée l'historique des stocks
     create_stock_history(df, app_data)
@@ -185,11 +229,8 @@ def convert_dataframe_to_app_format(df):
     app_data["metadata"]["total_stocks"] = sum(len(stocks) for stocks in app_data["daily_picks"].values())
     app_data["metadata"]["total_predictions"] = sum(len(stocks) for stocks in app_data["all_predictions"].values())
     
-    print(f"🎉 CONVERSION TERMINÉE:")
-    print(f"   📊 {app_data['metadata']['total_predictions']} prédictions totales")
-    print(f"   📈 {app_data['metadata']['total_stocks']} dans daily_picks")
-    
     return app_data
+
 def create_stock_history(df, app_data):
     """
     Crée l'historique des stocks pour les pages de détail
@@ -246,43 +287,35 @@ def create_sample_data():
                     "confidence_score": 8,
                     "features": ["Strong iPhone 16 pre-orders", "Services revenue accelerating", "AI integration progress", "Solid cash position"],
                     "prediction_date": "2025-08-21"
-                },
+                }
+            ]
+        },
+        "all_predictions": {
+            "2025-08-21": [
                 {
-                    "ticker": "MSFT",
-                    "name": "Microsoft Corporation",
-                    "logo_path": "https://logo.clearbit.com/microsoft.com",
-                    "logo_url": "https://logo.clearbit.com/microsoft.com",
-                    "price": 287.12,
-                    "change": 2.1,
+                    "ticker": "AAPL",
+                    "name": "Apple Inc.",
+                    "logo_path": "https://logo.clearbit.com/aapl.com",
+                    "logo_url": "https://logo.clearbit.com/aapl.com",
+                    "price": 152.45,
+                    "change": 1.5,
                     "confidence": "high",
-                    "confidence_score": 9,
-                    "features": ["Azure growth momentum", "AI integration across products", "Strong enterprise demand", "Cloud market expansion"],
-                    "prediction_date": "2025-08-21"
-                },
-                {
-                    "ticker": "TSLA",
-                    "name": "Tesla Inc.",
-                    "logo_path": "https://logo.clearbit.com/tesla.com",
-                    "logo_url": "https://logo.clearbit.com/tesla.com",
-                    "price": 198.67,
-                    "change": -0.8,
-                    "confidence": "medium",
-                    "confidence_score": 6,
-                    "features": ["EV market competition", "Autopilot improvements", "Energy business growth", "Production efficiency gains"],
+                    "confidence_score": 8,
+                    "features": ["Strong iPhone 16 pre-orders", "Services revenue accelerating", "AI integration progress", "Solid cash position"],
                     "prediction_date": "2025-08-21"
                 }
             ]
         },
         "stock_history": {
             "AAPL": [
-                {"date": "2025-08-21", "price": 152.45, "change": 1.5, "confidence_score": 8, "predicted": True},
-                {"date": "2025-08-20", "price": 150.20, "change": 0.8, "confidence_score": 7, "predicted": True}
+                {"date": "2025-08-21", "price": 152.45, "change": 1.5, "confidence_score": 8, "predicted": True}
             ]
         },
         "metadata": {
             "last_updated": datetime.now().isoformat(),
             "total_dates": 1,
-            "total_stocks": 3
+            "total_stocks": 1,
+            "total_predictions": 1
         }
     }
     
@@ -299,7 +332,7 @@ if __name__ == "__main__":
     success = convert_ml_predictions_to_app_format()
     
     if not success:
-        print("⚠️  Conversion ML échouée, création de données d'exemple...")
+        print("⚠️ Conversion ML échouée, création de données d'exemple...")
         create_sample_data()
     
     print("🎉 Conversion terminée !")

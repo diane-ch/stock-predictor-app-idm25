@@ -7,7 +7,7 @@
   
   "Prev sign": "Previous Signal - This refers to a positive signal from our AI model in recent trading sessions. The algorithm identified favorable conditions that historically lead to good performance.",
 
-  "ΔVIX":"vix",
+  "ΔVIX":"This measures if investors are feeling more nervous or confident about the market today compared to yesterday! 😰➡️😊",
 
   "Bollinger %B": "Bollinger",
 
@@ -17,9 +17,7 @@
 
   "Ret_0900_1030_prev_sign": "Simply put: did the stock go up or down in yesterday's opening session? Direction matters! ↗️",
 
-  "VIX_delta": "This measures if investors are feeling more nervous or confident about the market today compared to yesterday! 😰➡️😊",
-
-  "Ret1": "The classic question: is this stock worth more today than it was yesterday? Let's see! 📈",
+  "Ret(1d)": "The classic question: is this stock worth more today than it was yesterday? Let's see! 📈",
 
   "Vol5": "We measure how 'jumpy' this stock has been over the past 5 days - some stocks are natural rollercoasters! 🎢",
 
