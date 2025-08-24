@@ -11,13 +11,13 @@
         {
           "id": "risk-vs-return",
           "title": "Risk vs Return",
-          "description": "This is a little explanation of what the module is about",
+          "description": "Find out the best tools that will help you avoid expensive traps and find quality companies",
           "level": 1,
           "duration": 8,
           "image-preview": "1-preview.png",
           "steps": [
             {
-              "title": "Welcome Back! 👋",
+              "title": "Welcome! 👋",
               "content": "<strong>Financial ratios</strong> are like a company's report card. They tell you if a business is healthy, profitable, and worth your money",
               "image": "1-01.png"
             },
@@ -318,7 +318,7 @@
     {
       "id": "analysis",
       "title": "Analysis",
-      "description": "Start your investing journey",
+      "description": "How to make proper research on stock",
       "emoji": "🔍", 
       "icon": "baby_analysis.png",
       "order": 2,
@@ -493,7 +493,7 @@
     {
       "id": "strategy",
       "title": "Strategy",
-      "description": "Start your investing journey", 
+      "description": "Connect your knowledge", 
       "emoji": "📈",
       "icon": "baby_strategy.png",
       "order": 3,
@@ -668,7 +668,7 @@
     {
       "id": "grow",
       "title": "Grow",
-      "description": "Start your investing journey",
+      "description": "Keep learning and get smarter",
       "emoji": "🔥", 
       "icon": "baby_grow.png",
       "order": 4,

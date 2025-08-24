@@ -204,6 +204,14 @@ html, body {
   font-family: 'Inter', sans-serif !important;
 }
 
+#predChange {
+  background-color: #16CCA0; /* Vert pour prediction */
+}
+
+#realPriceChange {
+  background-color: #999; /* Gris pour real price */
+}
+
 /* Difference：白底黑描边 */
 .pill.neutral {
   background: #fff;
@@ -256,8 +264,20 @@ html, body {
 }
 
 /* 折线图 */
-.chart-wrap { margin-top: 12px; }
-#lineChart { width: 100%; height: 120px; display: block; }
+/*.chart-wrap { margin-top: 12px; }*/
+
+.chart-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+#lineChart,
+.chart-slider .track {
+  width: 100%;
+}
+
+#lineChart { height: 120px; display: block; }
+
 
 .knob { width: 18px; height: 18px; border-radius: 50%; background: #0aa07f; }
 
@@ -282,7 +302,7 @@ html, body {
   left: 50%;                    /* 初始居中 */
   width: 0;
   height: 120px;                /* 与 svg 高度一致 */
-  border-left: 1.5px dashed rgba(0,0,0,0.25);
+  border-left: 2px dotted rgba(0,0,0,0.25);
   pointer-events: none;
 }
 
@@ -436,3 +456,25 @@ html, body {
   cursor: pointer;
 }
 
+/* === CORRECTIONS MOBILE === */
+
+/* Trait vertical mobile-friendly */
+.v-guide {
+  transform: translateX(-1px);  /* Centre la ligne sur mobile */
+  will-change: transform;       /* Optimisation GPU mobile */
+}
+
+/* Slider aligné avec le graphique */
+.chart-wrap { 
+  padding: 0 10px;  /* Même padding que SVG viewBox */
+  box-sizing: border-box;
+}
+
+
+/* Responsive mobile */
+@media (max-width: 480px) {
+  .slider-ticker {
+    padding: 8px;
+    margin: -8px;
+  }
+}

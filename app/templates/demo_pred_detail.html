@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Mobile Fix Demo</title>
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .chart-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            margin: 20px 0;
+        }
+
+        #lineChart {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+
+        /* SOLUTION 1: Trait vertical mobile-friendly */
+        .v-guide {
+            position: absolute;
+            top: 0;
+            bottom: 40px; /* Laisse de l'espace pour le slider */
+            width: 2px;
+            background: #16CCA0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 10;
+            /* CRITIQUE pour mobile */
+            transform: translateX(-1px); /* Centre parfaitement la ligne */
+            will-change: transform; /* Optimisation GPU pour mobile */
+        }
+
+        /* Alternative avec pseudo-element pour meilleure compatibilité mobile */
+        .v-guide-alt {
+            position: absolute;
+            top: 0;
+            bottom: 40px;
+            width: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .v-guide-alt::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 2px;
+            background: #16CCA0;
+            opacity: 0.7;
+            transform: translateX(-1px);
+        }
+
+        /* SOLUTION 2: Slider parfaitement aligné */
+        .chart-slider {
+            position: relative;
+            width: 100%;
+            height: 20px;
+            margin-top: 10px;
+            /* CRITIQUE: Mêmes marges que le SVG */
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .track {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .knob {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #16CCA0;
+            border: 2px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            transition: box-shadow 0.2s ease;
+            z-index: 5;
+        }
+
+        .knob:hover, .knob:focus {
+            box-shadow: 0 0 0 4px rgba(22, 204, 160, 0.2);
+            outline: none;
+        }
+
+        /* Tickers alignés avec les points du graphique */
+        .slider-ticker {
+            position: absolute;
+            top: 50%;
+            width: 2px;
+            height: 8px;
+            background: #ccc;
+            border-radius: 1px;
+            cursor: pointer;
+            z-index: 3;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease;
+        }
+
+        .slider-ticker.active {
+            background: #16CCA0;
+            height: 10px;
+        }
+
+        /* Labels des dates */
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+            /* CRITIQUE: Mêmes marges que le slider */
+            padding: 0 10px;
+        }
+
+        /* Demo controls */
+        .demo-controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .demo-btn {
+            background: #16CCA0;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .demo-btn.active {
+            background: #00b894;
+        }
+
+        /* Debug info */
+        .debug-info {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <h3>Correction Mobile & Alignement</h3>
+        
+        <div class="demo-controls">
+            <button class="demo-btn active" onclick="switchGuideType('standard')">Guide Standard</button>
+            <button class="demo-btn" onclick="switchGuideType('alternative')">Guide Alternative</button>
+        </div>
+
+        <div class="chart-wrap">
+            <svg id="lineChart" viewBox="0 0 300 120" preserveAspectRatio="none">
+                <!-- Le graphique sera dessiné ici -->
+            </svg>
+            
+            <!-- Trait vertical - Version standard -->
+            <div class="v-guide" id="vGuide"></div>
+            
+            <!-- Trait vertical - Version alternative (meilleure pour mobile) -->
+            <div class="v-guide-alt" id="vGuideAlt" style="display: none;"></div>
+
+            <!-- Slider aligné -->
+            <div class="chart-slider" id="chartSlider">
+                <div class="track" id="chartTrack"></div>
+                <div class="knob" id="chartKnob"></div>
+                <!-- Les tickers seront ajoutés dynamiquement -->
+            </div>
+
+            <div class="chart-labels">
+                <span id="startLabel">Day 1</span>
+                <span id="endLabel">Day 5</span>
+            </div>
+        </div>
+
+        <div class="debug-info" id="debugInfo">
+            Position: Day 1/5 | Guide visible: Yes | Mobile: <span id="isMobile">No</span>
+        </div>
+    </div>
+
+    <script>
+        // Données de démonstration
+        const demoData = {
+            realPrices: [100, 102, 98, 105, 108],
+            predictedPrices: [101, 103, 99, 104, 107],
+            dates: ['Jan 15', 'Jan 16', 'Jan 17', 'Jan 18', 'Jan 19']
+        };
+
+        let currentDay = 0;
+        let currentGuideType = 'standard';
+        
+        // Détection mobile améliorée
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                   (window.innerWidth <= 768) ||
+                   ('ontouchstart' in window);
+        }
+
+        // SOLUTION 1: Fonction de positionnement du guide améliorée
+        function updateGuidePosition(dayIndex) {
+            const svg = document.getElementById('lineChart');
+            const vGuide = document.getElementById('vGuide');
+            const vGuideAlt = document.getElementById('vGuideAlt');
+            const chartWrap = document.querySelector('.chart-wrap');
+            
+            if (!svg || !chartWrap) return;
+            
+            // Calcul précis de la position
+            const svgRect = svg.getBoundingClientRect();
+            const wrapRect = chartWrap.getBoundingClientRect();
+            
+            // CRITIQUE: Alignement parfait avec les points du graphique
+            const svgPadding = 10; // Même padding que dans le viewBox
+            const svgWidth = 300 - (svgPadding * 2); // Largeur effective du graphique
+            const pointPosition = dayIndex / (demoData.realPrices.length - 1); // Position relative (0 à 1)
+            
+            // Position absolue dans le SVG
+            const svgX = svgPadding + (pointPosition * svgWidth);
+            const relativeX = svgX / 300; // Position relative dans le viewBox
+            
+            // Position réelle dans le DOM
+            const realX = svgRect.left - wrapRect.left + (relativeX * svgRect.width);
+            
+            // Application des positions
+            const activeGuide = currentGuideType === 'standard' ? vGuide : vGuideAlt;
+            if (activeGuide && activeGuide.style.display !== 'none') {
+                activeGuide.style.left = `${realX}px`;
+            }
+            
+            // Debug mobile
+            const debugInfo = document.getElementById('debugInfo');
+            const mobileSpan = document.getElementById('isMobile');
+            if (mobileSpan) {
+                mobileSpan.textContent = isMobileDevice() ? 'Yes' : 'No';
+            }
+            if (debugInfo) {
+                debugInfo.textContent = `Position: Day ${dayIndex + 1}/5 | Guide: ${realX.toFixed(1)}px | Mobile: ${isMobileDevice() ? 'Yes' : 'No'}`;
+            }
+        }
+
+        // SOLUTION 2: Setup du slider avec alignement parfait
+        function setupAlignedSlider() {
+            const track = document.getElementById('chartTrack');
+            const knob = document.getElementById('chartKnob');
+            
+            if (!track || !knob) return;
+            
+            // Nettoyage des anciens tickers
+            const existingTickers = track.parentElement.querySelectorAll('.slider-ticker');
+            existingTickers.forEach(t => t.remove());
+            
+            // CRITIQUE: Création des tickers avec positions exactes
+            const numDays = demoData.realPrices.length;
+            for (let i = 0; i < numDays; i++) {
+                const ticker = document.createElement('div');
+                ticker.className = 'slider-ticker';
+                
+                // Position exacte alignée avec les points du graphique
+                const position = i / (numDays - 1); // 0, 0.25, 0.5, 0.75, 1.0 pour 5 jours
+                ticker.style.left = `${position * 100}%`;
+                ticker.dataset.dayIndex = i;
+                
+                // Gestionnaire de clic
+                ticker.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    updateSliderPosition(i);
+                });
+                
+                track.parentElement.appendChild(ticker);
+            }
+            
+            // Gestion des interactions du slider
+            function updateSliderPosition(dayIndex) {
+                currentDay = dayIndex;
+                const position = dayIndex / (numDays - 1);
+                
+                // Position du knob
+                knob.style.left = `${position * 100}%`;
+                
+                // Mise à jour des tickers
+                const tickers = track.parentElement.querySelectorAll('.slider-ticker');
+                tickers.forEach((ticker, i) => {
+                    ticker.classList.toggle('active', i === dayIndex);
+                });
+                
+                // Position du guide
+                updateGuidePosition(dayIndex);
+                
+                // Mise à jour des points du graphique
+                updateChartHighlight(dayIndex);
+            }
+            
+            // Interaction avec la track
+            track.addEventListener('click', (e) => {
+                const rect = track.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percent = Math.max(0, Math.min(1, x / rect.width));
+                
+                // Snap à la position la plus proche
+                const closestDay = Math.round(percent * (numDays - 1));
+                updateSliderPosition(closestDay);
+            });
+            
+            // Drag du knob
+            knob.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                
+                const mouseMoveHandler = (event) => {
+                    const rect = track.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const percent = Math.max(0, Math.min(1, x / rect.width));
+                    const closestDay = Math.round(percent * (numDays - 1));
+                    updateSliderPosition(closestDay);
+                };
+                
+                const mouseUpHandler = () => {
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                };
+                
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            });
+            
+            // Support tactile pour mobile
+            knob.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                
+                const touchMoveHandler = (event) => {
+                    const touch = event.touches[0];
+                    const rect = track.getBoundingClientRect();
+                    const x = touch.clientX - rect.left;
+                    const percent = Math.max(0, Math.min(1, x / rect.width));
+                    const closestDay = Math.round(percent * (numDays - 1));
+                    updateSliderPosition(closestDay);
+                };
+                
+                const touchEndHandler = () => {
+                    document.removeEventListener('touchmove', touchMoveHandler);
+                    document.removeEventListener('touchend', touchEndHandler);
+                };
+                
+                document.addEventListener('touchmove', touchMoveHandler);
+                document.addEventListener('touchend', touchEndHandler);
+            });
+            
+            // Initialisation
+            updateSliderPosition(0);
+        }
+
+        // Dessin du graphique de démonstration
+        function drawChart() {
+            const svg = document.getElementById('lineChart');
+            if (!svg) return;
+            
+            const w = 300, h = 120, pad = 10;
+            svg.innerHTML = '';
+            
+            const allPrices = [...demoData.realPrices, ...demoData.predictedPrices];
+            const min = Math.min(...allPrices);
+            const max = Math.max(...allPrices);
+            const range = max - min || 1;
+            
+            const createPath = (prices, color, dashArray = null) => {
+                const points = prices.map((price, i) => {
+                    const x = pad + (i / (prices.length - 1)) * (w - pad * 2);
+                    const y = h - pad - ((price - min) / range) * (h - pad * 2);
+                    return [x, y];
+                });
+                
+                const d = points.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(' ');
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', d);
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', color);
+                path.setAttribute('stroke-width', '2');
+                if (dashArray) path.setAttribute('stroke-dasharray', dashArray);
+                svg.appendChild(path);
+                
+                return points;
+            };
+            
+            // Lignes
+            const realPoints = createPath(demoData.realPrices, '#999999');
+            const predPoints = createPath(demoData.predictedPrices, '#16CCA0', '5,5');
+            
+            // Points cliquables
+            realPoints.forEach((point, i) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', point[0]);
+                circle.setAttribute('cy', point[1]);
+                circle.setAttribute('r', '4');
+                circle.setAttribute('fill', '#999999');
+                circle.setAttribute('stroke', '#fff');
+                circle.setAttribute('stroke-width', '1');
+                circle.classList.add(`real-point-${i}`);
+                circle.style.cursor = 'pointer';
+                
+                circle.addEventListener('click', () => updateSliderPosition(i));
+                svg.appendChild(circle);
+            });
+            
+            predPoints.forEach((point, i) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', point[0]);
+                circle.setAttribute('cy', point[1]);
+                circle.setAttribute('r', '4');
+                circle.setAttribute('fill', '#16CCA0');
+                circle.setAttribute('stroke', '#fff');
+                circle.setAttribute('stroke-width', '1');
+                circle.classList.add(`pred-point-${i}`);
+                circle.style.cursor = 'pointer';
+                
+                circle.addEventListener('click', () => updateSliderPosition(i));
+                svg.appendChild(circle);
+            });
+        }
+        
+        function updateChartHighlight(dayIndex) {
+            const svg = document.getElementById('lineChart');
+            if (!svg) return;
+            
+            // Reset tous les points
+            svg.querySelectorAll('[class*="real-point-"], [class*="pred-point-"]').forEach(point => {
+                point.setAttribute('r', '4');
+            });
+            
+            // Highlight les points actifs
+            const activeReal = svg.querySelector(`.real-point-${dayIndex}`);
+            const activePred = svg.querySelector(`.pred-point-${dayIndex}`);
+            
+            if (activeReal) activeReal.setAttribute('r', '5');
+            if (activePred) activePred.setAttribute('r', '5');
+        }
+        
+        // SOLUTION 3: Switch entre les types de guides
+        function switchGuideType(type) {
+            currentGuideType = type;
+            const vGuide = document.getElementById('vGuide');
+            const vGuideAlt = document.getElementById('vGuideAlt');
+            
+            // Update button states
+            document.querySelectorAll('.demo-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            if (type === 'standard') {
+                vGuide.style.display = 'block';
+                vGuideAlt.style.display = 'none';
+            } else {
+                vGuide.style.display = 'none';
+                vGuideAlt.style.display = 'block';
+            }
+            
+            // Repositionner le guide actif
+            updateGuidePosition(currentDay);
+        }
+        
+        // Gestion du redimensionnement
+        window.addEventListener('resize', () => {
+            updateGuidePosition(currentDay);
+        });
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            drawChart();
+            setupAlignedSlider();
+        });
+    </script>
+</body>
+</html>

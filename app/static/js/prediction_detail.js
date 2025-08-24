@@ -4,10 +4,6 @@ function toggleMenu() {
   menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
 
-function logout() { 
-  alert("Logging out..."); 
-}
-
 document.addEventListener("click", (e) => {
   const menu = document.getElementById("logoutMenu");
   const icon = document.querySelector(".menu-icon");
@@ -28,7 +24,6 @@ async function loadStocksForSearch() {
     const result = await response.json();
     
     if (result.success) {
-      // Transform to search format: "Company Name (TICKER)"
       allStocks = result.stocks.map(stock => ({
         display: `${stock.name} (${stock.ticker})`,
         ticker: stock.ticker,
@@ -37,8 +32,8 @@ async function loadStocksForSearch() {
       console.log(`📋 ${allStocks.length} stocks loaded for search`);
     }
   } catch (error) {
-    console.error('❌ Error loading stocks for search:', error);
-    allStocks = []; // Fallback to empty array
+    console.error('⚠ Error loading stocks for search:', error);
+    allStocks = [];
   }
 }
 
@@ -50,7 +45,6 @@ function initializeSearch() {
     return;
   }
 
-  // Create dropdown container
   const searchContainer = document.querySelector('.search-bar');
   const dropdown = document.createElement('div');
   dropdown.className = 'search-dropdown';
@@ -73,7 +67,6 @@ function initializeSearch() {
   searchContainer.style.position = 'relative';
   searchContainer.appendChild(dropdown);
 
-  // Search functionality
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     
@@ -82,13 +75,11 @@ function initializeSearch() {
       return;
     }
 
-    // Filter stocks
     const filtered = allStocks.filter(stock => 
       stock.display.toLowerCase().includes(query) ||
       stock.ticker.toLowerCase().includes(query)
-    ).slice(0, 10); // Show max 10 results
+    ).slice(0, 10);
 
-    // Populate dropdown
     if (filtered.length > 0) {
       dropdown.innerHTML = filtered.map(stock => `
         <div class="search-result-item" data-ticker="${stock.ticker}" style="
@@ -103,14 +94,11 @@ function initializeSearch() {
       `).join('');
       dropdown.style.display = 'block';
 
-      // Add click handlers
       dropdown.querySelectorAll('.search-result-item').forEach(item => {
         item.addEventListener('click', () => {
           const ticker = item.dataset.ticker;
           searchInput.value = item.textContent;
           dropdown.style.display = 'none';
-          
-          // Navigate to the selected stock's prediction detail
           window.location.href = `/prediction-detail?ticker=${encodeURIComponent(ticker)}`;
         });
       });
@@ -124,14 +112,12 @@ function initializeSearch() {
     }
   });
 
-  // Hide dropdown when clicking outside
   document.addEventListener('click', (e) => {
     if (!searchContainer.contains(e.target)) {
       dropdown.style.display = 'none';
     }
   });
 
-  // Hide dropdown on escape
   searchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       dropdown.style.display = 'none';
@@ -141,7 +127,6 @@ function initializeSearch() {
 }
 
 // ===== Logo validation utility =====
-// ✅ Fonction utilitaire pour vérifier si une image existe
 async function checkImageExists(url) {
   return new Promise((resolve) => {
     const img = new Image();
@@ -151,66 +136,212 @@ async function checkImageExists(url) {
   });
 }
 
-// ✅ Fonction pour obtenir l'URL du logo avec fallback
 async function getValidLogoUrl(logoUrl, ticker) {
-  // Vérifier si le logo Clearbit existe
   const clearbitExists = await checkImageExists(logoUrl);
   
   if (clearbitExists) {
     console.log(`✅ Logo Clearbit disponible pour ${ticker}`);
     return logoUrl;
   } else {
-    console.log(`❌ Logo Clearbit 404 pour ${ticker}, utilisation du logo par défaut`);
+    console.log(`⚠ Logo Clearbit 404 pour ${ticker}, utilisation du logo par défaut`);
     return '/static/images/logos/default.png';
   }
 }
 
-// ===== Global data storage =====
+// ===== Global data storage (only for 1W) =====
 let currentPredictionData = null;
+let weeklyPredictionData = null;
+let weeklyHistoricalData = null;
+let currentDayIndex = 0;
 
-// ===== Chart functionality avec vraies données historiques =====
-function drawRealHistoricalChart(svgEl, data) {
+// ===== 1W SPECIFIC FUNCTIONS =====
+async function loadWeeklyPredictionData(ticker) {
+  try {
+    console.log(`📈 Loading weekly prediction data for ${ticker}...`);
+    
+    const response = await fetch(`/api/weekly-predictions/${ticker}`);
+    const data = await response.json();
+    
+    if (data.success) {
+      weeklyPredictionData = data.data;
+      console.log(`✅ Weekly prediction data loaded: ${weeklyPredictionData.dates.length} days`);
+      return weeklyPredictionData;
+    } else {
+      console.error(`⚠ API Error: ${data.error}`);
+      return null;
+    }
+    
+  } catch (error) {
+    console.error('⚠ Network error loading weekly prediction data:', error);
+    return null;
+  }
+}
+
+async function loadWeeklyHistoricalData(ticker) {
+  try {
+    console.log(`📊 Loading weekly historical data for ${ticker}...`);
+    
+    const response = await fetch(`/api/weekly-historical/${ticker}`);
+    const data = await response.json();
+    
+    if (data.success) {
+      weeklyHistoricalData = data.data;
+      console.log(`✅ Weekly historical data loaded: ${weeklyHistoricalData.dates.length} days`);
+      return weeklyHistoricalData;
+    } else {
+      console.error(`⚠ API Error: ${data.error}`);
+      return null;
+    }
+    
+  } catch (error) {
+    console.error('⚠ Network error loading weekly historical data:', error);
+    return null;
+  }
+}
+
+function calculateDynamicValues(dayIndex, ticker) {
+  if (!weeklyPredictionData || !weeklyHistoricalData) {
+    console.error('Weekly data not loaded');
+    return null;
+  }
+
+  const predData = weeklyPredictionData;
+  const histData = weeklyHistoricalData;
+  
+  if (dayIndex < 0 || dayIndex >= predData.dates.length) {
+    console.error(`Invalid day index: ${dayIndex}`);
+    return null;
+  }
+
+  const currentDate = predData.dates[dayIndex];
+  const predicted_price = predData.prices[dayIndex];
+  const real_price = histData.prices[dayIndex];
+  
+  let predicted_change = 0;
+  let real_change = 0;
+  
+  if (dayIndex > 0) {
+    const prevRealPrice = histData.prices[dayIndex - 1];
+    predicted_change = ((predicted_price - prevRealPrice) / prevRealPrice) * 100;
+    real_change = ((real_price - prevRealPrice) / prevRealPrice) * 100;
+  }
+  
+  const difference = predicted_price - real_price;
+  const difference_pct = (difference / real_price) * 100;
+
+  return {
+    date: currentDate,
+    predicted_price: predicted_price,
+    predicted_change: predicted_change,
+    real_price: real_price,
+    real_change: real_change,
+    difference: Math.abs(difference),
+    difference_pct: difference_pct
+  };
+}
+
+function updateDisplayValues(dayIndex, ticker) {
+  const values = calculateDynamicValues(dayIndex, ticker);
+  
+  if (!values) {
+    console.error('Cannot calculate values for day index:', dayIndex);
+    return;
+  }
+
+  document.getElementById("diffVal").textContent = `$${values.difference.toFixed(1)}`;
+  document.getElementById("diffChange").textContent = `${values.difference_pct >= 0 ? '+' : ''}${values.difference_pct.toFixed(1)}%`;
+
+  document.getElementById("predVal").textContent = `$${values.predicted_price.toFixed(2)}`;
+  document.getElementById("predChange").textContent = `${values.predicted_change >= 0 ? "+" : ""}${values.predicted_change.toFixed(1)}%`;
+
+  document.getElementById("realVal").textContent = `$${values.real_price.toFixed(2)}`;
+  document.getElementById("realPriceChange").textContent = `${values.real_change >= 0 ? "+" : ""}${values.real_change.toFixed(1)}%`;
+
+  const dateObj = new Date(values.date + 'T00:00:00');
+  const formattedDate = dateObj.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
+  document.getElementById("dateChip").textContent = formattedDate;
+
+  console.log(`📊 Updated values for day ${dayIndex + 1}/5 (${values.date})`);
+}
+
+function drawWeeklyComparisonChart(svgEl, realData, predictedData) {
   const w = 300, h = 120, pad = 10;
   svgEl.setAttribute("viewBox", `0 0 ${w} ${h}`);
   svgEl.innerHTML = "";
 
-  if (!data || !data.prices || data.prices.length === 0) {
-    // Affiche un message si pas de données
+  if (!realData || !realData.prices || realData.prices.length === 0) {
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttribute("x", w/2);
     text.setAttribute("y", h/2);
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("fill", "#999");
     text.setAttribute("font-size", "12");
-    text.textContent = "No historical data available";
+    text.textContent = "No weekly data available";
     svgEl.appendChild(text);
     return;
   }
 
-  const prices = data.prices;
-  const min = Math.min(...prices);
-  const max = Math.max(...prices);
+  const realPrices = realData.prices;
+  const predictedPrices = predictedData ? predictedData.prices : null;
+  
+  let allPrices = [...realPrices];
+  if (predictedPrices) {
+    allPrices = [...allPrices, ...predictedPrices];
+  }
+  
+  const min = Math.min(...allPrices);
+  const max = Math.max(...allPrices);
   const range = max - min || 1;
-  const stepX = (w - pad * 2) / (prices.length - 1);
+  const stepX = (w - pad * 2) / (realPrices.length - 1);
 
-  // Crée les points
-  const points = prices.map((price, i) => {
-    const x = pad + i * stepX;
-    const y = h - pad - ((price - min) / range) * (h - pad * 2);
-    return [x, y];
-  });
+  const createPoints = (prices) => {
+    return prices.map((price, i) => {
+      const x = pad + i * stepX;
+      const y = h - pad - ((price - min) / range) * (h - pad * 2);
+      return [x, y];
+    });
+  };
 
-  // Dessine la ligne
-  const d = points.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", d);
-  path.setAttribute("fill", "none");
-  path.setAttribute("stroke", "#999999"); // Bleu pour prix réel
-  path.setAttribute("stroke-width", "2");
-  svgEl.appendChild(path);
+  const realPoints = createPoints(realPrices);
 
-  // Ajoute des points aux extrémités
-  [points[0], points[points.length - 1]].forEach(point => {
+  // Real prices line (gray)
+  const realPath = realPoints.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
+  const realLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  realLine.setAttribute("d", realPath);
+  realLine.setAttribute("fill", "none");
+  realLine.setAttribute("stroke", "#999999");
+  realLine.setAttribute("stroke-width", "2");
+  svgEl.appendChild(realLine);
+
+  // Predicted prices line (green dashed)
+  if (predictedPrices && predictedPrices.length === realPrices.length) {
+    const predictedPoints = createPoints(predictedPrices);
+    
+    const predPath = predictedPoints.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
+    const predLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    predLine.setAttribute("d", predPath);
+    predLine.setAttribute("fill", "none");
+    predLine.setAttribute("stroke", "#16CCA0");
+    predLine.setAttribute("stroke-width", "2");
+    predLine.setAttribute("stroke-dasharray", "5,5");
+    svgEl.appendChild(predLine);
+
+    predPointsList = [predictedPoints[0], predictedPoints[1], predictedPoints[2], predictedPoints[3], predictedPoints[4]];
+    predPointsList.forEach(point => {
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", point[0]);
+      circle.setAttribute("cy", point[1]);
+      circle.setAttribute("r", "3");
+      circle.setAttribute("fill", "#16CCA0");
+      svgEl.appendChild(circle);
+    });
+  }
+
+  [realPoints[0], realPoints[1], realPoints[2], realPoints[3], realPoints[realPoints.length - 1]].forEach(point => {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", point[0]);
     circle.setAttribute("cy", point[1]);
@@ -220,6 +351,108 @@ function drawRealHistoricalChart(svgEl, data) {
   });
 }
 
+function setupWeeklySlider(ticker) {
+  const track = document.getElementById("chartTrack");
+  const knob = document.getElementById("chartKnob");
+  const vGuide = document.getElementById("vGuide");
+  const svg = document.getElementById("lineChart");
+  const chartWrap = document.querySelector(".chart-wrap");
+
+  if (!track || !knob || !vGuide || !chartWrap || !weeklyPredictionData) {
+    console.log("Weekly slider setup failed - missing elements or data");
+    return;
+  }
+
+  const positions = [0, 0.25, 0.5, 0.75, 1.0];
+  
+  function snapToNearestPosition(rawPercent) {
+    let closest = 0;
+    let minDistance = Math.abs(rawPercent - positions[0]);
+    
+    for (let i = 1; i < positions.length; i++) {
+      const distance = Math.abs(rawPercent - positions[i]);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closest = i;
+      }
+    }
+    
+    return closest;
+  }
+
+  const pad = 10;
+
+  function updateSliderPosition(dayIndex) {
+    const pct = positions[dayIndex];
+    const knobPct = (pad + pct * (300 - pad * 2)) / 300; // 300 = w dans drawWeeklyComparisonChart
+    knob.style.left = `${knobPct * 100}%`;
+    knob.setAttribute("aria-valuenow", Math.round(pct * 100));
+
+    const svgRect = svg.getBoundingClientRect();
+    const wrapRect = chartWrap.getBoundingClientRect();
+    const guideLeft = svgRect.left - wrapRect.left + pad + pct * (svgRect.width - pad * 2);
+    vGuide.style.left = `${guideLeft}px`;
+    
+    currentDayIndex = dayIndex;
+    updateDisplayValues(currentDayIndex, ticker);
+    
+    console.log(`🎯 Slider moved to day ${dayIndex + 1}/5`);
+  }
+
+  function pointerToPercent(clientX) {
+    const rect = track.getBoundingClientRect();
+    return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  }
+
+  track.addEventListener("pointerdown", (e) => {
+    track.setPointerCapture(e.pointerId);
+    const rawPct = pointerToPercent(e.clientX);
+    const dayIndex = snapToNearestPosition(rawPct);
+    updateSliderPosition(dayIndex);
+  });
+
+  knob.addEventListener("pointerdown", (e) => {
+    knob.setPointerCapture(e.pointerId);
+    
+    const move = (ev) => {
+      const rawPct = pointerToPercent(ev.clientX);
+      const dayIndex = snapToNearestPosition(rawPct);
+      updateSliderPosition(dayIndex);
+    };
+    
+    const up = (ev) => {
+      knob.releasePointerCapture(e.pointerId);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+    };
+    
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  });
+
+  knob.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft" && currentDayIndex > 0) {
+      updateSliderPosition(currentDayIndex - 1);
+    }
+    if (e.key === "ArrowRight" && currentDayIndex < positions.length - 1) {
+      updateSliderPosition(currentDayIndex + 1);
+    }
+    if (e.key === "Home") {
+      updateSliderPosition(0);
+    }
+    if (e.key === "End") {
+      updateSliderPosition(positions.length - 1);
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    updateSliderPosition(currentDayIndex);
+  });
+
+  updateSliderPosition(0);
+}
+
+// ===== 1M/1Y SPECIFIC FUNCTIONS =====
 async function loadHistoricalData(ticker, period) {
   try {
     console.log(`📈 Loading historical data for ${ticker}, period: ${period}`);
@@ -231,97 +464,54 @@ async function loadHistoricalData(ticker, period) {
       console.log(`✅ Historical data loaded: ${data.data.total_points} points`);
       return data.data;
     } else {
-      console.error(`❌ API Error: ${data.error}`);
+      console.error(`⚠ API Error: ${data.error}`);
       return null;
     }
     
   } catch (error) {
-    console.error('❌ Network error loading historical data:', error);
+    console.error('⚠ Network error loading historical data:', error);
     return null;
   }
 }
 
-// ===== Chart functionality avec vraies données historiques ET prédictions =====
-function drawComparisonChart(svgEl, realData, predictedData) {
+function drawStaticChart(svgEl, data) {
   const w = 300, h = 120, pad = 10;
   svgEl.setAttribute("viewBox", `0 0 ${w} ${h}`);
   svgEl.innerHTML = "";
 
-  if (!realData || !realData.prices || realData.prices.length === 0) {
-    // Affiche un message si pas de données
+  if (!data || !data.prices || data.prices.length === 0) {
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttribute("x", w/2);
     text.setAttribute("y", h/2);
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("fill", "#999");
     text.setAttribute("font-size", "12");
-    text.textContent = "No historical data available";
+    text.textContent = "No data available";
     svgEl.appendChild(text);
     return;
   }
 
-  const realPrices = realData.prices;
-  const predictedPrices = predictedData ? predictedData.prices : null;
-  
-  // Calcule les min/max globaux pour les deux courbes
-  let allPrices = [...realPrices];
-  if (predictedPrices) {
-    allPrices = [...allPrices, ...predictedPrices];
-  }
-  
-  const min = Math.min(...allPrices);
-  const max = Math.max(...allPrices);
+  const prices = data.prices;
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
   const range = max - min || 1;
-  const stepX = (w - pad * 2) / (realPrices.length - 1);
+  const stepX = (w - pad * 2) / (prices.length - 1);
 
-  // Fonction pour créer les points
-  const createPoints = (prices) => {
-    return prices.map((price, i) => {
-      const x = pad + i * stepX;
-      const y = h - pad - ((price - min) / range) * (h - pad * 2);
-      return [x, y];
-    });
-  };
+  const points = prices.map((price, i) => {
+    const x = pad + i * stepX;
+    const y = h - pad - ((price - min) / range) * (h - pad * 2);
+    return [x, y];
+  });
 
-  // Crée les points pour les données réelles
-  const realPoints = createPoints(realPrices);
+  const d = points.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", d);
+  path.setAttribute("fill", "none");
+  path.setAttribute("stroke", "#999999");
+  path.setAttribute("stroke-width", "2");
+  svgEl.appendChild(path);
 
-  // Dessine la ligne des données réelles
-  const realPath = realPoints.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
-  const realLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  realLine.setAttribute("d", realPath);
-  realLine.setAttribute("fill", "none");
-  realLine.setAttribute("stroke", "#999999"); // Gris pour prix réel
-  realLine.setAttribute("stroke-width", "2");
-  svgEl.appendChild(realLine);
-
-  // Si on a des données prédites, les dessiner aussi
-  if (predictedPrices && predictedPrices.length === realPrices.length) {
-    const predictedPoints = createPoints(predictedPrices);
-    
-    // Dessine la ligne des prédictions
-    const predPath = predictedPoints.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
-    const predLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    predLine.setAttribute("d", predPath);
-    predLine.setAttribute("fill", "none");
-    predLine.setAttribute("stroke", "#16CCA0"); // Vert pour prédictions
-    predLine.setAttribute("stroke-width", "2");
-    predLine.setAttribute("stroke-dasharray", "5,5"); // Ligne pointillée
-    svgEl.appendChild(predLine);
-
-    // Ajoute des points aux extrémités pour les prédictions
-    [predictedPoints[0], predictedPoints[predictedPoints.length - 1]].forEach(point => {
-      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      circle.setAttribute("cx", point[0]);
-      circle.setAttribute("cy", point[1]);
-      circle.setAttribute("r", "3");
-      circle.setAttribute("fill", "#16CCA0");
-      svgEl.appendChild(circle);
-    });
-  }
-
-  // Ajoute des points aux extrémités pour les données réelles
-  [realPoints[0], realPoints[realPoints.length - 1]].forEach(point => {
+  [points[0], points[points.length - 1]].forEach(point => {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", point[0]);
     circle.setAttribute("cy", point[1]);
@@ -329,82 +519,88 @@ function drawComparisonChart(svgEl, realData, predictedData) {
     circle.setAttribute("fill", "#999999");
     svgEl.appendChild(circle);
   });
-
-  // Note: Légende supprimée selon demande
 }
 
-// Fonction addChartLegend supprimée - plus utilisée
-
-async function loadPredictedData(ticker, period) {
-  try {
-    console.log(`🔮 Loading predicted data for ${ticker}, period: ${period}`);
-    
-    const response = await fetch(`/api/predicted-prices/${ticker}?period=${period}`);
-    const data = await response.json();
-    
-    if (data.success) {
-      console.log(`✅ Predicted data loaded: ${data.data.total_points} points`);
-      return data.data;
-    } else {
-      console.error(`❌ API Error: ${data.error}`);
-      return null;
-    }
-    
-  } catch (error) {
-    console.error('❌ Network error loading predicted data:', error);
-    return null;
-  }
-}
-
-function setRangeWithComparisonData(period, ticker) {
+// ===== MAIN CHART HANDLER =====
+function setRangeWithData(period, ticker) {
   if (!ticker) {
-    console.error('No ticker provided for historical data');
+    console.error('No ticker provided');
     return;
   }
   
-  // Show loading state
+  // 🔥 RESET CACHE when changing ticker/period
+  weeklyPredictionData = null;
+  weeklyHistoricalData = null;
+  currentDayIndex = 0;
+  
   const svgEl = document.getElementById("lineChart");
+  const slider = document.getElementById("chartSlider");
+  const vGuide = document.getElementById("vGuide");
+  
+  // Show loading
   svgEl.innerHTML = `
     <text x="150" y="60" text-anchor="middle" fill="#999" font-size="12">
-      Loading historical data...
+      Loading data...
     </text>
   `;
   
-  // Charge les données réelles et prédites en parallèle
-  Promise.all([
-    loadHistoricalData(ticker, period),
-    period === '1W' ? loadPredictedData(ticker, period) : Promise.resolve(null)
-  ]).then(([realData, predictedData]) => {
-    if (realData) {
-      // Update date labels
-      if (realData.date_labels && realData.date_labels.length >= 2) {
-        document.getElementById("startLabel").textContent = realData.date_labels[0];
-        document.getElementById("endLabel").textContent = realData.date_labels[realData.date_labels.length - 1];
-      } else if (realData.start_date && realData.end_date) {
-        document.getElementById("startLabel").textContent = realData.start_date;
-        document.getElementById("endLabel").textContent = realData.end_date;
-      }
-      
-      // Draw the chart with comparison for 1W, simple chart for others
-      if (period === '1W' && predictedData) {
-        drawComparisonChart(svgEl, realData, predictedData);
+  if (period === '1W') {
+    // Show slider for 1W
+    if (slider) slider.style.display = 'block';
+    if (vGuide) vGuide.style.display = 'block';
+    
+    // Load weekly data with predictions and interactive slider
+    Promise.all([
+      loadWeeklyHistoricalData(ticker),
+      loadWeeklyPredictionData(ticker)
+    ]).then(([histData, predData]) => {
+      if (histData && predData) {
+        console.log(`🔍 DEBUG - Historical data for ${ticker}:`, histData.prices);
+        console.log(`🔍 DEBUG - Prediction data for ${ticker}:`, predData.prices);
+        
+        document.getElementById("startLabel").textContent = histData.dates[0];
+        document.getElementById("endLabel").textContent = histData.dates[histData.dates.length - 1];
+        
+        drawWeeklyComparisonChart(svgEl, histData, predData);
+        
+        currentDayIndex = 0;
+        updateDisplayValues(currentDayIndex, ticker);
+        setupWeeklySlider(ticker);
       } else {
-        drawRealHistoricalChart(svgEl, realData);
+        svgEl.innerHTML = `
+          <text x="150" y="60" text-anchor="middle" fill="#ff4444" font-size="12">
+            Error loading weekly data
+          </text>
+        `;
       }
-    } else {
-      // Error state
-      svgEl.innerHTML = `
-        <text x="150" y="60" text-anchor="middle" fill="#ff4444" font-size="12">
-          Error loading historical data
-        </text>
-      `;
-    }
-  });
-}
-
-// Remplace la fonction setRangeWithHistoricalData existante
-function setRangeWithHistoricalData(period, ticker) {
-  setRangeWithComparisonData(period, ticker);
+    });
+    
+  } else {
+    // Hide slider for 1M/1Y
+    if (slider) slider.style.display = 'none';
+    if (vGuide) vGuide.style.display = 'none';
+    
+    // Simple historical data loading for 1M/1Y
+    loadHistoricalData(ticker, period).then(data => {
+      if (data) {
+        // TODO: You'll want to load predicted data too for 1M/1Y later
+        // and modify drawStaticChart to handle 2 curves
+        drawStaticChart(svgEl, data);
+        
+        // Update date labels if available
+        if (data.date_labels && data.date_labels.length >= 2) {
+          document.getElementById("startLabel").textContent = data.date_labels[0];
+          document.getElementById("endLabel").textContent = data.date_labels[data.date_labels.length - 1];
+        }
+      } else {
+        svgEl.innerHTML = `
+          <text x="150" y="60" text-anchor="middle" fill="#ff4444" font-size="12">
+            Error loading data
+          </text>
+        `;
+      }
+    });
+  }
 }
 
 // ===== Load prediction data from API =====
@@ -412,7 +608,6 @@ async function loadPredictionData(ticker, date = null) {
   try {
     console.log(`📊 Loading prediction data for ${ticker}...`);
     
-    // Show loading state
     showLoadingState();
     
     let apiUrl = `/api/prediction-detail/${ticker}`;
@@ -428,28 +623,26 @@ async function loadPredictionData(ticker, date = null) {
       currentPredictionData = data.prediction;
       displayPredictionData(data.prediction);
     } else {
-      console.error(`❌ API Error: ${data.error}`);
+      console.error(`⚠ API Error: ${data.error}`);
       showErrorState(data.error);
     }
     
   } catch (error) {
-    console.error('❌ Network error:', error);
+    console.error('⚠ Network error:', error);
     showErrorState('Network error while loading prediction data');
   }
 }
 
-// ✅ Fonction modifiée avec validation du logo
 async function displayPredictionData(prediction) {
-  // 1. Update header info
+  // Update header info
   document.getElementById("companyName").textContent = prediction.name;
   document.getElementById("tickerSymbol").textContent = prediction.ticker;
   
-  // ✅ Vérifier et définir le logo avec fallback
+  // Logo validation and fallback
   const validLogoUrl = await getValidLogoUrl(prediction.logo_url, prediction.ticker);
   const logoElement = document.getElementById("companyLogo");
   logoElement.src = validLogoUrl;
   logoElement.alt = prediction.name;
-  // ✅ Ajouter aussi le fallback HTML au cas où
   logoElement.setAttribute('onerror', "this.src='/static/images/logos/default.png'");
   
   // Format date nicely
@@ -461,7 +654,7 @@ async function displayPredictionData(prediction) {
   });
   document.getElementById("dateChip").textContent = formattedDate;
 
-  // 2. Update metrics
+  // Initial static values (will be replaced by dynamic values for 1W)
   const { difference, difference_pct, predicted_price, predicted_change, real_price, real_change } = prediction;
   
   document.getElementById("diffVal").textContent = `${Math.abs(difference).toFixed(1)}`;
@@ -469,33 +662,29 @@ async function displayPredictionData(prediction) {
 
   document.getElementById("predVal").textContent = `${predicted_price}`;
   document.getElementById("predChange").textContent = `${predicted_change >= 0 ? "+" : ""}${predicted_change.toFixed(1)}%`;
-  document.getElementById("predChange").className = `pill ${predicted_change >= 0 ? "up" : "down"}`;
 
   document.getElementById("realVal").textContent = `${real_price}`;
   document.getElementById("realPriceChange").textContent = `${real_change >= 0 ? "+" : ""}${real_change.toFixed(1)}%`;
-  document.getElementById("realPriceChange").className = `pill ${real_change >= 0 ? "up" : "down"}`;
 
-  // 3. Set up chart with historical data (default to 1W)
+  // Set up chart (default to 1W)
   const ticker = prediction.ticker;
-  setRangeWithHistoricalData("1W", ticker);
+  setRangeWithData("1W", ticker);
   
-  // Add event listeners for range buttons with historical data
+  // Add event listeners for range buttons
   document.querySelectorAll(".range-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".range-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       
-      // Load historical data for the selected period
       const period = btn.dataset.range;
-      setRangeWithHistoricalData(period, ticker);
+      setRangeWithData(period, ticker);
     });
   });
   
-  console.log("📈 Prediction data displayed with historical chart and validated logo");
+  console.log("📈 Prediction data displayed");
 }
 
 function showLoadingState() {
-  // Show loading indicators
   const elements = [
     { id: 'companyName', text: 'Loading...' },
     { id: 'tickerSymbol', text: '...' },
@@ -513,79 +702,9 @@ function showLoadingState() {
 }
 
 function showErrorState(errorMessage) {
-  // Show error state
   document.getElementById("companyName").textContent = 'Error loading data';
   document.getElementById("companyName").style.color = '#ff4444';
-  
   console.error("Error state:", errorMessage);
-}
-
-// ===== Slider functionality =====
-function initializeSlider() {
-  const svg = document.getElementById("lineChart");
-  const track = document.getElementById("chartTrack");
-  const knob = document.getElementById("chartKnob");
-  const vGuide = document.getElementById("vGuide");
-  const chartWrap = document.querySelector(".chart-wrap");
-
-  if (!track || !knob || !vGuide || !chartWrap) {
-    console.log("Slider elements not found, skipping slider initialization");
-    return;
-  }
-
-  let pct = 0.5;
-
-  function clamp(x, min=0, max=1){ 
-    return Math.max(min, Math.min(max, x)); 
-  }
-
-  function placeByPercent(p) {
-    const rect = track.getBoundingClientRect();
-    knob.style.left = `${p * 100}%`;
-    knob.setAttribute("aria-valuenow", Math.round(p * 100));
-
-    const svgRect = svg.getBoundingClientRect();
-    const wrapRect = chartWrap.getBoundingClientRect();
-    const guideLeft = svgRect.left - wrapRect.left + p * svgRect.width;
-    vGuide.style.left = `${guideLeft}px`;
-  }
-
-  function pointerToPercent(clientX){
-    const rect = track.getBoundingClientRect();
-    return clamp((clientX - rect.left) / rect.width);
-  }
-
-  track.addEventListener("pointerdown", (e) => {
-    track.setPointerCapture(e.pointerId);
-    pct = pointerToPercent(e.clientX);
-    placeByPercent(pct);
-  });
-
-  knob.addEventListener("pointerdown", (e) => {
-    knob.setPointerCapture(e.pointerId);
-    const move = (ev) => {
-      pct = pointerToPercent(ev.clientX);
-      placeByPercent(pct);
-    };
-    const up = (ev) => {
-      knob.releasePointerCapture(e.pointerId);
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  });
-
-  knob.addEventListener("keydown", (e) => {
-    const step = 0.02;
-    if (e.key === "ArrowLeft") { pct = clamp(pct - step); placeByPercent(pct); }
-    if (e.key === "ArrowRight") { pct = clamp(pct + step); placeByPercent(pct); }
-    if (e.key === "Home") { pct = 0; placeByPercent(pct); }
-    if (e.key === "End") { pct = 1; placeByPercent(pct); }
-  });
-
-  window.addEventListener("resize", () => placeByPercent(pct));
-  placeByPercent(pct);
 }
 
 // ===== Tutorial functionality =====
@@ -621,24 +740,15 @@ function initializeTutorial() {
 document.addEventListener("DOMContentLoaded", () => {
   console.log("🚀 Prediction Detail page loaded");
   
-  // 1. Get ticker from URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const ticker = (urlParams.get("ticker") || "AAPL").toUpperCase();
-  const date = urlParams.get("date"); // Optional date parameter
+  const date = urlParams.get("date");
   
   console.log(`🎯 Loading prediction for: ${ticker}${date ? ` on ${date}` : ''}`);
   
-  // 2. Load stocks for search functionality
   loadStocksForSearch();
-  
-  // 3. Initialize search functionality
   initializeSearch();
-  
-  // 4. Load prediction data
   loadPredictionData(ticker, date);
-  
-  // 5. Initialize other functionality
-  initializeSlider();
   initializeTutorial();
   
   console.log("✅ Prediction Detail page initialized");

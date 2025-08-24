@@ -273,6 +273,7 @@ html, body {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   color: #888;
+  text-align: left;
 }
 
 /* 右上角完成标记 */

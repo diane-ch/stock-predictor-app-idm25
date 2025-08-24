@@ -5,6 +5,7 @@ from flask import Blueprint, current_app, render_template, redirect, url_for, js
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta
 from app.services.stock_service import stock_service
+from scripts.csv_functions_aipredictions import get_weekly_predictions, get_weekly_historical
 
 # Create the main blueprint
 main_bp = Blueprint('main', __name__, template_folder='../templates')
@@ -685,6 +686,14 @@ def api_get_predicted_prices(ticker):
             "success": False,
             "error": f"Internal server error: {str(e)}"
         }), 500
+    
+@main_bp.route('/api/weekly-predictions/<ticker>')
+def weekly_predictions_endpoint(ticker):
+    return get_weekly_predictions(ticker)
+
+@main_bp.route('/api/weekly-historical/<ticker>')
+def weekly_historical_endpoint(ticker):
+    return get_weekly_historical(ticker)
 
 
 ### ONBOARDING
