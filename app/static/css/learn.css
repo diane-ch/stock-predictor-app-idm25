@@ -64,12 +64,13 @@ html, body {
 .logout-button {
   background: none;
   border: none;
-  color: #ff3b30;
-  font-size: 16px;
+  color: #E67E50;
+  font-size: 14px;
   font-weight: 300;
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 30px;
   white-space: nowrap;  /* ✅ 不允许内容换行 */
 }
