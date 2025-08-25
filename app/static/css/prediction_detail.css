@@ -312,7 +312,6 @@ html, body {
 }
 
 /* 折线图 */
-/*.chart-wrap { margin-top: 12px; }*/
 
 .chart-wrap {
   max-width: 480px;
@@ -324,7 +323,12 @@ html, body {
   width: 100%;
 }
 
-#lineChart { height: 120px; display: block; }
+#lineChart { 
+  height: 120px;
+  padding: 12px 0; 
+  display: block;
+  overflow: visible !important;
+ }
 
 
 .knob { width: 18px; height: 18px; border-radius: 50%; background: #0aa07f; }

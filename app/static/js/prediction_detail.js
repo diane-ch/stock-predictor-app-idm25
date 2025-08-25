@@ -152,7 +152,7 @@ async function getValidLogoUrl(logoUrl, ticker) {
 let currentPredictionData = null;
 let weeklyPredictionData = null;
 let weeklyHistoricalData = null;
-let currentDayIndex = 0;
+let currentDayIndex = 4;
 
 // ===== UI HELPER FUNCTIONS =====
 function createExplanationBlock() {
@@ -551,7 +551,7 @@ function setupWeeklySlider(ticker) {
       updateSliderPosition(currentDayIndex + 1);
     }
     if (e.key === "Home") {
-      updateSliderPosition(0);
+      updateSliderPosition(4);
     }
     if (e.key === "End") {
       updateSliderPosition(positions.length - 1);
@@ -562,7 +562,7 @@ function setupWeeklySlider(ticker) {
     updateSliderPosition(currentDayIndex);
   });
 
-  updateSliderPosition(0);
+  updateSliderPosition(4);
 }
 
 // ===== 1M/1Y SPECIFIC FUNCTIONS =====
@@ -610,12 +610,17 @@ function drawStaticChart(svgEl, data) {
   const range = max - min || 1;
   const stepX = (w - pad * 2) / (prices.length - 1);
 
+  // Trouver les indices des valeurs min et max
+  const minIndex = prices.indexOf(min);
+  const maxIndex = prices.indexOf(max);
+
   const points = prices.map((price, i) => {
     const x = pad + i * stepX;
     const y = h - pad - ((price - min) / range) * (h - pad * 2);
     return [x, y];
   });
 
+  // Dessiner la ligne principale
   const d = points.map((p, i) => (i === 0 ? `M ${p[0]} ${p[1]}` : `L ${p[0]} ${p[1]}`)).join(" ");
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", d);
@@ -624,6 +629,7 @@ function drawStaticChart(svgEl, data) {
   path.setAttribute("stroke-width", "2");
   svgEl.appendChild(path);
 
+  // Points de début et fin (comme avant)
   [points[0], points[points.length - 1]].forEach(point => {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", point[0]);
@@ -632,6 +638,54 @@ function drawStaticChart(svgEl, data) {
     circle.setAttribute("fill", "#999999");
     svgEl.appendChild(circle);
   });
+
+  // === NOUVEAUTÉ : Points et labels min/max ===
+  
+  // Point minimum (rouge)
+  const minPoint = points[minIndex];
+  const minCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  minCircle.setAttribute("cx", minPoint[0]);
+  minCircle.setAttribute("cy", minPoint[1]);
+  minCircle.setAttribute("r", "4");
+  minCircle.setAttribute("fill", "#999999");
+  minCircle.setAttribute("stroke", "white");
+  minCircle.setAttribute("stroke-width", "1");
+  svgEl.appendChild(minCircle);
+
+  // Label minimum
+  const minText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  minText.setAttribute("x", minPoint[0]);
+  minText.setAttribute("y", minPoint[1] + 14); // En-dessous du point
+  minText.setAttribute("text-anchor", "middle");
+  minText.setAttribute("fill", "#999999");
+  minText.setAttribute("font-size", "10");
+  minText.setAttribute("font-weight", "bold");
+  minText.textContent = `$${min.toFixed(2)}`;
+  svgEl.appendChild(minText);
+
+  // Point maximum (vert)
+  const maxPoint = points[maxIndex];
+  const maxCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  maxCircle.setAttribute("cx", maxPoint[0]);
+  maxCircle.setAttribute("cy", maxPoint[1]);
+  maxCircle.setAttribute("r", "4");
+  maxCircle.setAttribute("fill", "#999999");
+  maxCircle.setAttribute("stroke", "white");
+  maxCircle.setAttribute("stroke-width", "1");
+  svgEl.appendChild(maxCircle);
+
+  // Label maximum
+  const maxText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  maxText.setAttribute("x", maxPoint[0]);
+  maxText.setAttribute("y", maxPoint[1] - 10); // Au-dessus du point
+  maxText.setAttribute("text-anchor", "middle");
+  maxText.setAttribute("fill", "#999999");
+  maxText.setAttribute("font-size", "10");
+  maxText.setAttribute("font-weight", "bold");
+  maxText.textContent = `$${max.toFixed(2)}`;
+  svgEl.appendChild(maxText);
+
+  console.log(`📊 Static chart drawn with min: $${min.toFixed(2)} at index ${minIndex}, max: $${max.toFixed(2)} at index ${maxIndex}`);
 }
 
 // ===== MAIN CHART HANDLER =====
@@ -644,7 +698,7 @@ function setRangeWithData(period, ticker) {
   // 🔥 RESET CACHE when changing ticker/period
   weeklyPredictionData = null;
   weeklyHistoricalData = null;
-  currentDayIndex = 0;
+  currentDayIndex = 4;
   
   const svgEl = document.getElementById("lineChart");
   const slider = document.getElementById("chartSlider");
@@ -678,7 +732,7 @@ function setRangeWithData(period, ticker) {
         
         drawWeeklyComparisonChart(svgEl, histData, predData);
         
-        currentDayIndex = 0;
+        currentDayIndex = 4;
         updateDisplayValues(currentDayIndex, ticker);
         
         // 🆕 NOUVEAU : Mettre à jour les flèches après updateDisplayValues
