@@ -5,28 +5,24 @@
   
   "MA(20)": "Moving Average over 20 days - This represents the stock's medium-term trend. A price above the 20-day average indicates positive momentum over the past month, suggesting sustained investor interest.",
   
-  "Prev sign": "Previous Signal - This refers to a positive signal from our AI model in recent trading sessions. The algorithm identified favorable conditions that historically lead to good performance.",
-
   "ΔVIX":"This measures if investors are feeling more nervous or confident about the market today compared to yesterday! 😰➡️😊",
-
-  "Bollinger %B": "Bollinger",
 
   "News_sentiment": "We scan today's financial news to see if people are feeling optimistic or worried about this stock! 📰",
 
-  "Ret_0900_1030_prev": "We check how the stock performed in the first 90 minutes yesterday - early birds often set the tone! 🐦",
+  "Prev intraday ret": "We check how the stock performed in the first 90 minutes yesterday - early birds often set the tone! 🐦",
 
-  "Ret_0900_1030_prev_sign": "Simply put: did the stock go up or down in yesterday's opening session? Direction matters! ↗️",
+  "Prev intraday sign": "Simply put: did the stock go up or down in yesterday's opening session? Direction matters! ↗️",
 
   "Ret(1d)": "The classic question: is this stock worth more today than it was yesterday? Let's see! 📈",
 
-  "Vol5": "We measure how 'jumpy' this stock has been over the past 5 days - some stocks are natural rollercoasters! 🎢",
+  "Vol(5)": "We measure how 'jumpy' this stock has been over the past 5 days - some stocks are natural rollercoasters! 🎢",
 
-  "Garch_vol": "Our advanced math model predicts how bumpy this stock's ride might be - buckle up or cruise control? 🚗",
+  "GARCH VOL": "Our advanced math model predicts how bumpy this stock's ride might be - buckle up or cruise control? 🚗",
 
-  "RSI_14": "Is this stock 'overheated' from too much buying, or 'oversold' and ready to bounce back? 🌡️",
+  "RSI(14)": "Is this stock 'overheated' from too much buying, or 'oversold' and ready to bounce back? 🌡️",
 
-  "MACD_line": "This tells us if the stock's momentum is picking up speed or slowing down - like a financial speedometer! 🏃",
+  "MACD line": "This tells us if the stock's momentum is picking up speed or slowing down - like a financial speedometer! 🏃",
 
-  "BB_pos": "We check if the stock is trading at unusual highs or lows compared to its normal range! 🎯"
+  "BB pos": "We check if the stock is trading at unusual highs or lows compared to its normal range! 🎯"
 
 }

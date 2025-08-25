@@ -212,22 +212,20 @@ html, body {
   background-color: #999; /* Gris pour real price */
 }
 
-/* Difference：白底黑描边 */
+/*
 .pill.neutral {
   background: #fff;
   color: #111;
   border: 1.5px solid #111;
 }
 
-/* 涨/跌：底色 + 右侧箭头图标 */
 .pill.up,
 .pill.down {
-  padding-right: 36px; /* 预留右侧图标位置 */
+  padding-right: 36px; 
   border: none;
   background-color: #6B6A6A;
 }
 
-/* 涨：接近右图薄荷绿 */
 .pill.up {
   background: #2AC2A0;
   color: #fff;
@@ -241,11 +239,9 @@ html, body {
   height: 16px;
   transform: translateY(-50%);
   background: no-repeat center / contain;
-  /* 替换为你的“上涨箭头”图标路径 */
   background-image: url("../../static/images/up-logo.png");
 }
 
-/* 跌：接近右图深灰 */
 .pill.down {
   background: #6B6E72;
   color: #fff;
@@ -259,7 +255,59 @@ html, body {
   height: 16px;
   transform: translateY(-50%);
   background: no-repeat center / contain;
-  /* 替换为你的“下降箭头/深灰版”图标路径 */
+  background-image: url("../../static/images/down-logo.png");
+}*/
+
+/* Difference : blanc avec bordure noire */
+.pill.neutral {
+  background: #fff;
+  color: #111;
+  border: 1.5px solid #111;
+}
+
+/* Styles de base pour les pills avec flèches */
+.pill.prediction,
+.pill.real {
+  padding-right: 36px; /* Espace pour la flèche */
+  border: none;
+  position: relative; /* Important pour positionner la flèche */
+}
+
+/* Prediction : toujours vert menthe */
+.pill.prediction {
+  background: #2AC2A0;
+  color: #fff;
+}
+
+/* Real : toujours gris foncé */
+.pill.real {
+  background: #6B6E72;
+  color: #fff;
+}
+
+/* Flèche vers le haut (valeurs positives) */
+.pill.up::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  background: no-repeat center / contain;
+  background-image: url("../../static/images/up-logo.png");
+}
+
+/* Flèche vers le bas (valeurs négatives) */
+.pill.down::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  background: no-repeat center / contain;
   background-image: url("../../static/images/down-logo.png");
 }
 

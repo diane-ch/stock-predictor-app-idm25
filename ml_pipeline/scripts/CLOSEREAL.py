@@ -2,11 +2,7 @@ import yfinance as yf
 import pandas as pd
 from datetime import datetime, timedelta
 import os
-import sys
-# Force UTF-8 sur Windows
-if sys.platform == "win32":
-    os.system("chcp 65001 > nul")
-    sys.stdout.reconfigure(encoding='utf-8')
+
 def complete_stock_rebuild():
     """
     Complete rebuild of stock closing prices from Jan 1 2021 to today

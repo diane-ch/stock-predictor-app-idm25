@@ -1,279 +1,150 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-bae.py — intraday (09:00 -> 10:30) prediction pipeline
-- Robust path handling and file checks
-- Feature engineering (overnight drift, prev intraday return + sign, ΔVIX, TA, GARCH proxy)
-- Model training per ticker (Ridge magnitude + Logistic direction) with manual weights
-- Predictions for TARGET_DATES (multi-date)
-- Terminal-friendly printing (no Jupyter display)
-- Final "newswire-style" CSV export (one per target date):
-  date,ticker,name,price,change,confidence,feature1,feature2,feature3,feature4
+bae_patched_all_FIXED-2.py  (hybrid: close-first features + BAE-1 confidence 0–10)
 
-Now: feature1..feature4 are the TOP CONTRIBUTING FEATURES for that prediction
-(e.g., "RSI", "GARCH vol", "ΔVIX", "Prev intraday", "Overnight drift", etc.)
-
-Requires: pandas, numpy, scikit-learn
-Optional: arch (for GARCH), tabulate (for nicer tables)
+What you get:
+- Rolling features computed from FULL close history first (ret1/ma5/ma20/vol5/garch_vol).
+- Intraday panel built from 09:00 + 10:30 + daily close (with 09:00 imputed from prev close).
+- Optional TA merge (final_lstm_features.csv in long or recognizable wide format) with per-ticker ffill.
+- Per-ticker models (GBR for regression; LR or constant-proba for direction).
+- BAE-1 style weighted confidence normalized to **0–10** using FEATURE_WEIGHTS (never exceeds 10).
+- Predictions appended to predictions_history.csv with columns:
+  [date, ticker, name, price, change, confidence, feature1..feature4]
 """
 
 import os
-import re
+import sys
+import math
+import warnings
+from dataclasses import dataclass
+from datetime import date, datetime
+
 import numpy as np
 import pandas as pd
 
-from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
-from sklearn.linear_model import Ridge, LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
-# -----------------------------------------------------------------------------
-# 1) SETUP & FILE CHECKS
-# -----------------------------------------------------------------------------
-OG_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-BASE_DIR = os.path.join(OG_BASE_DIR, 'data')
-OUTPUT_DIR = os.path.join(OG_BASE_DIR, 'output')
+warnings.filterwarnings("ignore", category=FutureWarning)
 
-P1030_FILE = "stock_prices_1030_wide_format.csv"
-P0900_FILE = "stock_prices_0900_wide_format.csv"
-CLOSE_FILE_CANDIDATES = [
-    "stock_prices_close_wide_format.csv",
-    "historical_closing_prices_wide_format.csv",
-    "historical_closing_prices_old.csv",
-]
+# ---------------- Pretty names ----------------
+_PRETTY_FEATURE = {
+    "overnight_drift": "Overnight drift",
+    "ret_0900_1030_prev": "Prev intraday ret",
+    "ret_0900_1030_prev_sign": "Prev intraday sign",
+    "VIX_delta": "ΔVIX",
+    "ret1": "Ret(1d)",
+    "vol5": "Vol(5)",
+    "ma5": "MA(5)",
+    "ma20": "MA(20)",
+    "garch_vol": "GARCH vol",
+    "RSI_14": "RSI(14)",
+    "MACD_line": "MACD line",
+    "BB_pos": "BB pos",
+}
+def _pretty_feat(name: str) -> str:
+    return _PRETTY_FEATURE.get(name, name)
 
-def load_csv_safe(path, **kwargs):
-    try:
-        if not os.path.exists(path):
-            return None
-        return pd.read_csv(path, **kwargs)
-    except Exception:
-        return None
+# --------------- Logging helpers ---------------
+def _print_ok(msg: str):   print(f"✅ {msg}")
+def _print_warn(msg: str): print(f"⚠️ {msg}")
+def _print_err(msg: str):  print(f"❌ {msg}")
 
-def parse_date_col(df, col="Date", dayfirst=False):
-    if df is None: return None
-    out = df.copy()
-    out[col] = pd.to_datetime(out[col], dayfirst=dayfirst, errors="coerce")
-    out = out.sort_values(col).reset_index(drop=True)
-    return out
+# --------------- Name utilities ----------------
+def _norm(s) -> str: return str(s).strip().lower()
+def _canon_tkr(s: str) -> str: return str(s).replace(".", "-").strip().upper()
 
-def unify_ticker_cols(df, date_col="Date"):
-    if df is None: return None
-    cols = [c for c in df.columns if c != date_col and "unnamed" not in str(c).lower()]
-    return df[[date_col] + cols]
+def _find_ci_column(df: pd.DataFrame, target_lc: str):
+    for c in df.columns:
+        if _norm(c) == target_lc:
+            return c
+    return None
 
-def melt_long(df, value_name):
-    cols = [c for c in df.columns if c != "Date"]
-    return df.melt(id_vars=["Date"], value_vars=cols, var_name="ticker", value_name=value_name)
+def _find_first_of(df: pd.DataFrame, targets_lc):
+    targets = {t.lower() for t in targets_lc}
+    for c in df.columns:
+        if _norm(c) in targets:
+            return c
+    return None
 
-missing = []
-
-p1030_path = os.path.join(BASE_DIR, P1030_FILE)
-if not os.path.exists(p1030_path):
-    missing.append(P1030_FILE)
-
-p0900_path = os.path.join(BASE_DIR, P0900_FILE)
-if not os.path.exists(p0900_path):
-    print("⚠️ No 09:00 premarket file found, continuing without it.")
-    p0900_path = None
-
-close_path = None
-for cand in CLOSE_FILE_CANDIDATES:
-    cand_path = os.path.join(BASE_DIR, cand)
-    if os.path.exists(cand_path):
-        close_path = cand_path
-        break
-if close_path is None:
-    missing.append("Close price file (one of: " + ", ".join(CLOSE_FILE_CANDIDATES) + ")")
-
-if missing:
-    raise RuntimeError("❌ Required file(s) not found:\n  - " + "\n  - ".join(missing) + f"\nCheck folder: {BASE_DIR}")
-
-print(f"✅ Using 10:30 prices: {p1030_path}")
-if p0900_path:
-    print(f"✅ Using 09:00 prices: {p0900_path}")
-print(f"✅ Using Close prices: {close_path}")
-
-# -----------------------------------------------------------------------------
-# 2) LOAD & FEATURE ENGINEERING
-# -----------------------------------------------------------------------------
-vix = parse_date_col(load_csv_safe(os.path.join(BASE_DIR, "vix_prices.csv")), "Date")
-if vix is None:
-    vix_alt = parse_date_col(load_csv_safe(os.path.join(BASE_DIR, "vix_open_clean.csv")), "Date")
-    if vix_alt is not None:
-        if "Open" in vix_alt.columns:
-            vix_alt = vix_alt.rename(columns={"Open": "VIX"})
-        elif "VIX_open" in vix_alt.columns:
-            vix_alt = vix_alt.rename(columns={"VIX_open": "VIX"})
-        vix = vix_alt
-
-p1030 = unify_ticker_cols(parse_date_col(load_csv_safe(p1030_path), "Date"))
-p0900 = unify_ticker_cols(parse_date_col(load_csv_safe(p0900_path), "Date")) if p0900_path else None
-close = unify_ticker_cols(parse_date_col(load_csv_safe(close_path), "Date"))
-
-m1030 = melt_long(p1030, "P1030")
-if p0900 is not None:
-    m0900 = melt_long(p0900, "P0900")
-else:
-    print("⚠️ 09:00 file missing — will impute P0900 from yesterday's Close as needed.")
-    m0900 = m1030[["Date", "ticker"]].copy()
-    m0900["P0900"] = np.nan
-mclose = melt_long(close, "Close")
-
-df = (
-    m1030
-    .merge(m0900, on=["Date","ticker"], how="outer")
-    .merge(mclose.rename(columns={"Close":"Close_t"}), on=["Date","ticker"], how="left")
-    .sort_values(["ticker","Date"])
-    .reset_index(drop=True)
-)
-
-df["Close_t_minus_1"] = df.groupby("ticker")["Close_t"].shift(1)
-df["P0900_imputed"] = df["P0900"].where(df["P0900"].notna(), df["Close_t_minus_1"])
-
-df = df[df["P1030"].notna()].copy()
-df = df[df["P0900_imputed"].notna()].copy()
-
-df["ret_0900_1030"] = (df["P1030"] / df["P0900_imputed"]) - 1.0
-df["overnight_drift"] = (df["P0900_imputed"] / df["Close_t_minus_1"]) - 1.0
-
-df["ret_0900_1030_prev"] = df.groupby("ticker")["ret_0900_1030"].shift(1)
-df["ret_0900_1030_prev_sign"] = np.sign(df["ret_0900_1030_prev"])
-
-if vix is not None:
-    vix_cols = [c for c in vix.columns if c.lower() != "date"]
-    if vix_cols:
-        col = vix_cols[0]
-        vix_simple = vix[["Date", col]].rename(columns={col: "VIX"}).dropna()
-        vix_simple["VIX_delta"] = vix_simple["VIX"].diff()
-        # FIXED: use list (not set) for column selection
-        df = df.merge(vix_simple[["Date","VIX_delta"]], on="Date", how="left")
-    else:
-        df["VIX_delta"] = np.nan
-else:
-    df["VIX_delta"] = np.nan
-
-# TA
-df["ret1"] = df.groupby("ticker")["Close_t"].pct_change(fill_method=None)
-df["vol5"] = df.groupby("ticker")["Close_t"].rolling(5).std(ddof=0).reset_index(level=0, drop=True)
-df["ma5"]  = df.groupby("ticker")["Close_t"].rolling(5).mean().reset_index(level=0, drop=True)
-df["ma20"] = df.groupby("ticker")["Close_t"].rolling(20).mean().reset_index(level=0, drop=True)
-for c in ["ret1","vol5","ma5","ma20"]:
-    df[c] = df[c] * 0.1
-
-def compute_garch_series(ret_series):
-    try:
-        from arch import arch_model
-        s = ret_series.dropna() * 100.0
-        if len(s) < 60:
-            raise ValueError("Not enough data for GARCH; using fallback.")
-        am = arch_model(s, vol="Garch", p=1, q=1, dist="normal")
-        res = am.fit(disp="off")
-        vol = res.conditional_volatility / 100.0
-        vol = vol.reindex(ret_series.index)
-        return vol
-    except Exception:
-        r = ret_series.abs()
-        vol = r.ewm(alpha=0.06, adjust=False, min_periods=10).mean()
-        return vol
-
-df["garch_vol"] = df.groupby("ticker")["ret1"].apply(lambda s: compute_garch_series(s)).reset_index(level=0, drop=True)
-
-df_feat = df.dropna(subset=["P0900_imputed","P1030","Close_t_minus_1","ret_0900_1030_prev"]).copy()
-
-FEAT_COLS = [
-    "overnight_drift",
-    "ret_0900_1030_prev",
-    "ret_0900_1030_prev_sign",
-    "VIX_delta",
-    "ret1", "vol5", "ma5", "ma20",
-    "garch_vol"
-]
-
-print(f"✅ Feature table ready | rows: {len(df_feat):,} | features: {len(FEAT_COLS)}")
-print("Features:", FEAT_COLS)
-try:
-    from tabulate import tabulate
-    print(tabulate(df_feat.head(10), headers="keys", tablefmt="psql", showindex=False))
-except Exception:
-    print(df_feat.head(10).to_string(index=False))
-
-# ---- Optional TA from final_lstm_features.csv (RSI_14, MACD_line, BB_pos) ----
-POSSIBLE_PATHS = [
-    os.path.join(BASE_DIR, "final_lstm_features.csv"),
-    "final_lstm_features.csv",
-    "/mnt/data/final_lstm_features.csv",
-]
-csv_path = next((p for p in POSSIBLE_PATHS if os.path.exists(p)), None)
-
-if csv_path:
-    raw = pd.read_csv(csv_path)
-    if "Date" not in raw.columns:
-        cand = [c for c in raw.columns if str(c).strip().lower() in ("date","dt","time","timestamp")]
-        if not cand:
-            u = [c for c in raw.columns if str(c).lower().startswith("unnamed")]
-            if u:
-                cand = [u[0]]
-        if not cand:
-            raise RuntimeError("❌ final_lstm_features.csv present but no date-like column was found.")
-        raw = raw.rename(columns={cand[0]:"Date"})
-    raw["Date"] = pd.to_datetime(raw["Date"], errors="coerce")
-    raw = raw.dropna(subset=["Date"]).sort_values("Date").reset_index(drop=True)
-
-    date_only = raw[["Date"]]
-    feat_cols = [c for c in raw.columns if c != "Date"]
-
-    triples = []
-    pat = re.compile(r"^([A-Za-z0-9.\-]+)_(rsi14|macd|bbp)$", flags=re.IGNORECASE)
-    for c in feat_cols:
-        m = pat.match(c)
-        if m:
-            tkr, fraw = m.group(1), m.group(2).lower()
-            canon = {"rsi14":"RSI_14", "macd":"MACD_line", "bbp":"BB_pos"}[fraw]
-            triples.append((c, tkr, canon))
-
-    if triples:
-        feat_tables = {}
-        for feat_name in ["RSI_14","MACD_line","BB_pos"]:
-            sub_frames = []
-            for col, tkr, canon in triples:
-                if canon != feat_name: continue
-                tmp = date_only.copy()
-                tmp["ticker"] = tkr
-                tmp[feat_name] = pd.to_numeric(raw[col], errors="coerce")
-                sub_frames.append(tmp)
-            if sub_frames:
-                cat = pd.concat(sub_frames, axis=0, ignore_index=True)
-                cat = (cat.sort_values(["Date","ticker"])
-                         .groupby(["Date","ticker"], as_index=False)[feat_name].first())
-                feat_tables[feat_name] = cat
-
-        base_pairs = df_feat[["Date","ticker"]].drop_duplicates()
-        for feat_name, table in feat_tables.items():
-            base_pairs = base_pairs.merge(table, on=["Date","ticker"], how="left")
-
-        for c in [k for k in ["RSI_14","MACD_line","BB_pos"] if k in base_pairs.columns]:
-            q1, q99 = base_pairs[c].quantile(0.01), base_pairs[c].quantile(0.99)
-            base_pairs[c] = base_pairs[c].clip(lower=q1, upper=q99)
-
-        df_feat = df_feat.merge(base_pairs, on=["Date","ticker"], how="left")
-        new_feats = [c for c in ["RSI_14","MACD_line","BB_pos"] if c in df_feat.columns and c not in FEAT_COLS]
-        FEAT_COLS = FEAT_COLS + new_feats
-
-        print(f"✅ Merged TA (RSI_14, MACD_line, BB_pos) from {os.path.basename(csv_path)} into df_feat")
-        print("   Added features:", new_feats)
+# --------------- Date parsing ------------------
+def _smart_parse_dates(series: pd.Series) -> pd.Series:
+    s = series.astype(str).str.strip()
+    def try_parse(dayfirst=None, fmt=None):
         try:
-            from tabulate import tabulate
-            print(tabulate(df_feat[["Date","ticker"] + new_feats].head(10), headers="keys", tablefmt="psql", showindex=False))
+            return pd.to_datetime(s, dayfirst=dayfirst, format=fmt, errors="coerce")
         except Exception:
-            print(df_feat[["Date","ticker"] + new_feats].head(10).to_string(index=False))
-    else:
-        print("ℹ️ final_lstm_features.csv present but no columns matched '<TICKER>_(rsi14|macd|bbp)'. Skipping.")
-else:
-    print("ℹ️ final_lstm_features.csv not found. Continuing without RSI/MACD/BB% extras.")
+            return pd.Series([pd.NaT] * len(s))
+    candidates = [
+        try_parse(dayfirst=False),
+        try_parse(dayfirst=True),
+        try_parse(fmt="%d/%m/%Y"),
+        try_parse(fmt="%m/%d/%Y"),
+        try_parse(fmt="%Y-%m-%d"),
+    ]
+    best = min(candidates, key=lambda ser: ser.isna().sum())
+    if best.isna().mean() > 0.5:
+        return try_parse(dayfirst=True)
+    return best
 
-# -----------------------------------------------------------------------------
-# 3) TRAINING (per ticker)
-# -----------------------------------------------------------------------------
+def read_csv_or_fail(path: str, label: str) -> pd.DataFrame:
+    if not path or not os.path.exists(path):
+        _print_err(f"{label} missing at path: {path}"); sys.exit(2)
+    try:
+        df = pd.read_csv(path)
+    except Exception as e:
+        _print_err(f"Could not read {label} ({path}): {e}"); sys.exit(2)
+
+    date_col = _find_ci_column(df, "date")
+    if date_col is None:
+        date_col = _find_first_of(df, ["Date","DATE","trade_date","day","dt","Unnamed: 0","index"])
+    if date_col is None:
+        _print_err(f"{label}: 'Date' column not found.")
+        print("  Available columns:", list(df.columns))
+        sys.exit(2)
+
+    parsed = _smart_parse_dates(df[date_col])
+    if parsed.isna().all():
+        _print_err(
+            f"{label}: failed to parse any dates in column '{date_col}'. "
+            f"Example values: {df[date_col].head(5).tolist()}"
+        ); sys.exit(2)
+
+    df["Date"] = parsed
+    if date_col != "Date":
+        try: df.drop(columns=[date_col], inplace=True)
+        except Exception: pass
+    return df
+
+def find_first_existing(base_dir, candidates):
+    for name in candidates:
+        p = os.path.join(base_dir, name)
+        if os.path.exists(p):
+            return p
+    return None
+
+# --------------- Modeling helpers --------------
+def _align_to_estimator_features(X: pd.DataFrame, estimator):
+    X = X.copy()
+    if hasattr(estimator, "feature_names_in_"):
+        cols = list(estimator.feature_names_in_)
+        for c in cols:
+            if c not in X.columns:
+                X[c] = np.nan
+        return X[cols]
+    n = getattr(estimator, "n_features_in_", X.shape[1])
+    return X.iloc[:, :n]
+
+def _post_impute(df_imp: pd.DataFrame) -> pd.DataFrame:
+    return df_imp.fillna(0.0)
+
+# === BAE-1 style feature weights (used for 0–10 confidence) ===
 FEATURE_WEIGHTS = {
     "overnight_drift":         8,
     "ret_0900_1030_prev":      7,
@@ -288,365 +159,524 @@ FEATURE_WEIGHTS = {
     "MACD_line":               7,
     "BB_pos":                  5,
 }
-WEIGHTS_VEC = np.array([FEATURE_WEIGHTS.get(f, 5) for f in FEAT_COLS], dtype=float)
 
-BASE_CAP = 0.02
-RED_CAP  = 0.08
-VIX_DELTA_RED    = 5.0
-GARCH_FACTOR_RED = 2.0
-MARGIN_BLEND = 0.6
+def _weighted_confidence_from_scaled(X_scaled: np.ndarray, cols_in_order: list, weights: dict) -> np.ndarray:
+    """
+    Turn z-scored features into a 0–10 weighted confidence.
+    Faster-rising curve so good signals land 6–8 more often. Hard cap at 10.
+    """
+    if X_scaled.size == 0:
+        return np.zeros((0,), dtype=float)
 
-def soft_cap(x, cap):
-    return float(np.tanh(x / cap) * cap)
+    w_vec = np.array([weights.get(c, 0.0) for c in cols_in_order], dtype=float)
+    w_sum = w_vec.sum()
+    if w_sum <= 0:
+        return np.zeros((X_scaled.shape[0],), dtype=float)
 
-def compute_red_flags(df_in: pd.DataFrame) -> pd.Series:
-    df2 = df_in.copy()
-    vix_spike = (df2["VIX_delta"].abs() >= VIX_DELTA_RED).fillna(False) if "VIX_delta" in df2 else False
-    if "garch_vol" in df2:
-        med_per_tkr = df2.groupby("ticker")["garch_vol"].transform(lambda s: s.median(skipna=True))
-        garch_spike = (df2["garch_vol"] > (GARCH_FACTOR_RED * med_per_tkr)).fillna(False)
-    else:
-        garch_spike = False
-    return (vix_spike | garch_spike)
+    # Contribution per feature from its |z|:
+    # - Divisor 1.2 (vs 2.0) makes moderate z matter more
+    # - Power 0.7 softens small z penalty
+    contrib = np.minimum(1.0, (np.abs(X_scaled) / 1.2)) ** 0.7  # shape (n_rows, n_feat)
 
-df_feat = df_feat.copy()
-df_feat["is_red_flag"] = compute_red_flags(df_feat)
+    raw = np.dot(contrib, w_vec)        # (n_rows,)
+    conf = 10.0 * raw / w_sum           # scale to 0–10
+    return np.clip(conf, 0.0, 10.0)
 
-def split_chrono(n, frac_test=1/7, frac_val=1/7, min_train=60):
-    n_test  = max(1, int(round(n * frac_test)))
-    n_val   = max(1, int(round(n * frac_val)))
-    n_train = n - n_val - n_test
-    if n_train < min_train:
-        need = min_train - n_train
-        take_val = min(need // 2, max(0, n_val - 1))
-        take_tst = min(need - take_val, max(0, n_test - 1))
-        n_val  -= take_val
-        n_test -= take_tst
-        n_train = n - n_val - n_test
-        if n_train < min_train:
-            n_train = min_train
-            leftover = n - n_train
-            n_val  = max(1, leftover // 2)
-            n_test = max(1, leftover - n_val)
-    return n_train, n_val, n_test
+# --------------- Daily (close) features --------
+def compute_daily_close_features(dfclose_wide: pd.DataFrame) -> pd.DataFrame:
+    """Return long table with Date, ticker, Close_t, Close_t_minus_1, ret1, ma5, ma20, vol5, garch_vol."""
+    def _ewma_abs_ret(s, alpha=0.2):
+        out, prev = [], np.nan
+        for x in s.fillna(0.0):
+            val = (alpha * abs(x)) + ((1 - alpha) * (prev if not np.isnan(prev) else abs(x)))
+            out.append(val); prev = val
+        return pd.Series(out, index=s.index)
 
-models_reg, models_clf, scalers, imputers = {}, {}, {}, {}
-summ_rows = []
-tickers = tuple(sorted(df_feat["ticker"].unique()))
+    # melt to long
+    long = dfclose_wide.melt(id_vars=["Date"], var_name="ticker", value_name="Close_t")
+    long["ticker"] = long["ticker"].map(_canon_tkr)
+    long = long.sort_values(["ticker","Date"]).reset_index(drop=True)
 
-for tkr in tickers:
-    d = df_feat[df_feat["ticker"] == tkr].sort_values("Date").reset_index(drop=True)
-    n = len(d)
-    if n < 80:
-        print(f"⚠️ {tkr}: only {n} rows; results may be noisy.")
+    # prev close and daily return
+    long["Close_t_minus_1"] = long.groupby("ticker")["Close_t"].shift(1)
+    long["ret1"] = (long["Close_t"] - long["Close_t_minus_1"]) / long["Close_t_minus_1"]
 
-    X = d[FEAT_COLS].to_numpy(dtype=float)
-    y = d["ret_0900_1030"].to_numpy(dtype=float)
-    y_dir = (y > 0).astype(int)
-    p0900 = d["P0900_imputed"].to_numpy(dtype=float)
-    redf  = d.get("is_red_flag", pd.Series(False, index=d.index)).to_numpy(dtype=bool)
+    # rolling features computed on the FULL daily history
+    long["ma5"]  = long.groupby("ticker")["Close_t"].transform(lambda s: s.rolling(5,  min_periods=5).mean())
+    long["ma20"] = long.groupby("ticker")["Close_t"].transform(lambda s: s.rolling(20, min_periods=20).mean())
+    long["vol5"] = long.groupby("ticker")["ret1"].transform(lambda s: s.rolling(5,  min_periods=5).std())
+    long["garch_vol"] = long.groupby("ticker")["ret1"].transform(lambda s: _ewma_abs_ret(s))
 
-    X[~np.isfinite(X)] = np.nan
+    return long  # NaNs only on earliest daily rows per ticker (dropped after merge)
 
-    n_train, n_val, n_test = split_chrono(n)
-    X_train, X_val, X_test = X[:n_train], X[n_train:n_train+n_val], X[n_train+n_val:]
-    y_train, y_val, y_test = y[:n_train], y[n_train:n_train+n_val], y[n_train+n_val:]
-    y_train_dir, y_val_dir, y_test_dir = y_dir[:n_train], y_dir[n_train:n_train+n_val], y_dir[n_train+n_val:]
-    p0900_train, p0900_val, p0900_test = p0900[:n_train], p0900[n_train:n_train+n_val], p0900[n_train+n_val:]
-    red_val, red_test = redf[n_train:n_train+n_val], redf[n_train+n_val:]
+# --------------- Intraday merge ----------------
+def build_intraday_feature_table(df1030_wide, df0900_wide, daily_close_long):
+    # intraday long
+    L1030 = df1030_wide.melt(id_vars=["Date"], var_name="ticker", value_name="P1030")
+    L0900 = df0900_wide.melt(id_vars=["Date"], var_name="ticker", value_name="P0900")
+    for L in (L1030, L0900):
+        L["ticker"] = L["ticker"].map(_canon_tkr)
 
-    imputer = SimpleImputer(strategy="median")
-    X_train_i = imputer.fit_transform(X_train)
-    X_val_i   = imputer.transform(X_val)
+    # merge intraday with daily close features
+    df = L1030.merge(L0900, on=["Date","ticker"], how="outer")
+    df = df.merge(daily_close_long, on=["Date","ticker"], how="left")
 
-    scaler = StandardScaler().fit(X_train_i)
-    X_train_s = np.clip(scaler.transform(X_train_i), -5, 5) * WEIGHTS_VEC
-    X_val_s   = np.clip(scaler.transform(X_val_i),   -5, 5) * WEIGHTS_VEC
+    # Impute 09:00 with previous close if missing
+    df = df.sort_values(["ticker","Date"]).reset_index(drop=True)
+    df["P0900_imputed"] = df["P0900"]
+    m = df["P0900_imputed"].isna() & df["Close_t_minus_1"].notna()
+    df.loc[m, "P0900_imputed"] = df.loc[m, "Close_t_minus_1"]
 
-    reg = Ridge(alpha=0.1, fit_intercept=True).fit(X_train_s, y_train)
-    clf = LogisticRegression(max_iter=500, solver="lbfgs").fit(X_train_s, y_train_dir)
+    # Target & overnight drift
+    df["ret_0900_1030"] = (df["P1030"] - df["P0900_imputed"]) / df["P0900_imputed"]
+    df["overnight_drift"] = (df["P0900_imputed"] - df["Close_t_minus_1"]) / df["Close_t_minus_1"]
 
-    # Validation metrics in PRICE space
-    y_val_mag = reg.predict(X_val_s)
-    prob_val  = clf.predict_proba(X_val_s)[:, 1]
-    dir_val   = (prob_val >= 0.5).astype(int)
-    margin    = np.abs(prob_val - 0.5) * 2.0
-    mag_blend = (1.0 - MARGIN_BLEND) + (MARGIN_BLEND * margin)
-    y_val_pred = np.where(dir_val == 1, np.abs(y_val_mag), -np.abs(y_val_mag)) * mag_blend
-    y_val_pred_capped = np.array([soft_cap(v, RED_CAP if red_val[i] else BASE_CAP) for i, v in enumerate(y_val_pred)])
+    return df
 
-    y_val_px   = p0900_val * (1.0 + y_val)
-    y_pred_px  = p0900_val * (1.0 + y_val_pred_capped)
-    mae_val    = mean_absolute_error(y_val_px, y_pred_px) if len(y_val) else np.nan
-    rmse_val   = float(np.sqrt(mean_squared_error(y_val_px, y_pred_px))) if len(y_val) else np.nan
+# --------------- TA merge (wide/long) ----------
+def _melt_wide_ta(ta: pd.DataFrame):
+    cols = [c for c in ta.columns if c != "Date"]
+    suffix_map = {"rsi14": "RSI_14", "macd": "MACD_line", "bbp": "BB_pos"}
+    out = {"RSI_14": None, "MACD_line": None, "BB_pos": None}
 
-    models_reg[tkr] = reg
-    models_clf[tkr] = clf
-    scalers[tkr]    = scaler
-    imputers[tkr]   = imputer
-
-    summ_rows.append({
-        "ticker": tkr,
-        "MAE": None if pd.isna(mae_val) else round(mae_val, 8),
-        "RMSE": None if pd.isna(rmse_val) else round(rmse_val, 8),
-        "n_train": int(n_train),
-        "n_test": int(n_test),
-    })
-
-perf_df = pd.DataFrame(summ_rows).sort_values("ticker").reset_index(drop=True)
-print("✅ Trained models per ticker (validation performance):")
-try:
-    from tabulate import tabulate
-    print(tabulate(perf_df.rename(columns={"MAE":"MAE","RMSE":"RMSE"}), headers="keys", tablefmt="psql", showindex=False))
-except Exception:
-    print(perf_df.to_string(index=False))
-
-# -----------------------------------------------------------------------------
-# 4) PREDICT FOR TARGET_DATE(S)
-# -----------------------------------------------------------------------------
-# Run two explicit dates: yesterday (2025-08-20) and today (2025-08-21)
-TARGET_DATES = [
-    pd.to_datetime("2025-08-20"),
-    pd.to_datetime("2025-08-21"),
-]
-
-def row_cap(is_red):
-    return RED_CAP if bool(is_red) else BASE_CAP
-
-# Pretty labels for features -> what you’ll see in feature1..4
-PRETTY_LABELS = {
-    "overnight_drift": "Overnight drift",
-    "ret_0900_1030_prev": "Prev intraday",
-    "ret_0900_1030_prev_sign": "Prev sign",
-    "VIX_delta": "ΔVIX",
-    "ret1": "Daily return (lag1)",
-    "vol5": "Vol(5)",
-    "ma5": "MA(5)",
-    "ma20": "MA(20)",
-    "garch_vol": "GARCH vol",
-    "RSI_14": "RSI",
-    "MACD_line": "MACD",
-    "BB_pos": "Bollinger %B",
-}
-
-def make_predictions_for_date(tdate: pd.Timestamp) -> pd.DataFrame:
-    rows_pred = []
-    for tkr in sorted(df_feat["ticker"].unique()):
-        if tkr not in models_reg or tkr not in models_clf:
+    for suf_lc, canon in suffix_map.items():
+        match_cols = [c for c in cols if _norm(c).endswith("_" + suf_lc)]
+        if not match_cols:
             continue
+        tmp = ta[["Date"] + match_cols].copy()
+        rename_map = {}
+        for c in match_cols:
+            pos = c.lower().rfind("_")
+            ticker = _canon_tkr(c[:pos])
+            rename_map[c] = ticker
+        tmp.rename(columns=rename_map, inplace=True)
+        long = tmp.melt(id_vars=["Date"], var_name="ticker", value_name=canon)
+        out[canon] = long
 
-        d = df_feat[df_feat["ticker"] == tkr].sort_values("Date").reset_index(drop=True)
-        row = d[d["Date"] == tdate]
-        if row.empty:
-            continue  # no data for that ticker on this date
+    frames = [df for df in out.values() if df is not None]
+    if not frames:
+        return None
+    merged = frames[0]
+    for df in frames[1:]:
+        merged = merged.merge(df, on=["Date","ticker"], how="outer")
+    return merged
 
-        X_now = row[FEAT_COLS].to_numpy(dtype=float)
-        Xi = imputers[tkr].transform(X_now)
-        Xs = np.clip(scalers[tkr].transform(Xi), -5, 5) * WEIGHTS_VEC
+def merge_optional_ta(df_feat, base_dir, ffill_ta=True):
+    ta_path = find_first_existing(base_dir, ["final_lstm_features.csv"])
+    if not ta_path:
+        _print_warn("final_lstm_features.csv not found; skipping TA merge.")
+        return df_feat, []
 
-        reg, clf = models_reg[tkr], models_clf[tkr]
-        mag  = float(reg.predict(Xs).squeeze())
-        prob = clf.predict_proba(Xs).squeeze()
-        prob_up = float(prob[1]) if np.ndim(prob) == 1 else float(prob[0,1])
-        prob_dn = 1.0 - prob_up
-        margin  = abs(prob_up - 0.5) * 2.0
+    ta = read_csv_or_fail(ta_path, "final_lstm_features.csv")
 
-        pred_ret_dir = abs(mag) if prob_up >= 0.5 else -abs(mag)
-        mag_blended  = (1.0 - MARGIN_BLEND) + (MARGIN_BLEND * margin)
-        pred_ret_raw = pred_ret_dir * mag_blended
+    # try long format first
+    ticker_col = _find_first_of(ta, ["ticker","symbol","ric","secid","security","Ticker","Symbol"])
+    if ticker_col is not None:
+        if ticker_col != "ticker":
+            ta.rename(columns={ticker_col: "ticker"}, inplace=True)
+        ta["ticker"] = ta["ticker"].map(_canon_tkr)
 
-        is_red = bool(row["is_red_flag"].iloc[0]) if "is_red_flag" in row.columns else False
-        cap = row_cap(is_red)
-        pred_ret = soft_cap(pred_ret_raw, cap)
+        lc_map = { _norm(c): c for c in ta.columns }
+        ren = {}
+        for alt, canon in [("rsi_14","RSI_14"), ("rsi14","RSI_14"),
+                           ("macd_line","MACD_line"), ("macd","MACD_line"),
+                           ("bb_pos","BB_pos"), ("bbp","BB_pos")]:
+            if alt in lc_map: ren[lc_map[alt]] = canon
+        if ren: ta.rename(columns=ren, inplace=True)
 
-        p0900_now = float(row["P0900_imputed"].iloc[0])
-        pred_1030 = p0900_now * (1.0 + pred_ret)
-
-        # Per-feature contributions -> top 4 labels
-        coefs = reg.coef_.reshape(-1)
-        xvec  = Xs.reshape(-1)
-        contrib = coefs * xvec
-        order = np.argsort(-np.abs(contrib))
-        top_labels = []
-        for idx in order:
-            fname = FEAT_COLS[idx]
-            label = PRETTY_LABELS.get(fname, fname)
-            if label not in top_labels:
-                top_labels.append(label)
-            if len(top_labels) == 4:
-                break
-        while len(top_labels) < 4:
-            top_labels.append("—")
-
-        rows_pred.append({
-            "ticker": tkr,
-            "date_used_for_features": str(pd.to_datetime(tdate).date()),
-            "red_flag": is_red,
-            "p0900_imputed": round(p0900_now, 6),
-            "pred_ret(10:30 vs 09:00)": round(pred_ret, 6),
-            "pred_1030_price": round(pred_1030, 6),
-            "prob_up": round(prob_up, 6),
-            "prob_down": round(prob_dn, 6),
-            "prob_margin": round(margin, 6),
-            "cap_used_%": int(cap * 100),
-            "feat_top1": top_labels[0],
-            "feat_top2": top_labels[1],
-            "feat_top3": top_labels[2],
-            "feat_top4": top_labels[3],
-        })
-
-    pred_df = pd.DataFrame(rows_pred)
-    if pred_df.empty:
-        print(f"ℹ️ No predictions available for {pd.to_datetime(tdate).date()} (no tickers with data on this date).")
-        return pred_df
-
-    pred_df = pred_df.sort_values(["ticker"]).reset_index(drop=True)
-    print(f"✅ Predictions for {pd.to_datetime(tdate).date()}:")
-    try:
-        from tabulate import tabulate
-        print(tabulate(pred_df.drop(columns=["feat_top1","feat_top2","feat_top3","feat_top4"]),
-                       headers="keys", tablefmt="psql", showindex=False))
-    except Exception:
-        print(pred_df.drop(columns=["feat_top1","feat_top2","feat_top3","feat_top4"]).to_string(index=False))
-    return pred_df
-
-# Run for both dates and keep in a dict
-pred_by_date = {tdate.date(): make_predictions_for_date(tdate) for tdate in TARGET_DATES}
-
-# -----------------------------------------------------------------------------
-# 5) CONFIDENCE SUMMARY
-# -----------------------------------------------------------------------------
-rows_conf = []
-for tkr in sorted(df_feat["ticker"].unique()):
-    if tkr not in models_reg or tkr not in models_clf:
-        continue
-
-    d = df_feat[df_feat["ticker"] == tkr].sort_values("Date").reset_index(drop=True)
-    n = len(d)
-    if n < 80:
-        continue
-
-    X = d[FEAT_COLS].to_numpy(dtype=float)
-    y = d["ret_0900_1030"].to_numpy(dtype=float)
-    p0900 = d["P0900_imputed"].to_numpy(dtype=float)
-    redf  = d.get("is_red_flag", pd.Series(False, index=d.index)).to_numpy(dtype=bool)
-    y_dir = (y > 0).astype(int)
-
-    n_train, n_val, n_test = split_chrono(n)
-    X_val = X[n_train:n_train+n_val]
-    y_val = y[n_train:n_train+n_val]
-    p0900_v = p0900[n_train:n_train+n_val]
-    red_v = redf[n_train:n_train+n_val]
-
-    Xi = imputers[tkr].transform(X_val)
-    Xs = np.clip(scalers[tkr].transform(Xi), -5, 5) * 1.0  # ignore manual weights for conf
-
-    mag_v = models_reg[tkr].predict(Xs)
-    prob_v = models_clf[tkr].predict_proba(Xs)[:,1]
-    dir_v = (prob_v >= 0.5).astype(int)
-    pred_ret_raw = np.where(dir_v == 1, np.abs(mag_v), -np.abs(mag_v))
-    pred_ret_cap = np.array([soft_cap(v, RED_CAP if red_v[i] else BASE_CAP) for i, v in enumerate(pred_ret_raw)])
-
-    y_val_px  = p0900_v * (1.0 + y_val)
-    y_pred_px = p0900_v * (1.0 + pred_ret_cap)
-
-    mae_val  = mean_absolute_error(y_val_px, y_pred_px) if len(y_val_px) else np.nan
-    rmse_val = float(np.sqrt(mean_squared_error(y_val_px, y_pred_px)) ) if len(y_val_px) else np.nan
-    avg_px   = float(np.nanmean(p0900_v)) if len(p0900_v) else np.nan
-    err_pct  = (rmse_val / avg_px * 100.0) if (avg_px and not np.isnan(avg_px)) else np.nan
-
-    if np.isnan(err_pct):
-        conf_cat = "Unknown"
-    elif err_pct <= 0.5:
-        conf_cat = "High"
-    elif err_pct <= 1.5:
-        conf_cat = "Medium"
+        ta_cols = [c for c in ["RSI_14","MACD_line","BB_pos"] if c in ta.columns]
+        if not ta_cols:
+            _print_warn("No known TA columns in final_lstm_features.csv; skipping TA merge.")
+            return df_feat, []
+        keep = ["Date","ticker"] + ta_cols
+        ta_small = ta[keep].copy()
+        merged = df_feat.merge(ta_small, on=["Date","ticker"], how="left")
     else:
-        conf_cat = "Low"
+        ta_wide_long = _melt_wide_ta(ta)
+        if ta_wide_long is None:
+            _print_warn("TA file present but neither long nor recognizable wide format; skipping TA merge.")
+            return df_feat, []
+        merged = df_feat.merge(ta_wide_long, on=["Date","ticker"], how="left")
 
-    rows_conf.append({
-        "ticker": tkr,
-        "val_MAE_$": None if pd.isna(mae_val) else round(float(mae_val), 4),
-        "val_RMSE_$": None if pd.isna(rmse_val) else round(float(rmse_val), 4),
-        "avg_val_price": None if pd.isna(avg_px) else round(float(avg_px), 2),
-        "error_%": None if pd.isna(err_pct) else round(float(err_pct), 3),
-        "confidence": conf_cat
-    })
+    # optional TA forward-fill per ticker
+    ta_cols = [c for c in ["RSI_14","MACD_line","BB_pos"] if c in merged.columns]
+    if ffill_ta and ta_cols:
+        merged.sort_values(["ticker","Date"], inplace=True)
+        merged[ta_cols] = merged.groupby("ticker")[ta_cols].ffill()
 
-conf_df = pd.DataFrame(rows_conf).sort_values("ticker").reset_index(drop=True)
-print("✅ Model confidence:")
-try:
-    from tabulate import tabulate
-    print(tabulate(conf_df, headers="keys", tablefmt="psql", showindex=False))
-except Exception:
-    print(conf_df.to_string(index=False))
+    _print_ok(f"Merged TA (wide or long)")
+    print("   Added features:", ta_cols)
+    print(merged[["Date","ticker"] + ta_cols].head(10).to_string(index=False))
+    return merged, ta_cols
 
-# -----------------------------------------------------------------------------
-# 6) FINAL NEWSWIRE CSV (TOP FEATURES INCLUDED) — for each requested date
-# -----------------------------------------------------------------------------
-# Build name map file if available
-name_map = {}
-nm1 = os.path.join(BASE_DIR, "ticker_to_name.csv")             # cols: ticker,name
-nm2 = os.path.join(BASE_DIR, "sp500_constituents.csv")         # cols: Symbol,Security
-if os.path.exists(nm1):
+# --------------- Models ------------------------
+@dataclass
+class TickerModels:
+    imputer: SimpleImputer
+    reg: Pipeline
+    clf: object
+    feature_names_: list
+
+class ConstantProba:
+    def __init__(self, p_up: float): self.p_up = float(max(0.0, min(1.0, p_up)))
+    def predict_proba(self, X):
+        n = len(X); p1 = np.full(n, self.p_up, dtype=float); p0 = 1.0 - p1
+        return np.column_stack([p0, p1])
+    def decision_function(self, X):
+        p = min(max(self.p_up, 1e-12), 1.0 - 1e-12)
+        return np.full(len(X), math.log(p / (1.0 - p)), dtype=float)
+
+def build_models_for_ticker(df_tkr: pd.DataFrame, feat_cols):
+    df_tkr = df_tkr.sort_values("Date").reset_index(drop=True)
+    y_full = df_tkr["ret_0900_1030"].astype(float)
+    X_full = df_tkr[feat_cols].copy()
+    mask = y_full.notna() & X_full.notna().any(axis=1)
+    y = y_full[mask]; X = X_full[mask]
+    if len(X) < 10: return None, (0, 0, np.nan, np.nan)
+
+    n = len(X); n_valid = min(48, max(1, n // 5)); n_train = n - n_valid if n > n_valid else max(1, n - 1)
+    X_train, X_val = X.iloc[:n_train], X.iloc[n_train:]
+    y_train, y_val = y.iloc[:n_train], y.iloc[n_train:]
+
+    imputer = SimpleImputer(strategy="median", keep_empty_features=True)
+    X_train_imp = pd.DataFrame(imputer.fit_transform(X_train), columns=X_train.columns, index=X_train.index)
+    X_train_imp = _post_impute(X_train_imp)
+
+    reg = Pipeline([("scaler", StandardScaler()), ("gb", GradientBoostingRegressor(random_state=42))])
+    reg.fit(X_train_imp, y_train)
+
+    y_cls = (y_train > 0).astype(int)
+    if y_cls.nunique() >= 2:
+        clf = Pipeline([("scaler", StandardScaler(with_mean=True, with_std=True)),
+                        ("lr", LogisticRegression(max_iter=200))])
+        clf.fit(X_train_imp, y_cls)
+    else:
+        clf = ConstantProba(0.99 if (len(y_cls)>0 and y_cls.iloc[0]==1) else 0.01)
+
+    if len(X_val) > 0:
+        Xv = _align_to_estimator_features(X_val, imputer)
+        Xv_imp = pd.DataFrame(imputer.transform(Xv), columns=X_train.columns, index=Xv.index)
+        Xv_imp = _post_impute(Xv_imp)
+        y_pred = reg.predict(Xv_imp)
+        mae = mean_absolute_error(y_val, y_pred); rmse = math.sqrt(mean_squared_error(y_val, y_pred))
+    else:
+        mae = np.nan; rmse = np.nan
+
+    return TickerModels(imputer=imputer, reg=reg, clf=clf, feature_names_=list(X_train.columns)), (n_train, len(X_val), mae, rmse)
+
+# --------- Confidence (0–10) from weights ----------
+def _compute_confidence10(model: "TickerModels", X_one_imp: pd.DataFrame) -> float:
+    """
+    Use the regression pipeline's scaler to z-score the same feature space,
+    then map to a 0–10 weighted confidence via FEATURE_WEIGHTS.
+    """
     try:
-        tmp = pd.read_csv(nm1).rename(columns={"Ticker":"ticker","Name":"name"})
-        if "ticker" in tmp.columns and "name" in tmp.columns:
-            name_map = dict(zip(tmp["ticker"].astype(str), tmp["name"].astype(str)))
+        scaler = model.reg.named_steps.get("scaler", None)
+        if scaler is None:
+            return 0.0
+
+        X_for_scaler = X_one_imp.copy()
+
+        # Ensure same column order/coverage the scaler was fit on:
+        if hasattr(scaler, "feature_names_in_"):
+            needed = list(scaler.feature_names_in_)
+            for c in needed:
+                if c not in X_for_scaler.columns:
+                    X_for_scaler[c] = 0.0
+            X_for_scaler = X_for_scaler[needed]
+
+        X_scaled = scaler.transform(X_for_scaler)
+        conf_arr = _weighted_confidence_from_scaled(X_scaled, list(X_for_scaler.columns), FEATURE_WEIGHTS)
+        return float(conf_arr[0])
+    except Exception:
+        return 0.0
+
+# --------------- Predict for a date -------------
+def predict_for_date(df_feat, tickers, feat_cols, models_dict, pred_date):
+    rows = []
+    for tkr in tickers:
+        m = models_dict.get(tkr)
+        if m is None: continue
+        df_tkr = df_feat[(df_feat["ticker"] == tkr) & (df_feat["Date"].dt.date == pred_date)]
+        if df_tkr.empty: continue
+        row = df_tkr.iloc[-1]
+        X_one = pd.DataFrame([row[feat_cols].values], columns=feat_cols)
+
+        # align to imputer's features
+        X_one_aligned = _align_to_estimator_features(X_one, m.imputer)
+        X_one_imp = pd.DataFrame(m.imputer.transform(X_one_aligned), columns=X_one_aligned.columns)
+        X_one_imp = _post_impute(X_one_imp)
+
+        # regression prediction
+        pred_ret = float(m.reg.predict(X_one_imp)[0])
+
+        # probability (optional)
+        try:
+            prob_up = float(m.clf.predict_proba(X_one_imp)[0, 1])
+        except Exception:
+            z = float(m.clf.decision_function(X_one_imp)[0])
+            prob_up = 1.0 / (1.0 + math.exp(-z))
+        prob_down = 1.0 - prob_up
+        prob_margin = abs(prob_up - prob_down)
+
+        # NEW: 0–10 confidence based on bae-1 weights (never exceeds 10)
+        conf10 = _compute_confidence10(m, X_one_imp)
+
+        p0900 = float(row["P0900_imputed"]) if not pd.isna(row["P0900_imputed"]) else np.nan
+        pred_1030_price = p0900 * (1.0 + pred_ret) if not pd.isna(p0900) else np.nan
+
+        # Use confidence directly for capital (0–10)
+        cap_used = int(round(max(0.0, min(10.0, conf10))))
+
+        red_flag = bool(pd.isna(p0900) or pd.isna(pred_ret))
+
+        rows.append([
+            tkr, pred_date.isoformat(), red_flag, p0900, pred_ret, pred_1030_price,
+            prob_up, prob_down, prob_margin, cap_used, conf10
+        ])
+    if not rows:
+        _print_warn(f"No tickers had rows for {pred_date}.")
+        return pd.DataFrame(columns=[
+            "ticker","date_used_for_features","red_flag","p0900_imputed",
+            "pred_ret(10:30 vs 09:00)","pred_1030_price","prob_up","prob_down",
+            "prob_margin","cap_used_%","confidence"
+        ])
+    return pd.DataFrame(rows, columns=[
+        "ticker","date_used_for_features","red_flag","p0900_imputed",
+        "pred_ret(10:30 vs 09:00)","pred_1030_price","prob_up","prob_down",
+        "prob_margin","cap_used_%","confidence"
+    ])
+
+# --------------- Top features helper -----------
+def _top4_features_for_ticker(model: "TickerModels") -> list:
+    feat_names = getattr(model, "feature_names_", None)
+    if feat_names is None: return []
+    try:
+        gb = model.reg.named_steps.get("gb", None)
+        if gb is not None and hasattr(gb, "feature_importances_"):
+            imps = gb.feature_importances_
+            order = list(np.argsort(imps)[::-1])
+            names_sorted = [feat_names[i] for i in order]
+            return [_pretty_feat(n) for n in names_sorted[:4]]
     except Exception:
         pass
-elif os.path.exists(nm2):
+    return [_pretty_feat(n) for n in feat_names[:4]]
+
+# --------------- Save predictions CSV ----------
+def save_predictions_csv(base_dir, df_preds, models_dict, pred_date):
+    out_path = os.path.join(base_dir, "predictions_history.csv")
+    rows = []
+    for _, r in df_preds.iterrows():
+        tkr = r["ticker"]
+        price = r["pred_1030_price"]
+        change = r["pred_ret(10:30 vs 09:00)"] * 100.0
+
+        # prefer model-based 0–10 confidence; fall back to prob_margin*10 if needed
+        if "confidence" in r.index and pd.notna(r["confidence"]):
+            confidence = float(max(0.0, min(10.0, r["confidence"])))
+        else:
+            confidence = float(max(0.0, min(10.0, (r["prob_margin"] * 10.0) if "prob_margin" in r.index else 0.0)))
+
+        top_feats = _top4_features_for_ticker(models_dict.get(tkr))
+        while len(top_feats) < 4: top_feats.append("")
+        rows.append([pred_date.isoformat(), tkr, tkr,
+                     round(price, 2) if pd.notna(price) else "",
+                     round(change, 1) if pd.notna(change) else "",
+                     round(confidence, 1),
+                     top_feats[0], top_feats[1], top_feats[2], top_feats[3]])
+    df_out = pd.DataFrame(rows, columns=[
+        "date","ticker","name","price","change","confidence","feature1","feature2","feature3","feature4"
+    ])
+    if os.path.exists(out_path):
+        try:
+            old = pd.read_csv(out_path)
+            merged = pd.concat([old, df_out], ignore_index=True)
+            merged = merged.drop_duplicates(subset=["date","ticker"], keep="last")
+            merged = merged.sort_values(["date","ticker"])
+            merged.to_csv(out_path, index=False)
+        except Exception:
+            df_out.to_csv(out_path, index=False)
+    else:
+        df_out.to_csv(out_path, index=False)
+    _print_ok(f"Predictions appended to {os.path.abspath(out_path)}")
+
+# --------------- Date chooser ------------------
+def choose_prediction_date(available_dates, today=None, max_lookahead_days=1):
+    if today is None:
+        today = date.today()
+    def _as_date(d):
+        if isinstance(d, datetime): return d.date()
+        if isinstance(d, (np.datetime64, pd.Timestamp)): return pd.to_datetime(d).date()
+        return d
+    avail = sorted({_as_date(d) for d in available_dates if not pd.isna(d)})
+    if not avail: return None, "No available dates found."
+    if today in avail and today.weekday() < 5: return today, None
+    for d in avail:
+        if d >= today and (d - today).days <= max_lookahead_days: return d, None
+    past = [d for d in avail if d <= today]
+    if past: return past[-1], None
+    return avail[-1], f"Using {avail[-1]} from data because we found no usable date near {today}."
+
+# --------------- Main --------------------------
+def main():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Locate inputs (prefer your new closing file)
+    p1030_path = find_first_existing(base_dir, ["stock_prices_1030_wide_format.csv"])
+    p0900_path = find_first_existing(base_dir, ["stock_prices_0900_wide_format.csv"])
+    close_path = find_first_existing(base_dir, [
+        "historical_closing_prices.csv",                    # preferred
+        "stock_prices_close_wide_format.csv",
+        "historical_closing_prices_wide_format.csv",
+        "historical_closing_prices_old.csv"
+    ])
+
+    if not p1030_path or not close_path:
+        _print_err("Required files missing. Ensure 10:30 and Close price CSVs exist in this folder.")
+        print("Expected:\n  - stock_prices_1030_wide_format.csv\n  - one of: historical_closing_prices.csv | stock_prices_close_wide_format.csv | historical_closing_prices_wide_format.csv | historical_closing_prices_old.csv")
+        sys.exit(2)
+
+    # Read with robust parsers
+    df1030 = read_csv_or_fail(p1030_path, "10:30 prices")
+    dfclose = read_csv_or_fail(close_path, "Close prices")
+    if p0900_path:
+        df0900 = read_csv_or_fail(p0900_path, "09:00 prices")
+    else:
+        df0900 = dfclose.copy()
+        for c in df0900.columns:
+            if c != "Date": df0900[c] = np.nan
+        _print_warn("09:00 file not found; using NaN 09:00 prices (will be imputed).")
+
+    # Canonicalize ticker columns across inputs (UPPERCASE + '.' -> '-')
+    def _canon_cols(df):
+        df = df.copy()
+        df.columns = ["Date" if _norm(c) == "date" else _canon_tkr(c) for c in df.columns]
+        return df
+    df1030 = _canon_cols(df1030)
+    df0900 = _canon_cols(df0900)
+    dfclose = _canon_cols(dfclose)
+
+    _print_ok(f"Using 10:30 prices: {p1030_path}")
+    _print_ok(f"Using 09:00 prices: {p0900_path if p0900_path else '(missing -> impute)'}")
+    _print_ok(f"Using Close prices: {close_path}")
+
+    # --- Compute daily features from FULL close history first
+    daily_close_long = compute_daily_close_features(dfclose)
+
+    # Build intraday feature table by merging with daily features
+    df_feat = build_intraday_feature_table(df1030, df0900, daily_close_long)
+
+    # --------- FILTERS ----------
+    df_feat = df_feat[df_feat["Date"].dt.weekday < 5].copy()
+    valid_close_dates = set(dfclose["Date"].dt.date.unique())
+    df_feat = df_feat[df_feat["Date"].dt.date.isin(valid_close_dates)].copy()
+    df_feat = df_feat[df_feat["P1030"].notna() & df_feat["P0900_imputed"].notna()].copy()
+
+    # Lags within the intraday set
+    df_feat = df_feat.sort_values(["ticker","Date"]).reset_index(drop=True)
+    df_feat["ret_0900_1030_prev"] = df_feat.groupby("ticker")["ret_0900_1030"].shift(1)
+    df_feat["ret_0900_1030_prev_sign"] = np.sign(df_feat["ret_0900_1030_prev"]).astype(float)
+    df_feat = df_feat[df_feat["ret_0900_1030_prev"].notna()].copy()
+
+    # Optional VIX
+    vix_path = find_first_existing(base_dir, ["vix_prices.csv", "vix_open_clean.csv"])
+    if vix_path:
+        vix = read_csv_or_fail(vix_path, "VIX")
+        vix_close_col = None
+        for c in ["Close","close","VIX","vix","price","Price"]:
+            if c in vix.columns:
+                vix_close_col = c; break
+        if vix_close_col:
+            vix_small = vix[["Date", vix_close_col]].copy().rename(columns={vix_close_col: "VIX"})
+            vix_small = vix_small.sort_values("Date")
+            vix_small["VIX_prev"] = vix_small["VIX"].shift(1)
+            vix_small["VIX_delta"] = vix_small["VIX"] - vix_small["VIX_prev"]
+            df_feat = df_feat.merge(vix_small[["Date","VIX_delta"]], on="Date", how="left")
+        else:
+            df_feat["VIX_delta"] = np.nan
+    else:
+        df_feat["VIX_delta"] = np.nan
+
+    base_feats = ['overnight_drift','ret_0900_1030_prev','ret_0900_1030_prev_sign',
+                  'ret1','vol5','ma5','ma20','garch_vol']
+    if "VIX_delta" in df_feat.columns and df_feat["VIX_delta"].notna().any():
+        base_feats.insert(3, "VIX_delta")
+    else:
+        _print_warn("VIX_delta is empty in this dataset; excluding it from features.")
+
+    # Optional TA merge (forward-fill to avoid TA warm-up NaNs)
+    df_feat, ta_cols = merge_optional_ta(df_feat, base_dir, ffill_ta=True)
+    ta_feats = [c for c in ["RSI_14","MACD_line","BB_pos"] if c in df_feat.columns]
+    feat_cols = base_feats + ta_feats
+
+    # Final sanity: drop any lingering NaNs in required features
+    must_have = ['ret_0900_1030'] + feat_cols
+    missing = df_feat[must_have].isna().sum().sort_values(ascending=False)
+    if missing.sum() > 0:
+        _print_warn(f"Residual NaNs found in features/target; dropping those rows:\n{missing[missing>0]}")
+        df_feat = df_feat.dropna(subset=must_have).copy()
+
+    _print_ok(f"Feature table ready | rows: {len(df_feat):,} | features: {len(feat_cols)}")
+    print("Features:", feat_cols)
+
+    # Preview
+    preview_cols = ["Date","ticker","P1030","P0900","Close_t","Close_t_minus_1",
+                    "P0900_imputed","ret_0900_1030"] + feat_cols
+    preview_cols = [c for c in preview_cols if c in df_feat.columns]
+    print(df_feat[preview_cols].head(10).to_string(index=False))
+
+    # Train per-ticker models
+    tickers = sorted([c for c in df1030.columns if c != "Date"])
+    models, perf_rows = {}, []
+    for tkr in tickers:
+        df_tkr = df_feat[df_feat["ticker"] == tkr].copy()
+        if df_tkr.empty: continue
+        tm, (n_train, n_val, mae, rmse) = build_models_for_ticker(df_tkr, feat_cols)
+        if tm is None:
+            _print_warn(f"Skipping {tkr}: not enough clean rows after dropping NaN targets.")
+            continue
+        models[tkr] = tm
+        perf_rows.append((tkr, mae, rmse, n_train, n_val))
+
+    if perf_rows:
+        df_perf = pd.DataFrame(perf_rows, columns=["ticker","MAE","RMSE","n_train","n_test"]).sort_values("ticker")
+        print("✅ Trained models per ticker (validation performance):")
+        with pd.option_context("display.max_rows", None):
+            print(df_perf.to_string(index=False, justify="right",
+                                    float_format=lambda x: f"{x:10.6f}" if pd.notna(x) else "        NaN"))
+    else:
+        _print_warn("No models trained (empty perf).")
+
+    # Choose prediction date
+    pred_date, note = choose_prediction_date(df_feat["Date"].dt.date.unique(), today=date.today(), max_lookahead_days=1)
+    if note: _print_warn(note)
+    print(f"✅ Predictions for {pred_date}:")
+
+    df_preds = predict_for_date(df_feat, tickers, feat_cols, models, pred_date)
+
+    if not df_preds.empty:
+        cols_order = ["ticker","date_used_for_features","red_flag","p0900_imputed",
+                      "pred_ret(10:30 vs 09:00)","pred_1030_price","prob_up","prob_down",
+                      "prob_margin","cap_used_%","confidence"]
+        df_preds = df_preds[cols_order]
+        with pd.option_context("display.max_rows", None):
+            print(df_preds.to_string(index=False,
+                                     float_format=lambda x: f"{x:0.6f}",
+                                     justify="right"))
+    else:
+        _print_warn("No predictions to display.")
+
     try:
-        tmp = pd.read_csv(nm2)
-        if "Symbol" in tmp.columns and "Security" in tmp.columns:
-            name_map = dict(zip(tmp["Symbol"].astype(str), tmp["Security"].astype(str)))
-    except Exception:
-        pass
+        save_predictions_csv(base_dir, df_preds, models, pred_date)
+    except Exception as e:
+        _print_warn(f"Could not save predictions_history.csv: {e}")
+    return 0
 
-def confidence_score(row):
-    base = {"High":3.0, "Medium":2.0, "Low":1.0}.get(str(row.get("confidence", "Unknown")), 1.5)
-    pm = float(row.get("prob_margin", 0.0))
-    return round(base + 0.5 * max(0.0, min(1.0, pm)), 1)
-
-for dte, pred_today_df in pred_by_date.items():
-    if pred_today_df is None or pred_today_df.empty:
-        print(f"ℹ️ No predictions to export for {dte}.")
-        continue
-
-    today_date = pd.to_datetime(dte)
-    out = pred_today_df.merge(conf_df[["ticker","confidence"]], on="ticker", how="left")
-
-    rows_news = []
-    for _, r in out.iterrows():
-        price_1030 = float(r["pred_1030_price"])
-        p0900_now  = float(r["p0900_imputed"])
-        change_pct = (price_1030 / p0900_now - 1.0) * 100.0
-
-        nm = name_map.get(r["ticker"], r["ticker"])
-        cnum = confidence_score(r)
-
-        rows_news.append({
-            "date": today_date.date().isoformat(),
-            "ticker": r["ticker"],
-            "name": nm,
-            "price": round(price_1030, 2),
-            "change": round(change_pct, 1),
-            "confidence": cnum,
-            "feature1": r.get("feat_top1", "—"),
-            "feature2": r.get("feat_top2", "—"),
-            "feature3": r.get("feat_top3", "—"),
-            "feature4": r.get("feat_top4", "—"),
-        })
-
-    news_df = pd.DataFrame(rows_news)
-    if not news_df.empty:
-        news_df = news_df.sort_values(by=["confidence","change"], ascending=[False, False]).reset_index(drop=True)
-
-    print(f"✅ Newswire-style rows for {today_date.date()}:")
-    print(",".join(news_df.columns))
-    for _, r in news_df.head(20).iterrows():
-        print(f"{r['date']},{r['ticker']},{r['name']},{r['price']},{r['change']},{r['confidence']},{r['feature1']},{r['feature2']},{r['feature3']},{r['feature4']}")
-
-    out_csv_path = os.path.join(OUTPUT_DIR, f"predictions_newswire_{today_date.date().isoformat()}.csv")
-    news_df.to_csv(out_csv_path, index=False)
-    print(f"💾 Saved: {out_csv_path}")
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except SystemExit as e:
+        raise e
+    except Exception as e:
+        _print_err(f"Unhandled exception: {e}")
+        sys.exit(1)

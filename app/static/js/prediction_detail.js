@@ -361,6 +361,24 @@ function updateDisplayValues(dayIndex, ticker) {
   document.getElementById("dateChip").textContent = formattedDate;
 
   console.log(`📊 Updated values for day ${dayIndex + 1}/5 (${values.date})`);
+  setTimeout(() => {
+    // Récupérer les nouvelles valeurs affichées
+    const predChangeText = document.getElementById("predChange").textContent;
+    const realChangeText = document.getElementById("realPriceChange").textContent;
+    
+    console.log("🎚️ Slider moved - updating pills:");
+    console.log("predChangeText:", predChangeText);
+    console.log("realChangeText:", realChangeText);
+    
+    // Extraire les valeurs numériques
+    const predValue = parseFloat(predChangeText.replace(/[+%]/g, ''));
+    const realValue = parseFloat(realChangeText.replace(/[+%]/g, ''));
+    
+    console.log("🎚️ Parsed values - pred:", predValue, "real:", realValue);
+    
+    // Mettre à jour les flèches
+    updatePillClasses(predValue, realValue);
+  }, 50);
 }
 
 function drawWeeklyComparisonChart(svgEl, realData, predictedData) {
@@ -662,6 +680,27 @@ function setRangeWithData(period, ticker) {
         
         currentDayIndex = 0;
         updateDisplayValues(currentDayIndex, ticker);
+        
+        // 🆕 NOUVEAU : Mettre à jour les flèches après updateDisplayValues
+        setTimeout(() => {
+          // Récupérer les valeurs actuellement affichées
+          const predChangeText = document.getElementById("predChange").textContent;
+          const realChangeText = document.getElementById("realPriceChange").textContent;
+          
+          console.log("🔄 1W Period - Current displayed values:");
+          console.log("predChangeText:", predChangeText);
+          console.log("realChangeText:", realChangeText);
+          
+          // Extraire les valeurs numériques (enlever +, -, %)
+          const predValue = parseFloat(predChangeText.replace(/[+%]/g, ''));
+          const realValue = parseFloat(realChangeText.replace(/[+%]/g, ''));
+          
+          console.log("🔄 Parsed values - pred:", predValue, "real:", realValue);
+          
+          // Mettre à jour les classes des pills
+          updatePillClasses(predValue, realValue);
+        }, 100); // Petit délai pour s'assurer que updateDisplayValues a fini
+        
         setupWeeklySlider(ticker);
       } else {
         svgEl.innerHTML = `
@@ -691,6 +730,20 @@ function setRangeWithData(period, ticker) {
           document.getElementById("startLabel").textContent = data.date_labels[0];
           document.getElementById("endLabel").textContent = data.date_labels[data.date_labels.length - 1];
         }
+        
+        // 🆕 NOUVEAU : Pour 1M/1Y, on peut réinitialiser les flèches ou les cacher
+        // car il n'y a pas de données de prédiction
+        console.log("🔄 Non-weekly period:", period, "- hiding or resetting pills");
+        
+        // Option 1: Cacher les flèches pour 1M/1Y
+        const predChangeElement = document.getElementById("predChange");
+        const realPriceChangeElement = document.getElementById("realPriceChange");
+        if (predChangeElement) predChangeElement.className = "pill prediction";
+        if (realPriceChangeElement) realPriceChangeElement.className = "pill real";
+        
+        // Option 2: Ou utiliser les valeurs statiques initiales si disponibles
+        // updatePillClasses(initialPredValue, initialRealValue);
+        
       } else {
         svgEl.innerHTML = `
           <text x="150" y="60" text-anchor="middle" fill="#ff4444" font-size="12">
@@ -732,54 +785,94 @@ async function loadPredictionData(ticker, date = null) {
   }
 }
 
+
+// Nouvelle fonction séparée pour mettre à jour les pills
+function updatePillClasses(predChangeValue, realChangeValue) {
+  console.log("🔄 UPDATING PILLS:");
+  console.log("predChangeValue:", predChangeValue, "type:", typeof predChangeValue);
+  console.log("realChangeValue:", realChangeValue, "type:", typeof realChangeValue);
+  
+  const predChangeElement = document.getElementById("predChange");
+  const realPriceChangeElement = document.getElementById("realPriceChange");
+  
+  if (!predChangeElement || !realPriceChangeElement) {
+    console.error("❌ Pills elements not found!");
+    return;
+  }
+  
+  // Convertir en nombres pour être sûr
+  const predParsed = parseFloat(predChangeValue);
+  const realParsed = parseFloat(realChangeValue);
+  
+  // Test des conditions
+  const predIsUp = predParsed >= 0;
+  const realIsUp = realParsed >= 0;
+  
+  console.log("predIsUp:", predIsUp, "realIsUp:", realIsUp);
+  
+  // Mettre à jour predChange
+  predChangeElement.className = "pill prediction";
+  predChangeElement.classList.add(predIsUp ? "up" : "down");
+  
+  // Mettre à jour realPriceChange  
+  realPriceChangeElement.className = "pill real";
+  realPriceChangeElement.classList.add(realIsUp ? "up" : "down");
+  
+  console.log("✅ Pills updated - pred:", predChangeElement.className, "real:", realPriceChangeElement.className);
+}
+
+// Fonction displayPredictionData modifiée
 async function displayPredictionData(prediction) {
   // Update header info
   document.getElementById("companyName").textContent = prediction.name;
   document.getElementById("tickerSymbol").textContent = prediction.ticker;
-  
+     
   // Logo validation and fallback
   const validLogoUrl = await getValidLogoUrl(prediction.logo_url, prediction.ticker);
   const logoElement = document.getElementById("companyLogo");
   logoElement.src = validLogoUrl;
   logoElement.alt = prediction.name;
   logoElement.setAttribute('onerror', "this.src='/static/images/logos/default.png'");
-  
+     
   // Format date nicely
   const dateObj = new Date(prediction.date + 'T00:00:00');
-  const formattedDate = dateObj.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
+  const formattedDate = dateObj.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
   });
   document.getElementById("dateChip").textContent = formattedDate;
-
+   
   // Initial static values (will be replaced by dynamic values for 1W)
   const { difference, difference_pct, predicted_price, predicted_change, real_price, real_change } = prediction;
-  
+     
   document.getElementById("diffVal").textContent = `${Math.abs(difference).toFixed(1)}`;
   document.getElementById("diffChange").textContent = `${difference_pct >= 0 ? '+' : ''}${difference_pct.toFixed(1)}%`;
-
+   
   document.getElementById("predVal").textContent = `${predicted_price}`;
   document.getElementById("predChange").textContent = `${predicted_change >= 0 ? "+" : ""}${predicted_change.toFixed(1)}%`;
-
+    
   document.getElementById("realVal").textContent = `${real_price}`;
   document.getElementById("realPriceChange").textContent = `${real_change >= 0 ? "+" : ""}${real_change.toFixed(1)}%`;
-
+    
+  // Utiliser la nouvelle fonction pour les pills
+  updatePillClasses(predicted_change, real_change);
+     
   // Set up chart (default to 1W)
   const ticker = prediction.ticker;
   setRangeWithData("1W", ticker);
-  
+     
   // Add event listeners for range buttons
   document.querySelectorAll(".range-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".range-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      
+             
       const period = btn.dataset.range;
       setRangeWithData(period, ticker);
     });
   });
-  
+     
   console.log("📈 Prediction data displayed");
 }
 
