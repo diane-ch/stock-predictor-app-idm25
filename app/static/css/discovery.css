@@ -147,7 +147,7 @@ html, body {
   font-size: 13px;
 
   transform: translateY(-6px); 
-  color:#B7B9BA;
+  color:#828282;
   border-radius: 12px;
   padding: 6px 8px;
   font-weight: 500;
@@ -160,11 +160,16 @@ html, body {
   justify-content: center;
 }
 
+.date-item.selected {
+  background-color: #065c5c;
+  color: #ffffff;
+  font-weight: bold;
+}
 
 .date-item {
   font-size: 15px;
   text-align: center;
-  color: #B7B9BA;
+  color: #828282;
   padding: 6px 8px;
   border-radius: 15px;
   background-color: transparent;
@@ -178,16 +183,11 @@ html, body {
   height: 48px;
 }
 
-.date-item.selected {
-  background-color: #065c5c;
-  color: #ffffff;
-  font-weight: bold;
-}
 
 
 .date-item small {
   font-size: 12px;
-  color: #B7B9BA;
+  color: #bdbdbd;
 }
 
 
@@ -301,7 +301,7 @@ html, body {
 
 .stock-ticker {
   font-size: 13px;
-  color: #999;
+  color: #828282;
   margin-top: 2px;
   text-align: left; /* 可选，确保左对齐 */
 }
@@ -310,7 +310,7 @@ html, body {
 
 .stock-confidence {
   font-family: 'Inter', sans-serif !important;
-  color: #B7B9BA;
+  color: #828282;
   display: flex;
   align-items: center;
   font-size: 13px;
@@ -331,7 +331,7 @@ html, body {
 }
 
 .confidence-label {
-  color: #B7B9BA;
+  color: #828282;
   font-weight: 400;
   font-size: 13px;
   font-family: 'Inter', sans-serif;
