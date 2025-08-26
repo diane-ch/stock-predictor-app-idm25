@@ -4,7 +4,6 @@ import subprocess
 from flask import Blueprint, current_app, render_template, redirect, url_for, jsonify, request
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta
-from app.services.stock_service import stock_service
 from scripts.csv_functions_aipredictions import get_weekly_predictions, get_weekly_historical
 
 # Create the main blueprint
