@@ -7,7 +7,7 @@
   {
     "ticker": "ABBV",
     "name": "AbbVie Inc.",
-    "logo_url": "https://logo.clearbit.com/abbv.com"
+    "logo_url": "https://logo.clearbit.com/abbvie.com"
   },
   {
     "ticker": "ACN",
@@ -17,7 +17,7 @@
   {
     "ticker": "ADBE",
     "name": "Adobe Inc.",
-    "logo_url": "https://logo.clearbit.com/adbe.com"
+    "logo_url": "https://logo.clearbit.com/adobe.com"
   },
   {
     "ticker": "ADI",
@@ -27,7 +27,7 @@
   {
     "ticker": "ADSK",
     "name": "Autodesk, Inc.",
-    "logo_url": "https://logo.clearbit.com/adsk.com"
+    "logo_url": "https://logo.clearbit.com/autodesk.com"
   },
   {
     "ticker": "AEP",
@@ -67,7 +67,7 @@
   {
     "ticker": "AVGO",
     "name": "Broadcom Inc.",
-    "logo_url": "https://logo.clearbit.com/avgo.com"
+    "logo_url": "https://logo.clearbit.com/broadcom.com"
   },
   {
     "ticker": "AXP",
@@ -82,12 +82,12 @@
   {
     "ticker": "BIIB",
     "name": "Biogen Inc.",
-    "logo_url": "https://logo.clearbit.com/biib.com"
+    "logo_url": "https://logo.clearbit.com/biogen.com"
   },
   {
     "ticker": "BKNG",
     "name": "Booking Holdings Inc.",
-    "logo_url": "https://logo.clearbit.com/bkng.com"
+    "logo_url": "https://logo.clearbit.com/bookingholdings.com"
   },
   {
     "ticker": "BLK",
@@ -97,12 +97,12 @@
   {
     "ticker": "BMY",
     "name": "Bristol-Myers Squibb Company",
-    "logo_url": "https://logo.clearbit.com/bmy.com"
+    "logo_url": "https://logo.clearbit.com/bms.com"
   },
   {
     "ticker": "C",
     "name": "Citigroup Inc.",
-    "logo_url": "https://logo.clearbit.com/c.com"
+    "logo_url": "https://logo.clearbit.com/citigroup.com"
   },
   {
     "ticker": "CAT",
@@ -222,7 +222,7 @@
   {
     "ticker": "EXC",
     "name": "Exelon Corporation",
-    "logo_url": "https://logo.clearbit.com/exc.com"
+    "logo_url": "https://logo.clearbit.com/exeloncorp.com"
   },
   {
     "ticker": "FANG",
@@ -237,7 +237,7 @@
   {
     "ticker": "FTNT",
     "name": "Fortinet, Inc.",
-    "logo_url": "https://logo.clearbit.com/ftnt.com"
+    "logo_url": "https://logo.clearbit.com/fortinet.com"
   },
   {
     "ticker": "GE",
@@ -251,7 +251,7 @@
   },
   {
     "ticker": "GOOGL",
-    "name": "Alphabet Inc. (Class A)",
+    "name": "Alphabet Inc.",
     "logo_url": "https://logo.clearbit.com/google.com"
   },
   {
@@ -262,12 +262,12 @@
   {
     "ticker": "HAL",
     "name": "Halliburton Company",
-    "logo_url": "https://logo.clearbit.com/hal.com"
+    "logo_url": "https://logo.clearbit.com/halliburton.com"
   },
   {
     "ticker": "HCA",
     "name": "HCA Healthcare, Inc.",
-    "logo_url": "https://logo.clearbit.com/hca.com"
+    "logo_url": "https://logo.clearbit.com/hcahealthcare.com"
   },
   {
     "ticker": "HD",
@@ -336,7 +336,7 @@
   },
   {
     "ticker": "KO",
-    "name": "The Coca-Cola Company",
+    "name": "Coca-Cola",
     "logo_url": "https://logo.clearbit.com/ko.com"
   },
   {
@@ -352,7 +352,7 @@
   {
     "ticker": "LLY",
     "name": "Eli Lilly and Company",
-    "logo_url": "https://logo.clearbit.com/lly.com"
+    "logo_url": "https://logo.clearbit.com/lilly.com"
   },
   {
     "ticker": "LMT",
@@ -386,7 +386,7 @@
   },
   {
     "ticker": "MMC",
-    "name": "Marsh & McLennan Companies, Inc.",
+    "name": "Marsh & McLennan Comp.",
     "logo_url": "https://logo.clearbit.com/mmc.com"
   },
   {
@@ -452,7 +452,7 @@
   {
     "ticker": "PANW",
     "name": "Palo Alto Networks, Inc.",
-    "logo_url": "https://logo.clearbit.com/panw.com"
+    "logo_url": "https://logo.clearbit.com/paloaltonetworks.com"
   },
   {
     "ticker": "PCAR",
@@ -481,8 +481,8 @@
   },
   {
     "ticker": "PH",
-    "name": "Parker-Hannifin Corporation",
-    "logo_url": "https://logo.clearbit.com/ph.com"
+    "name": "Parker-Hannifin Corp.",
+    "logo_url": "https://logo.clearbit.com/parker.com"
   },
   {
     "ticker": "PM",
@@ -607,7 +607,7 @@
   {
     "ticker": "WEC",
     "name": "WEC Energy Group, Inc.",
-    "logo_url": "https://logo.clearbit.com/wec.com"
+    "logo_url": "https://logo.clearbit.com/wecenergygroup.com"
   },
   {
     "ticker": "WMB",
@@ -632,12 +632,12 @@
   {
     "ticker": "XYL",
     "name": "Xylem Inc.",
-    "logo_url": "https://logo.clearbit.com/xyl.com"
+    "logo_url": "https://logo.clearbit.com/xylem.com"
   },
   {
     "ticker": "ZBH",
-    "name": "Zimmer Biomet Holdings, Inc.",
-    "logo_url": "https://logo.clearbit.com/zbh.com"
+    "name": "Zimmer Biomet Holdings",
+    "logo_url": "https://logo.clearbit.com/zimmerbiomet.com"
   },
   {
     "ticker": "ZM",
