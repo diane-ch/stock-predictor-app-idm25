@@ -76,7 +76,7 @@
   },
   {
     "ticker": "BAC",
-    "name": "Bank of America Corporation",
+    "name": "Bank of America Corp.",
     "logo_url": "https://logo.clearbit.com/bankofamerica.com"
   },
   {
@@ -241,7 +241,7 @@
   },
   {
     "ticker": "GE",
-    "name": "General Electric Company",
+    "name": "General Electric Comp.",
     "logo_url": "https://logo.clearbit.com/ge.com"
   },
   {
@@ -291,8 +291,8 @@
   },
   {
     "ticker": "IDXX",
-    "name": "IDEXX Laboratories, Inc.",
-    "logo_url": "https://logo.clearbit.com/idxx.com"
+    "name": "IDEXX Laboratories",
+    "logo_url": "https://logo.clearbit.com/idexx.com"
   },
   {
     "ticker": "INTC",
@@ -476,7 +476,7 @@
   },
   {
     "ticker": "PG",
-    "name": "Procter & Gamble Company",
+    "name": "Procter & Gamble",
     "logo_url": "https://logo.clearbit.com/pg.com"
   },
   {
@@ -601,7 +601,7 @@
   },
   {
     "ticker": "VRTX",
-    "name": "Vertex Pharmaceuticals Incorporated",
+    "name": "Vertex Pharma Incorp.",
     "logo_url": "https://logo.clearbit.com/vrtx.com"
   },
   {
